@@ -22,6 +22,11 @@ export default function App() {
       <head>
         <Meta />
         <Links />
+        <link
+          href="https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto+Slab|Roboto:300,400,500,700"
+          rel="stylesheet"
+        />
+
         {typeof document === "undefined" ? "__STYLES__" : null}
       </head>
       <body>

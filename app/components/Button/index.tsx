@@ -5,7 +5,7 @@ type ButtonProps = {
   secondary?: boolean;
   tertiary?: boolean;
   onClick?: () => void;
-  uppercase: boolean;
+  uppercase?: boolean;
 };
 
 const Button = styled.button<ButtonProps>`
