@@ -7,10 +7,11 @@ type CardProps = {
   infoLabel?: string;
   clickable?: boolean;
   onClick?: () => void;
+  fullWidth?: boolean;
 };
 
-const CardContainer = styled.div`
-  width: 370px;
+const CardContainer = styled.div<{ fullWidth: boolean }>`
+  width: ${(props) => (props.fullWidth ? "100%" : "370px")};
   min-height: 150px;
   background: ${(props) => props.theme.darkPurpleTwo};
   display: flex;
@@ -51,9 +52,10 @@ export default function Card({
   infoLabel,
   onClick,
   clickable,
+  fullWidth,
 }: CardProps) {
   return (
-    <CardContainer>
+    <CardContainer fullWidth={!!fullWidth}>
       <CardTopContainer>
         <h3>{title}</h3>
         <CardInfoLabel>
