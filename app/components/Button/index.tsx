@@ -40,5 +40,12 @@ const Button = styled.button<ButtonProps>`
     border-bottom: ${(props) => (props.tertiary ? "1px" : "0px")} solid
       ${(props) => props.theme.salmon};
   }
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	
 `;
 export default Button;
