@@ -52,7 +52,6 @@ export default function Card({
   onClick,
   clickable,
 }: CardProps) {
-  console.log(onClick);
   return (
     <CardContainer>
       <CardTopContainer>
