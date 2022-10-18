@@ -6,7 +6,7 @@ type TextFieldProps = {
   placeholder?: string;
   label?: string;
   onChange?: () => void;
-	name?: string;
+  name?: string;
 };
 
 const StyledTextField = styled.input`
@@ -37,7 +37,7 @@ const TextField = (props: TextFieldProps) => {
     <FlexBox>
       {props.label && <StyledLabel>{props.label}</StyledLabel>}
       <StyledTextField
-				name={props.name}
+        name={props.name}
         onChange={props.onChange}
         type={props.type === "password" && showPassword ? "text" : props.type}
         placeholder={props.placeholder}
