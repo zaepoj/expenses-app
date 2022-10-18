@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Box = styled("div")`
+const Box = styled.div`
   background: ${props => props.theme.salmon};
   font-family: system-ui, sans-serif;
   line-height: 1.4;

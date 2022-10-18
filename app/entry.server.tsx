@@ -3,12 +3,16 @@ import { RemixServer } from "@remix-run/react";
 import { renderToString } from "react-dom/server";
 import { ServerStyleSheet } from "styled-components";
 
+
 export default function handleRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
   remixContext: EntryContext
 ) {
+
+
+
   const sheet = new ServerStyleSheet();
 
   let markup = renderToString(
