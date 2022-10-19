@@ -1,0 +1,13 @@
+* {
+  margin: 0;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  background: radial-gradient(#2e2536, #22162b);
+  color: #f4f4f9;
+  height: 100%;
+}

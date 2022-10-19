@@ -9,6 +9,8 @@ import {
 } from "@remix-run/react";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./theme";
+import shared from "./shared.css"
+
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -22,6 +24,7 @@ export default function App() {
       <head>
         <Meta />
         <Links />
+        <link href={shared} rel="stylesheet"/>
         <link
           href="https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto+Slab|Roboto:300,400,500,700"
           rel="stylesheet"
