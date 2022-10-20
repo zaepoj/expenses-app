@@ -1,15 +1,13 @@
 import styled from "styled-components";
 
-const Box = styled.div`
-  background: ${props => props.theme.salmon};
-  font-family: system-ui, sans-serif;
-  line-height: 1.4;
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex-direction: column;
 `;
 
 export default function Index() {
-  return (
-    <Box>
-      <h1>Welcome to Remix (With Styled Component)</h1>
-    </Box>
-  );
+  return <Container>index</Container>;
 }

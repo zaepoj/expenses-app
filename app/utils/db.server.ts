@@ -1,19 +1,20 @@
 import { initializeApp, getApps } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth as getServerAuth } from "firebase-admin/auth";
+import { firestore } from "firebase-admin";
 import {
-  initializeApp as adminInitializeApp,
-  credential,
-  firestore,
-} from "firebase-admin";
+  getApps as getServerApps,
+  initializeApp as initializeServerApp,
+  cert as serverCert,
+} from "firebase-admin/app";
 
-if (getApps().length === 0) {
+if (getServerApps().length === 0) {
   if (process.env.FIREBASE_AUTH) {
-    console.log(process.env.FIREBASE_AUTH.toString());
     const serviceAccount = JSON.parse(process.env.FIREBASE_AUTH);
     const config = {
-      credential: credential.cert(serviceAccount),
+      credential: serverCert(serviceAccount),
     };
-    adminInitializeApp(config);
+    initializeServerApp(config);
   } else {
     throw new Error("missing env or something");
   }
@@ -21,7 +22,9 @@ if (getApps().length === 0) {
 
 const db = firestore();
 
-const firebaseConfig = {};
+const firebaseConfig = {
+
+};
 
 let firebase;
 if (getApps().length === 0) {
@@ -29,8 +32,25 @@ if (getApps().length === 0) {
 }
 
 async function signUp(email: string, password: string) {
-  const auth = getAuth();
-  return createUserWithEmailAndPassword(auth, email, password);
+  const auth = getServerAuth();
+  await auth.createUser({ email, password, displayName: email });
+  return await signIn(email, password);
 }
 
-export { db };
+export const signInWithToken = async (idToken: string) => {
+  const auth = getServerAuth();
+  const expiresIn = 1000 * 60 * 60 * 24 * 7; // 1 week
+  const sessionCookie = await auth.createSessionCookie(idToken, {
+    expiresIn,
+  });
+  return sessionCookie;
+};
+
+export const signIn = async (email: string, password: string) => {
+  const auth = getAuth();
+  await signInWithEmailAndPassword(auth, email, password);
+  const idToken = await auth.currentUser?.getIdToken();
+  return idToken;
+};
+
+export { signUp, db };
