@@ -1,4 +1,7 @@
+import { json, LoaderFunction } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
 import styled from "styled-components";
+import { requireAuth } from "~/server/auth.server";
 
 const Container = styled.div`
   display: flex;
@@ -8,6 +11,17 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
+
+export const loader: LoaderFunction = async ({ request }) => {
+  const user = await requireAuth(request);
+  return json({
+    message: `Hello ${user.displayName || user.email ||  "unknown"}!`,
+  });
+};
+
+
 export default function Index() {
-  return <Container>index</Container>;
+  const data = useLoaderData();
+
+  return <Container>{data.message}</Container>;
 }

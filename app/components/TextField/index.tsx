@@ -7,6 +7,7 @@ type TextFieldProps = {
   label?: string;
   onChange?: () => void;
   name?: string;
+  showPasswordCheckbox?: boolean;
 };
 
 const StyledTextField = styled.input`
@@ -22,7 +23,7 @@ const StyledTextField = styled.input`
 const FlexBox = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 250px;
+  width: 100%;
 `;
 
 const StyledLabel = styled.label`
@@ -42,7 +43,7 @@ const TextField = (props: TextFieldProps) => {
         type={props.type === "password" && showPassword ? "text" : props.type}
         placeholder={props.placeholder}
       />
-      {props.type === "password" && (
+      {props.type === "password" && props.showPasswordCheckbox && (
         <div>
           <input
             type="checkbox"
