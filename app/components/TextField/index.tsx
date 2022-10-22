@@ -8,6 +8,8 @@ type TextFieldProps = {
   onChange?: () => void;
   name?: string;
   showPasswordCheckbox?: boolean;
+  defaultValue?: string;
+  errorHelper?: string;
 };
 
 const StyledTextField = styled.input`
@@ -32,6 +34,11 @@ const StyledLabel = styled.label`
   padding-bottom: 0;
 `;
 
+const ErrorLabel = styled.label`
+  color: #ef7171;
+	height: 1em;
+`;
+
 const TextField = (props: TextFieldProps) => {
   const [showPassword, setShowPassword] = useState(false);
   return (
@@ -42,6 +49,7 @@ const TextField = (props: TextFieldProps) => {
         onChange={props.onChange}
         type={props.type === "password" && showPassword ? "text" : props.type}
         placeholder={props.placeholder}
+        defaultValue={props.defaultValue}
       />
       {props.type === "password" && props.showPasswordCheckbox && (
         <div>
@@ -52,6 +60,7 @@ const TextField = (props: TextFieldProps) => {
           <label>Show Password</label>{" "}
         </div>
       )}
+      <ErrorLabel>{props.errorHelper}</ErrorLabel>
     </FlexBox>
   );
 };

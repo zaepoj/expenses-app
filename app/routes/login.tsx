@@ -1,9 +1,11 @@
 import styled from "styled-components";
+import { z } from "zod";
 import TextField from "~/components/TextField";
 import Button from "~/components/Button";
 import { ActionFunction, json, redirect } from "@remix-run/node";
 import { signIn } from "~/server/auth.server";
 import { commitSession, getSession } from "~/sessions";
+import { Link, useActionData } from "@remix-run/react";
 
 const Container = styled.div`
   display: flex;
@@ -11,7 +13,7 @@ const Container = styled.div`
   align-items: center;
   height: 100%;
   flex-direction: column;
-	max-width: 500px;
+  max-width: 500px;
   margin: auto;
 `;
 
@@ -21,24 +23,30 @@ const InputContainer = styled.div`
   align-items: center;
 `;
 
+const SignUpLink = styled(Link)`
+  padding-left: .5em;
+  color: #afafe6;
+  text-decoration: none;
+  font-size: 1.1em;
+`
+
 export const action: ActionFunction = async ({ request }) => {
   let formData = await request.formData();
-  const email = formData.get("email");
-  const password = formData.get("password");
+  const formPayload = Object.fromEntries(formData);
+
+  const validationSchema = z.object({
+    email: z.string().email(),
+    password: z.string(),
+  });
 
   try {
+    validationSchema.parse(formPayload);
     let sessionCookie;
 
-    const formError = json(
-      { error: "Please fill all fields!" },
-      { status: 400 }
-    );
-    if (typeof email !== "string") return formError;
-    if (typeof password !== "string") return formError;
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
 
-    if (email && password) {
-      sessionCookie = await signIn(email, password);
-    }
+    sessionCookie = await signIn(email, password);
 
     const session = await getSession(request.headers.get("cookie"));
     session.set("session", sessionCookie);
@@ -49,21 +57,34 @@ export const action: ActionFunction = async ({ request }) => {
       },
     });
   } catch (e) {
-    console.log(e);
+    return {
+      errorMessage:
+        "incorrect email or password. Make sure you have entered right credentials.",
+    };
   }
-
-  return { email, password };
 };
 
 export default function Join() {
+  const actionData = useActionData();
   return (
     <Container>
       <form style={{ width: "100%" }} method="post">
-				<InputContainer>
-        <TextField type="text" placeholder="email" name="email" />
-        <TextField type="password" placeholder="password" name="password" showPasswordCheckbox={true} />
-        <Button type="submit">Login</Button>
-				</InputContainer>
+        <InputContainer>
+          <TextField type="text" placeholder="email" name="email" />
+          <TextField
+            type="password"
+            placeholder="password"
+            name="password"
+            showPasswordCheckbox={true}
+            errorHelper={actionData?.errorMessage}
+          />
+          <Button type="submit">Login</Button>
+          <div>
+            Don't have an account? 
+            <SignUpLink to="/join">Sign up</SignUpLink>
+          </div>
+         
+        </InputContainer>
       </form>
     </Container>
   );
