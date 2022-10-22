@@ -1,15 +1,27 @@
+import { json, LoaderFunction } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
 import styled from "styled-components";
+import { requireAuth } from "~/server/auth.server";
 
-const Box = styled("div")`
-  background: ${props => props.theme.salmon};
-  font-family: system-ui, sans-serif;
-  line-height: 1.4;
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex-direction: column;
 `;
 
+
+export const loader: LoaderFunction = async ({ request }) => {
+  const user = await requireAuth(request);
+  return json({
+    message: `Hello ${user.displayName || user.email ||  "unknown"}!`,
+  });
+};
+
+
 export default function Index() {
-  return (
-    <Box>
-      <h1>Welcome to Remix (With Styled Component)</h1>
-    </Box>
-  );
+  const data = useLoaderData();
+
+  return <Container>{data.message}</Container>;
 }

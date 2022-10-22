@@ -7,6 +7,9 @@ type TextFieldProps = {
   label?: string;
   onChange?: () => void;
   name?: string;
+  showPasswordCheckbox?: boolean;
+  defaultValue?: string;
+  errorHelper?: string;
 };
 
 const StyledTextField = styled.input`
@@ -22,13 +25,18 @@ const StyledTextField = styled.input`
 const FlexBox = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 250px;
+  width: 100%;
 `;
 
 const StyledLabel = styled.label`
   color: ${(props) => props.theme.fadedTeal};
   font-size: 0.9em;
   padding-bottom: 0;
+`;
+
+const ErrorLabel = styled.label`
+  color: #ef7171;
+	height: 1em;
 `;
 
 const TextField = (props: TextFieldProps) => {
@@ -41,8 +49,9 @@ const TextField = (props: TextFieldProps) => {
         onChange={props.onChange}
         type={props.type === "password" && showPassword ? "text" : props.type}
         placeholder={props.placeholder}
+        defaultValue={props.defaultValue}
       />
-      {props.type === "password" && (
+      {props.type === "password" && props.showPasswordCheckbox && (
         <div>
           <input
             type="checkbox"
@@ -51,6 +60,7 @@ const TextField = (props: TextFieldProps) => {
           <label>Show Password</label>{" "}
         </div>
       )}
+      <ErrorLabel>{props.errorHelper}</ErrorLabel>
     </FlexBox>
   );
 };
