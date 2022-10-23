@@ -9,6 +9,7 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
+    "@prisma/client": "^4.5.0",
     "@remix-run/node": "^1.7.2",
     "@remix-run/react": "^1.7.2",
     "@remix-run/serve": "^1.7.2",
@@ -37,6 +38,7 @@
     "@types/styled-components": "^5.1.26",
     "babel-loader": "^8.2.5",
     "eslint": "^8.23.1",
+    "prisma": "^4.5.0",
     "typescript": "^4.7.4"
   },
   "engines": {
