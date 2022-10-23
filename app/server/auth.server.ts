@@ -7,6 +7,8 @@ import {
 import { signInWithPassword } from "~/firebaseClientSdk";
 import { destroySession, getSession } from "~/sessions";
 import { redirect, Session } from "@remix-run/node";
+import { getUser, storeUser } from "./db.server";
+import { User } from "@prisma/client";
 
 if (getServerApps().length === 0) {
   if (process.env.FIREBASE_AUTH) {
@@ -22,7 +24,12 @@ if (getServerApps().length === 0) {
 
 const signUp = async (email: string, password: string, name: string) => {
   const auth = getServerAuth();
-  await auth.createUser({ email, password, displayName: name });
+  const userRecord = await auth.createUser({
+    email,
+    password,
+    displayName: name,
+  });
+  await storeUser({ email, name, uid: userRecord.uid });
   return await signIn(email, password);
 };
 
@@ -52,18 +59,20 @@ const checkSessionCookie = async (session: Session) => {
   }
 };
 
-const requireAuth = async (request: Request): Promise<UserRecord> => {
+const requireAuth = async (
+  request: Request
+): Promise<User & Omit<UserRecord, "toJSON" | "email">> => {
   const auth = getServerAuth();
   const session = await getSession(request.headers.get("cookie"));
 
   try {
     const { uid } = await checkSessionCookie(session);
-    console.log("UID", uid);
-    if(!uid) throw new Error("invalid uid")
+    if (!uid) throw new Error("invalid uid");
 
-    const user = await auth.getUser(uid);
-    if(!user) throw new Error("user not found");
-    return user;
+    const fbuser = await auth.getUser(uid);
+    const user = await getUser(uid);
+    if (!fbuser || !user) throw new Error("user not found");
+    return { ...user, ...fbuser };
   } catch (e) {
     throw redirect("/login", {
       headers: { "Set-Cookie": await destroySession(session) },
