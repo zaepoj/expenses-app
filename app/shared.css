@@ -7,7 +7,7 @@ html {
 }
 
 body {
-  background: radial-gradient(#2e2536, #22162b);
-  color: #f4f4f9;
   height: 100%;
+  background: #fdfdff;
+  font-family: 'roboto';
 }
