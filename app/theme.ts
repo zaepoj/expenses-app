@@ -6,5 +6,7 @@ export const theme = {
   ghostWhite: "#F4F4F9",
   darkPurple: "#22162B",
   darkPurpleTwo: "#2E2536",
+  gray1: '#ECECF0',
   dark: "#150E1B",
+  purple1: '#100B3E'
 };

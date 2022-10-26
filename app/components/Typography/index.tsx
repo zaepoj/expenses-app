@@ -16,7 +16,7 @@ type TypographyProps = {
 };
 
 const BaseTypography = styled.p`
-  color: #0c033a;
+  color: #211656;
 `;
 
 const H1 = styled(BaseTypography).attrs({ as: "h1" })``;

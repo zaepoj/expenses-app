@@ -15,7 +15,7 @@ const Button = styled.button<ButtonProps>`
   padding: 0px 14px;
   background: ${(props) =>
     props.secondary
-      ? props.theme.teal
+      ? props.theme.purple1
       : props.tertiary
       ? "transparent"
       : props.theme.salmon};
