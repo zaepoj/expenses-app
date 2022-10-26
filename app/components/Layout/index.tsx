@@ -6,7 +6,7 @@ const Container = styled.div`
   padding-top: 5em;
   padding-bottom: 5em;
   background: #fdfdff;
-	height: 100%;
+  height: 100%;
 `;
 
 const StyledNav = styled.nav`
@@ -43,27 +43,29 @@ const StyledListItem = styled.li`
   text-align: center;
 `;
 
-
 type NavItem = {
-	to: string;
-	title: string;
-}
+  to: string;
+  title: string;
+};
 
 type LayoutProps = {
   children: JSX.Element;
-	navItems: NavItem[]
+  navItems: NavItem[];
 };
 
 const Layout = (props: LayoutProps) => {
-	console.log(props)
+  console.log(props);
   return (
     <Container>
       <StyledNav>
         <StyledUl>
-					{props.navItems.map((item, key) => {
-						return <StyledListItem key={key}><NavLink to={item.to}>{item.title}</NavLink></StyledListItem>
-
-					})}
+          {props.navItems.map((item, key) => {
+            return (
+              <StyledListItem key={key}>
+                <NavLink to={item.to}>{item.title}</NavLink>
+              </StyledListItem>
+            );
+          })}
         </StyledUl>
       </StyledNav>
 
