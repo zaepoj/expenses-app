@@ -26,7 +26,8 @@ const StyledNav = styled.nav`
 
   @media only screen and (max-width: 640px) { 
     width: 100%;
-    border-bottom: 1px solid #ded9d975;
+    border: 0;
+    border-bottom: 2px solid #ded9d975;
   }
   
 `;
