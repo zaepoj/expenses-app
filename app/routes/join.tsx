@@ -8,7 +8,7 @@ import { commitSession, getSession } from "~/sessions";
 import { useActionData } from "@remix-run/react";
 
 const Container = styled.div`
-  max-width: 500px;
+  min-width: 400px;
   margin: auto;
   height: 100%;
   display: flex;

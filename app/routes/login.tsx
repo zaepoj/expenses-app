@@ -13,7 +13,8 @@ const Container = styled.div`
   align-items: center;
   height: 100%;
   flex-direction: column;
-  max-width: 500px;
+  min-width: 300px;
+  padding: 1em;
   margin: auto;
 `;
 

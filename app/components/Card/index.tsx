@@ -11,8 +11,8 @@ type CardProps = {
 };
 
 const CardContainer = styled.div<{ fullWidth: boolean }>`
-  width: ${(props) => (props.fullWidth ? "100%" : "370px")};
-  min-height: 150px;
+  width: ${(props) => (props.fullWidth ? "100%" : "500px")};
+  min-height: 250px;
   background: ${(props) => props.theme.gray1};
   display: flex;
   color: ${(props) => props.theme.darkPurple};
@@ -22,7 +22,10 @@ const CardContainer = styled.div<{ fullWidth: boolean }>`
   font-family: roboto;
   margin-top: 1em;
 
-
+  @media only screen and (max-width: 820px) {
+    width: 100%;
+    padding-right: 1em;
+  }
 `;
 
 const CardTopContainer = styled.div`
@@ -66,7 +69,12 @@ export default function Card({
         </CardInfoLabel>
       </CardTopContainer>
       <CardContentContainer>{children}</CardContentContainer>
-      {clickable && <ViewButton secondary onClick={onClick}> View</ViewButton>}
+      {clickable && (
+        <ViewButton secondary onClick={onClick}>
+          {" "}
+          View
+        </ViewButton>
+      )}
     </CardContainer>
   );
 }

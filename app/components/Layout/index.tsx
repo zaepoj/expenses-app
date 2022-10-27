@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { NavLink } from "@remix-run/react";
-import { FaBeer } from "react-icons/fa";
 import { IconType } from "react-icons";
 
 const Container = styled.div`
@@ -10,10 +9,10 @@ const Container = styled.div`
   background: #fdfdff;
   height: 100%;
 
-  @media only screen and (max-width: 640px) { 
+  @media only screen and (max-width: 700px) {
     flex-direction: column;
-    padding-top: 0;
-
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
   }
 `;
 
@@ -24,39 +23,18 @@ const StyledNav = styled.nav`
   border-image: linear-gradient(to bottom, #ded9d975, rgba(0, 0, 0, 0)) 1 100%;
   border-left: 0;
 
-  @media only screen and (max-width: 640px) { 
+  @media only screen and (max-width: 700px) {
     width: 100%;
     border: 0;
     border-bottom: 2px solid #ded9d975;
   }
-  
-`;
-
-const ContentContainer = styled.div`
-  height: 100%;
-  flex: 1;
-  padding-left: 2em;
-  padding-top: 2em;
-
-  @media only screen and (max-width: 600px) { 
-    padding-left: 0;
-  }
-`;
-
-const Content = styled.div`
-  padding: 1em;
-  padding-top: 0;
-  flex: 1;
-  height: 100%;
-
-
 `;
 
 const StyledUl = styled.ul`
   padding: 0;
   margin: 0;
 
-  @media only screen and (max-width: 640px) { 
+  @media only screen and (max-width: 700px) {
     display: flex;
     gap: 5%;
     padding: 1em;
@@ -70,15 +48,15 @@ const StyledListItem = styled.li`
   display: block;
   font-weight: 700;
   text-align: center;
-`
+`;
 
-const StyledNavLink = styled(NavLink)`
+const StyledNavLink = styled(NavLink)<{ isCurrentPath: boolean }>`
   font-size: 1.3em;
   display: flex;
   align-items: center;
   gap: 5%;
   justify-content: center;
-  text-decoration: none;
+  text-decoration: ${(props) => (props.isCurrentPath ? "underline" : "none")};
   color: ${(props) => props.theme.purple1};
   transition-property: color;
   transition-duration: 0.25s;
@@ -94,9 +72,15 @@ type NavItem = {
 };
 
 type LayoutProps = {
-  children: JSX.Element;
   navItems: NavItem[];
+  currentPath: string;
+  userInfo: UserInfo
 };
+
+type UserInfo = {
+  uid: string;
+  name: string;
+}
 
 const Layout = (props: LayoutProps) => {
   return (
@@ -104,19 +88,21 @@ const Layout = (props: LayoutProps) => {
       <StyledNav>
         <StyledUl>
           {props.navItems.map((item, key) => {
-            const Icon= item.icon
+            const Icon = item.icon;
             return (
               <StyledListItem key={key}>
-               <StyledNavLink to={item.to}> {Icon && <Icon />}  {item.title}</StyledNavLink>
+                <StyledNavLink
+                  isCurrentPath={props.currentPath === item.to}
+                  to={item.to}
+                >
+                  {" "}
+                  {Icon && <Icon />} {item.title}
+                </StyledNavLink>
               </StyledListItem>
             );
           })}
         </StyledUl>
       </StyledNav>
-
-      <ContentContainer>
-        <Content>{props.children}</Content>
-      </ContentContainer>
     </Container>
   );
 };
