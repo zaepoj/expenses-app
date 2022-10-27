@@ -59,6 +59,16 @@ const checkSessionCookie = async (session: Session) => {
   }
 };
 
+const getSignedInUser = async (uid: string) => {
+  const auth = getServerAuth();
+
+  const fbuser = await auth.getUser(uid);
+  const user = await getUser(uid);
+  if (!fbuser || !user) throw new Error("user not found");
+
+  return { ...user, ...fbuser };
+};
+
 const requireAuth = async (
   request: Request
 ): Promise<User & Omit<UserRecord, "toJSON" | "email">> => {
@@ -69,10 +79,9 @@ const requireAuth = async (
     const { uid } = await checkSessionCookie(session);
     if (!uid) throw new Error("invalid uid");
 
-    const fbuser = await auth.getUser(uid);
-    const user = await getUser(uid);
-    if (!fbuser || !user) throw new Error("user not found");
-    return { ...user, ...fbuser };
+    const user = await getSignedInUser(uid);
+
+    return { ...user };
   } catch (e) {
     throw redirect("/login", {
       headers: { "Set-Cookie": await destroySession(session) },
