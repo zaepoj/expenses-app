@@ -14,6 +14,7 @@ import shared from "./shared.css";
 import { AiFillHome, AiFillProject } from "react-icons/ai";
 import Layout from "./components/Layout";
 import { requireAuth } from "./server/auth.server";
+import { FaCog } from "react-icons/fa";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -30,6 +31,20 @@ const Container = styled.div`
   }
 `;
 
+const OutletContainer = styled.div<{isLoginOrSignUpPage: boolean}>`
+  margin-left: ${props => props.isLoginOrSignUpPage ? 'auto' : '250px'};
+  margin-right: ${props => props.isLoginOrSignUpPage && 'auto'};
+  width: ${props => !props.isLoginOrSignUpPage && '100%'};
+  min-width: 300px;
+
+
+  @media only screen and (max-width: 700px) {
+    margin: 0;
+    
+    
+  }
+`;
+
 export const loader: LoaderFunction = async ({ request, context }) => {
   const url = new URL(request.url);
   const path = url.pathname;
@@ -38,9 +53,7 @@ export const loader: LoaderFunction = async ({ request, context }) => {
 
   return json({
     user: !isLoginOrSignUpPage && (await requireAuth(request)),
-    currentPath: path,
     isLoginOrSignUpPage,
-    message: ` "unknown"}!`,
   });
 };
 
@@ -67,14 +80,16 @@ export default function App() {
             {!isLoginOrSignUpPage && (
               <Layout
                 userInfo={{ uid: user.uid, name: user.name }}
-                currentPath={data.currentPath}
                 navItems={[
                   { to: "/", title: "Dashboard", icon: AiFillHome },
                   { to: "/expenses", title: "Expenses", icon: AiFillProject },
+                  { to: "/settings", title: "Settings", icon: FaCog },
                 ]}
               />
             )}
-            <Outlet />
+            <OutletContainer isLoginOrSignUpPage={isLoginOrSignUpPage}>
+              <Outlet />
+            </OutletContainer>
           </Container>
           <ScrollRestoration />
           <Scripts />

@@ -4,12 +4,12 @@ import { requireAuth } from "~/server/auth.server";
 import Typography from "~/components/Typography";
 import styled from "styled-components";
 import Card from "~/components/Card";
+import { useNavigate } from "react-router-dom";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await requireAuth(request);
   return json({
-    ...user,
-    message: `Welcome back ${user.displayName || user.email || "unknown"}!`,
+    user,
   });
 };
 
@@ -19,6 +19,7 @@ const CardContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 4%;
+  width: 100%;
 `;
 const ContentContainer = styled.div`
   height: 100%;
@@ -36,12 +37,19 @@ const ContentContainer = styled.div`
 
 export default function Index() {
   const data = useLoaderData();
+  const navigate = useNavigate();
+  
 
   return (
     <ContentContainer>
-      <Typography type="h1" text={`${data.message}`} />
+      <Typography
+        type="h1"
+        text={`Welcome back ${
+          data.user.displayName || data.user.email || "unknown"
+        }!`}
+      />
       <CardContainer>
-        <Card clickable title="Expenses" infoLabel="monthly">
+        <Card clickable onClick={() => navigate("/expenses")} title="Expenses" infoLabel="monthly">
           <p>Test</p>
         </Card>
         <Card clickable title="Savings" infoLabel="info">

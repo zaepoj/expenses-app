@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import { NavLink } from "@remix-run/react";
-import { IconType } from "react-icons";
+import type { IconType } from "react-icons";
+import { IoExitOutline } from "react-icons/io5";
 
 const Container = styled.div`
+  position: fixed;
   display: flex;
   padding-top: 5em;
   padding-bottom: 5em;
@@ -13,6 +15,8 @@ const Container = styled.div`
     flex-direction: column;
     padding-top: 0.25em;
     padding-bottom: 0.25em;
+    position: static;
+    height: auto;
   }
 `;
 
@@ -50,13 +54,13 @@ const StyledListItem = styled.li`
   text-align: center;
 `;
 
-const StyledNavLink = styled(NavLink)<{ isCurrentPath: boolean }>`
+const StyledNavLink = styled(NavLink)<{ isCurrentPath?: boolean }>`
   font-size: 1.3em;
   display: flex;
   align-items: center;
   gap: 5%;
   justify-content: center;
-  text-decoration: ${(props) => (props.isCurrentPath ? "underline" : "none")};
+  text-decoration: none;
   color: ${(props) => props.theme.purple1};
   transition-property: color;
   transition-duration: 0.25s;
@@ -73,14 +77,13 @@ type NavItem = {
 
 type LayoutProps = {
   navItems: NavItem[];
-  currentPath: string;
-  userInfo: UserInfo
+  userInfo: UserInfo;
 };
 
 type UserInfo = {
   uid: string;
   name: string;
-}
+};
 
 const Layout = (props: LayoutProps) => {
   return (
@@ -92,7 +95,6 @@ const Layout = (props: LayoutProps) => {
             return (
               <StyledListItem key={key}>
                 <StyledNavLink
-                  isCurrentPath={props.currentPath === item.to}
                   to={item.to}
                 >
                   {" "}
@@ -101,6 +103,11 @@ const Layout = (props: LayoutProps) => {
               </StyledListItem>
             );
           })}
+          <StyledListItem>
+            <StyledNavLink to={"/logout"}>
+              <IoExitOutline /> Logout
+            </StyledNavLink>
+          </StyledListItem>
         </StyledUl>
       </StyledNav>
     </Container>

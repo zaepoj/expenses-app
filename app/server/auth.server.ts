@@ -64,6 +64,7 @@ const getSignedInUser = async (uid: string) => {
 
   const fbuser = await auth.getUser(uid);
   const user = await getUser(uid);
+
   if (!fbuser || !user) throw new Error("user not found");
 
   return { ...user, ...fbuser };
@@ -72,7 +73,6 @@ const getSignedInUser = async (uid: string) => {
 const requireAuth = async (
   request: Request
 ): Promise<User & Omit<UserRecord, "toJSON" | "email">> => {
-  const auth = getServerAuth();
   const session = await getSession(request.headers.get("cookie"));
 
   try {
@@ -80,7 +80,6 @@ const requireAuth = async (
     if (!uid) throw new Error("invalid uid");
 
     const user = await getSignedInUser(uid);
-
     return { ...user };
   } catch (e) {
     throw redirect("/login", {
