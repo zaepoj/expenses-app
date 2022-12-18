@@ -2,10 +2,10 @@ import styled from "styled-components";
 import { z } from "zod";
 import TextField from "~/components/TextField";
 import Button from "~/components/Button";
-import { ActionFunction, json, redirect } from "@remix-run/node";
+import { ActionFunction, redirect } from "@remix-run/node";
 import { signIn } from "~/server/auth.server";
 import { commitSession, getSession } from "~/sessions";
-import { Link, useActionData } from "@remix-run/react";
+import { Form, Link, useActionData, useTransition } from "@remix-run/react";
 
 const Container = styled.div`
   display: flex;
@@ -13,7 +13,7 @@ const Container = styled.div`
   align-items: center;
   height: 100%;
   flex-direction: column;
-  min-width: 300px;
+  min-width: 350px;
   padding: 1em;
   margin: auto;
 `;
@@ -25,11 +25,11 @@ const InputContainer = styled.div`
 `;
 
 const SignUpLink = styled(Link)`
-  padding-left: .5em;
+  padding-left: 0.5em;
   color: #afafe6;
   text-decoration: none;
   font-size: 1.1em;
-`
+`;
 
 export const action: ActionFunction = async ({ request }) => {
   let formData = await request.formData();
@@ -66,10 +66,13 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export default function Join() {
-  const actionData = useActionData();
+  const actionData = useActionData() as { errorMessage: string };
+  const transition = useTransition();
+  const isSubmitting = !!transition.submission;
+
   return (
     <Container>
-      <form style={{ width: "100%" }} method="post">
+      <Form style={{ width: "100%", maxWidth: "350px" }} method="post">
         <InputContainer>
           <TextField type="text" placeholder="email" name="email" />
           <TextField
@@ -79,14 +82,17 @@ export default function Join() {
             showPasswordCheckbox={true}
             errorHelper={actionData?.errorMessage}
           />
-          <Button type="submit">Login</Button>
-          <div>
-            Don't have an account? 
-            <SignUpLink to="/join">Sign up</SignUpLink>
+          <div style={{ marginTop: "1em", width: "100%" }}>
+            <Button fullWidth disabled={isSubmitting} type="submit">
+              {isSubmitting ? "Signing in.." : "Sign in"}
+            </Button>
+            <div style={{ marginTop: "1em" }}>
+              Don't have an account?
+              <SignUpLink to="/join">Sign up</SignUpLink>
+            </div>
           </div>
-         
         </InputContainer>
-      </form>
+      </Form>
     </Container>
   );
 }

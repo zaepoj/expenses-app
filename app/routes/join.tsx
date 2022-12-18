@@ -5,7 +5,7 @@ import Button from "~/components/Button";
 import { ActionFunction, json, redirect } from "@remix-run/node";
 import { signUp } from "~/server/auth.server";
 import { commitSession, getSession } from "~/sessions";
-import { useActionData } from "@remix-run/react";
+import { Form, Link, useActionData, useTransition } from "@remix-run/react";
 
 const Container = styled.div`
   min-width: 400px;
@@ -17,12 +17,19 @@ const Container = styled.div`
 
 const InputContainer = styled.div`
   display: grid;
-  row-gap: 10%;
+  row-gap: 5%;
   align-items: center;
 `;
 
 const HeaderContainer = styled.div`
   padding-bottom: 3em;
+`;
+
+const SignUpLink = styled(Link)`
+  padding-left: 0.5em;
+  color: #afafe6;
+  text-decoration: none;
+  font-size: 1.1em;
 `;
 
 type ErrorActionResponse = {
@@ -32,15 +39,29 @@ type ErrorActionResponse = {
   confirmPassword: string;
 };
 
+type FormDataEntries = {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+};
+
+type ActionResponse = {
+  formData: FormDataEntries;
+  errors: ErrorActionResponse;
+};
+
 export const action: ActionFunction = async ({ request }) => {
   let formData = await request.formData();
   const formPayload = Object.fromEntries(formData);
   const validationSchema = z
     .object({
-      name: z.string().min(2),
-      email: z.string().email(),
-      password: z.string().min(3),
-      confirmPassword: z.string().min(3),
+      name: z
+        .string()
+        .min(2, { message: "Name must be atleast 2 characters long" }),
+      email: z.string().email({ message: "Invalid email" }),
+      password: z.string().min(3, { message: "Invalid password" }),
+      confirmPassword: z.string().min(3, { message: "Invalid password" }),
     })
     .refine((data) => data.confirmPassword === data.password, {
       message: "Password mismatch!",
@@ -93,10 +114,13 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export default function Join() {
-  const actionData = useActionData();
+  const actionData = useActionData() as ActionResponse;
+  const transition = useTransition();
+  const isSubmitting = !!transition.submission;
+
   return (
     <Container>
-      <form style={{ width: "100%" }} method="post">
+      <Form style={{ width: "100%" }} method="post">
         <HeaderContainer>
           <h1>Sign up</h1>
         </HeaderContainer>
@@ -132,9 +156,15 @@ export default function Join() {
             errorHelper={actionData?.errors?.confirmPassword}
             defaultValue={actionData?.formData?.confirmPassword}
           />
-          <Button type="submit">Sign up</Button>
+          <Button disabled={isSubmitting} type="submit">
+            {isSubmitting ? "Loading.." : "Sign up"}
+          </Button>
+          <div>
+            Already have an account?
+            <SignUpLink to="/login">Sign in</SignUpLink>
+          </div>
         </InputContainer>
-      </form>
+      </Form>
     </Container>
   );
 }
