@@ -6,15 +6,20 @@ type ButtonProps = {
   tertiary?: boolean;
   onClick?: () => void;
   uppercase?: boolean;
+  fullWidth?: boolean;
 };
 
-const Button = styled.button<ButtonProps>`
+const Button = styled.button<
+  ButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>
+>`
   text-transform: ${(props) => (props.uppercase ? "uppercase" : "")};
-  min-width: 50px;
+  min-width: ${(props) => (props.fullWidth ? "100%" : "50px")};
   height: 32px;
   padding: 0px 14px;
   background: ${(props) =>
-    props.secondary
+    props.disabled
+      ? "#cdc9c8"
+      : props.secondary
       ? props.theme.purple1
       : props.tertiary
       ? "transparent"
@@ -40,12 +45,11 @@ const Button = styled.button<ButtonProps>`
     border-bottom: ${(props) => (props.tertiary ? "1px" : "0px")} solid
       ${(props) => props.theme.salmon};
   }
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 `;
 export default Button;

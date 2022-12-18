@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { NavLink } from "@remix-run/react";
 import type { IconType } from "react-icons";
 import { IoExitOutline } from "react-icons/io5";
+import { useLocation } from "react-router-dom";
 
 const Container = styled.div`
   position: fixed;
@@ -54,13 +55,13 @@ const StyledListItem = styled.li`
   text-align: center;
 `;
 
-const StyledNavLink = styled(NavLink)<{ isCurrentPath?: boolean }>`
+const StyledNavLink = styled(NavLink)<{ $iscurrentpath?: boolean }>`
   font-size: 1.3em;
   display: flex;
   align-items: center;
   gap: 5%;
   justify-content: center;
-  text-decoration: none;
+  text-decoration: ${(props) => (props.$iscurrentpath ? "underline" : "none")};
   color: ${(props) => props.theme.purple1};
   transition-property: color;
   transition-duration: 0.25s;
@@ -86,6 +87,7 @@ type UserInfo = {
 };
 
 const Layout = (props: LayoutProps) => {
+  const location = useLocation();
   return (
     <Container>
       <StyledNav>
@@ -95,6 +97,7 @@ const Layout = (props: LayoutProps) => {
             return (
               <StyledListItem key={key}>
                 <StyledNavLink
+                  $iscurrentpath={location.pathname === item.to}
                   to={item.to}
                 >
                   {" "}

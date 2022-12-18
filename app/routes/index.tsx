@@ -38,18 +38,20 @@ const ContentContainer = styled.div`
 export default function Index() {
   const data = useLoaderData();
   const navigate = useNavigate();
-  
 
   return (
     <ContentContainer>
       <Typography
         type="h1"
-        text={`Welcome back ${
-          data.user.displayName || data.user.email || "unknown"
-        }!`}
+        text={`Welcome back ${data.user.name || data.user.email || "unknown"}!`}
       />
       <CardContainer>
-        <Card clickable onClick={() => navigate("/expenses")} title="Expenses" infoLabel="monthly">
+        <Card
+          clickable
+          onClick={() => navigate("/expenses")}
+          title="Expenses"
+          infoLabel="monthly"
+        >
           <p>Test</p>
         </Card>
         <Card clickable title="Savings" infoLabel="info">
