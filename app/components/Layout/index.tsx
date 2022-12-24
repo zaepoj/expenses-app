@@ -62,11 +62,11 @@ const StyledNavLink = styled(NavLink)<{ $iscurrentpath?: boolean }>`
   gap: 5%;
   justify-content: center;
   text-decoration: ${(props) => (props.$iscurrentpath ? "underline" : "none")};
-  color: ${(props) => props.theme.purple1};
+  color: ${(props) => props.theme.primaryText};
   transition-property: color;
   transition-duration: 0.25s;
   :hover {
-    color: ${(props) => props.theme.fadedTeal};
+    color: ${(props) => props.theme.fadedPrimaryText}
   }
 `;
 
