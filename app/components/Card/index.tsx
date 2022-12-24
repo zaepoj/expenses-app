@@ -15,7 +15,7 @@ const CardContainer = styled.div<{ fullWidth: boolean }>`
   min-height: 250px;
   background: ${(props) => props.theme.gray1};
   display: flex;
-  color: ${(props) => props.theme.darkPurple};
+  color: ${(props) => props.theme.primaryText};
   border-radius: 4px;
   padding: 1em;
   flex-direction: column;
