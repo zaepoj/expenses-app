@@ -9,5 +9,6 @@ html {
 body {
   height: 100%;
   background: #fdfdff;
-  font-family: "roboto";
+  font-family: "gg sans","Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;;
+  color: #5865f2;
 }

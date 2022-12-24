@@ -8,5 +8,7 @@ export const theme = {
   darkPurpleTwo: "#2E2536",
   gray1: '#ECECF0',
   dark: "#150E1B",
-  purple1: '#100B3E'
+  purple1: '#100B3E',
+  primaryText: '#5865f2',
+  fadedPrimaryText: '#5865f2b5'
 };
