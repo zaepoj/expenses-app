@@ -9,29 +9,34 @@ const Container = styled.div`
   display: flex;
   padding-top: 5em;
   padding-bottom: 5em;
-  background: #fdfdff;
+  background-color: #fdfdff;
   height: 100%;
+  border-radius: 0 3em 3em 0;
+  max-height: 80vh;
+  max-width: 250px;
+  margin-top: 0.5em;
+  box-shadow: rgb(0 0 0 / 6%) 0px 4px 44px;
 
   @media only screen and (max-width: 700px) {
     flex-direction: column;
     padding-top: 0.25em;
     padding-bottom: 0.25em;
-    position: static;
     height: auto;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 0;
+    margin-top: 0;
+    overflow: auto;
+    white-space: nowrap;
   }
 `;
 
 const StyledNav = styled.nav`
   width: 250px;
-  border-width: 3px;
-  border-style: solid;
-  border-image: linear-gradient(to bottom, #ded9d975, rgba(0, 0, 0, 0)) 1 100%;
-  border-left: 0;
 
   @media only screen and (max-width: 700px) {
     width: 100%;
     border: 0;
-    border-bottom: 2px solid #ded9d975;
   }
 `;
 
@@ -51,18 +56,18 @@ const StyledListItem = styled.li`
   padding-bottom: 1.5em;
   padding-top: 1.5em;
   display: block;
-  font-weight: 700;
+  font-weight: 500;
   text-align: center;
 `;
 
 const StyledNavLink = styled(NavLink)<{ $iscurrentpath?: boolean }>`
-  font-size: 1.3em;
+  font-size: 1.2em;
   display: flex;
   align-items: center;
   gap: 5%;
   justify-content: center;
   text-decoration: ${(props) => (props.$iscurrentpath ? "underline" : "none")};
-  color: ${(props) => props.theme.primaryText};
+  color: ${(props) => props.theme.primaryDark};
   transition-property: color;
   transition-duration: 0.25s;
   :hover {

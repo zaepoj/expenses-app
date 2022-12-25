@@ -13,21 +13,22 @@ type CardProps = {
 const CardContainer = styled.div<{ fullWidth: boolean }>`
   width: ${(props) => (props.fullWidth ? "100%" : "500px")};
   min-height: 250px;
-  background: ${(props) => props.theme.gray1};
+  background-color: ${(props) => props.theme.ghostWhite};
   display: flex;
-  color: ${(props) => props.theme.primaryText};
-  border-radius: 4px;
+  color: ${(props) => props.theme.primaryDark};
+  border-radius: 1.5em;
   padding: 1em;
   flex-direction: column;
   font-family: roboto;
   margin-top: 1em;
+  box-shadow: rgb(0 0 0 / 6%) 0px 4px 44px;
 
   @media only screen and (max-width: 820px) {
     width: 100%;
     padding-right: 1em;
   }
 `;
-
+``
 const CardTopContainer = styled.div`
   display: flex;
   flex-direction: row;

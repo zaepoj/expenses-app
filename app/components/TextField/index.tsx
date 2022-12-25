@@ -13,7 +13,7 @@ type TextFieldProps = {
 };
 
 const StyledTextField = styled.input`
-  background-color: #f8f4f4;
+  background-color: ${props => props.theme.ghostWhite};
   border: 1px solid #f8f4f4;
   border-radius: 4px;
   height: 40px;
