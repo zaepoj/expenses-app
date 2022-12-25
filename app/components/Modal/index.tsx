@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import ReactModal from "react-modal";
 import Typography from "../Typography";
-import Balancer from 'react-wrap-balancer'
+import { AiOutlineClose } from "react-icons/ai";
 
 type ModalProps = {
   open: boolean;
@@ -11,7 +11,7 @@ type ModalProps = {
 };
 
 const StyledDialog = styled(ReactModal)`
-  top: 50%;
+  top: 15%;
   left: 50%;
   margin-left: -300px;
   right: auto;
@@ -20,12 +20,10 @@ const StyledDialog = styled(ReactModal)`
   box-shadow: rgb(0 0 0 / 6%) 0px 4px 44px;
   border: 1px solid rgb(239, 241, 244);
   position: absolute;
-  padding: 1.5em;
   padding-top: 0;
-  max-width: 600px;
-  width: 90vh;
+  min-width: 650px;
   background: ${(props) => props.theme.ghostWhite};
-  @media only screen and (max-width: 700px) {
+  @media only screen and (max-width: 800px) {
     width: 100%;
     top: 0;
     left: 0;
@@ -36,16 +34,34 @@ const StyledDialog = styled(ReactModal)`
 
 const ModalHeader = styled.div`
   padding-top: 1em;
+  padding-left: 1em;
   padding-bottom: 2em;
 `;
 
-const ModalContent = styled.div``;
+const CloseIcon = styled(AiOutlineClose)`
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding-top: 1em;
+  padding-right: 1em;
+  font-size: 1.3em;
+  cursor: pointer;
+  color: ${props => props.theme.primaryDark};
+  :hover {
+    color: ${props => props.theme.primaryDarkFaded};
+  }
+`
+
+const ModalContent = styled.div`
+  padding: 1em;
+`;
 
 const Modal = ({ open, onClose, title, children }: ModalProps) => {
   return (
     <StyledDialog isOpen={open} onRequestClose={onClose}>
       <ModalHeader>
         <Typography text={title} type="h2" />
+        <CloseIcon onClick={onClose} />
       </ModalHeader>
       <ModalContent>{children}</ModalContent>
     </StyledDialog>
