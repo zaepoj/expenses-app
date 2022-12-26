@@ -23,7 +23,7 @@ const Button = styled.button<
       ? props.theme.purple1
       : props.tertiary
       ? "transparent"
-      : props.theme.primaryDark};
+      : props.theme.primary};
   border: 0px solid transparent;
   border-radius: ${(props) =>
     props.round ? "9999px" : props.tertiary ? "0px" : "4px"};
@@ -40,7 +40,7 @@ const Button = styled.button<
         ? props.theme.fadedTeal
         : props.tertiary
         ? "transparent"
-        : props.theme.primaryDarkFaded};
+        : props.theme.primaryLight};
     cursor: pointer;
     border-bottom: ${(props) => (props.tertiary ? "1px" : "0px")} solid
       ${(props) => props.theme.salmon};

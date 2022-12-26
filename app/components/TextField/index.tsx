@@ -14,7 +14,7 @@ type TextFieldProps = {
 
 const StyledTextField = styled.input`
   background-color: ${props => props.theme.ghostWhite};
-  border: 1px solid #f8f4f4;
+  border: 1px solid ${props => props.theme.primaryLight};
   border-radius: 4px;
   height: 40px;
   padding-left: 0.7em;

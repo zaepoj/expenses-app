@@ -9,13 +9,10 @@ const Container = styled.div`
   display: flex;
   padding-top: 5em;
   padding-bottom: 5em;
-  background-color: #fdfdff;
+  background-color: ${props => props.theme.primary};
   height: 100%;
-  border-radius: 0 3em 3em 0;
-  max-height: 80vh;
   max-width: 250px;
-  margin-top: 0.5em;
-  box-shadow: rgb(0 0 0 / 6%) 0px 4px 44px;
+  box-shadow: rgb(0 0 0 / 10%) 5px 10px 44px;
 
   @media only screen and (max-width: 700px) {
     flex-direction: column;
@@ -26,7 +23,7 @@ const Container = styled.div`
     max-width: 100%;
     border-radius: 0;
     margin-top: 0;
-    overflow: auto;
+    overflow-x: auto;
     white-space: nowrap;
   }
 `;
@@ -67,11 +64,11 @@ const StyledNavLink = styled(NavLink)<{ $iscurrentpath?: boolean }>`
   gap: 5%;
   justify-content: center;
   text-decoration: ${(props) => (props.$iscurrentpath ? "underline" : "none")};
-  color: ${(props) => props.theme.primaryDark};
+  color: ${(props) => props.theme.ghostWhite};
   transition-property: color;
-  transition-duration: 0.25s;
+  transition-duration: 0.15s;
   :hover {
-    color: ${(props) => props.theme.fadedPrimaryText}
+    color: ${(props) => props.theme.fadedTeal}
   }
 `;
 

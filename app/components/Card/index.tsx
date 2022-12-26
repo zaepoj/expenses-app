@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Button from "../Button";
+import Typography from "../Typography";
 
 type CardProps = {
   title?: string;
@@ -16,19 +17,18 @@ const CardContainer = styled.div<{ fullWidth: boolean }>`
   background-color: ${(props) => props.theme.ghostWhite};
   display: flex;
   color: ${(props) => props.theme.primaryDark};
-  border-radius: 1.5em;
+  border-radius: 0.8em;
   padding: 1em;
   flex-direction: column;
-  font-family: roboto;
   margin-top: 1em;
-  box-shadow: rgb(0 0 0 / 6%) 0px 4px 44px;
+  box-shadow: rgb(0 0 0 / 20%) 0px 4px 10px;
 
   @media only screen and (max-width: 820px) {
     width: 100%;
     padding-right: 1em;
   }
 `;
-``
+``;
 const CardTopContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -64,7 +64,7 @@ export default function Card({
   return (
     <CardContainer fullWidth={!!fullWidth}>
       <CardTopContainer>
-        <h3>{title}</h3>
+        {title ? <Typography type="h2" text={title} /> : null}
         <CardInfoLabel>
           <p>{infoLabel}</p>
         </CardInfoLabel>
@@ -72,7 +72,6 @@ export default function Card({
       <CardContentContainer>{children}</CardContentContainer>
       {clickable && (
         <ViewButton secondary onClick={onClick}>
-          {" "}
           View
         </ViewButton>
       )}

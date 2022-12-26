@@ -8,9 +8,9 @@ html {
 
 body {
   height: 100%;
-  background: #f3f3fd;
-  font-family: "gg sans","Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;;
-  color: #0A0727;
+  background: #fff;
+  font-family: Lato;
+  color: #34293d;
 }
 
 input:-webkit-autofill,

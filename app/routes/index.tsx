@@ -28,10 +28,10 @@ const ContentContainer = styled.div`
   padding-right: 2em;
   padding-top: 5em;
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 700px) {
     padding-left: 0.25em;
     padding-right: 0.25em;
-    padding-top: 0.5em;
+    padding-top: 10em;
   }
 `;
 
