@@ -41,10 +41,9 @@ export default function Index() {
 
   return (
     <ContentContainer>
-      <Typography
-        type="h1"
-        text={`Welcome back ${data.user.name || data.user.email || "unknown"}!`}
-      />
+      <Typography type="h1">{`Welcome back ${
+        data.user.name || data.user.email || "unknown"
+      }!`}</Typography>
       <CardContainer>
         <Card
           clickable

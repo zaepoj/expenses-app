@@ -64,7 +64,7 @@ export default function Card({
   return (
     <CardContainer fullWidth={!!fullWidth}>
       <CardTopContainer>
-        {title ? <Typography type="h2" text={title} /> : null}
+        {title ? <Typography type="h2">{title} </Typography> : null}
         <CardInfoLabel>
           <p>{infoLabel}</p>
         </CardInfoLabel>

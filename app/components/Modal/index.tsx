@@ -17,7 +17,6 @@ const StyledDialog = styled(ReactModal)`
   right: auto;
   bottom: auto;
   border-radius: 0.5em;
-  box-shadow: rgb(0 0 0 / 6%) 0px 4px 44px;
   border: 1px solid rgb(239, 241, 244);
   position: absolute;
   padding-top: 0;
@@ -46,21 +45,23 @@ const CloseIcon = styled(AiOutlineClose)`
   padding-right: 1em;
   font-size: 1.3em;
   cursor: pointer;
-  color: ${props => props.theme.primaryDark};
+  color: ${(props) => props.theme.primaryDark};
   :hover {
-    color: ${props => props.theme.primaryDarkFaded};
+    color: ${(props) => props.theme.primaryDarkFaded};
   }
-`
+`;
 
 const ModalContent = styled.div`
   padding: 1em;
 `;
 
+StyledDialog.defaultStyles.overlay!.backgroundColor = "rgba(0, 0, 0, 0.4)";
+
 const Modal = ({ open, onClose, title, children }: ModalProps) => {
   return (
     <StyledDialog isOpen={open} onRequestClose={onClose}>
       <ModalHeader>
-        <Typography text={title} type="h2" />
+        <Typography type="h2">{title}</Typography>
         <CloseIcon onClick={onClose} />
       </ModalHeader>
       <ModalContent>{children}</ModalContent>

@@ -6,24 +6,24 @@ type ListItemProps = {
   icon?: IconType;
   text: string;
   info?: string;
-	unit?: string;
+  unit?: string;
 };
 
 const Container = styled.div`
   display: flex;
   align-items: center;
-	gap: 2em;
+  gap: 2em;
 `;
 
 const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
-	padding-left: 2em;
+  padding-left: 2em;
 `;
 
 const Unit = styled.div`
-padding-left: 8em;
-`
+  padding-left: 8em;
+`;
 
 const ListItem = ({ text, info, icon, unit }: ListItemProps) => {
   const Icon = icon;
@@ -31,14 +31,12 @@ const ListItem = ({ text, info, icon, unit }: ListItemProps) => {
     <Container>
       <h1>{Icon && <Icon />}</h1>
       <TextContainer>
-        <Typography type="h2" text={text} />
-        {info && <Typography type="body1" text={info} />}
+        <Typography type="h2">{text}</Typography>
+        {info && <Typography type="body1">{info}</Typography>}
       </TextContainer>
-			<Unit>{unit}</Unit>
+      <Unit>{unit}</Unit>
     </Container>
   );
 };
 
 export default ListItem;
-
-

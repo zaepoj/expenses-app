@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta, addDecorator } from "@storybook/react";
 import Typography from "../app/components/Typography/index";
 import { ThemeProvider } from "styled-components";
 import { theme } from "../app/theme";
-import '../../frontend/app/shared.css'
+import "../../frontend/app/shared.css";
 
 addDecorator((story) => <ThemeProvider theme={theme}>{story()}</ThemeProvider>);
 
@@ -16,52 +16,43 @@ export default {
 } as ComponentMeta<typeof Typography>;
 
 const Template: ComponentStory<typeof Typography> = (args) => (
-  <Typography {...args} />
+  <Typography {...args}>Text</Typography>
 );
 
 export const H1 = Template.bind({});
 H1.args = {
-  text: "Text",
-  type: 'h1'
+  type: "h1",
 };
 
 export const H2 = Template.bind({});
 H2.args = {
-  text: "Text",
-  type: 'h2'
+  type: "h2",
 };
 export const H3 = Template.bind({});
 H3.args = {
-  text: "Text",
-  type: 'h3'
+  type: "h3",
 };
 export const H4 = Template.bind({});
 H4.args = {
-  text: "Text",
-  type: 'h4'
+  type: "h4",
 };
 
 export const H5 = Template.bind({});
 H5.args = {
-  text: "Text",
-  type: 'h5'
+  type: "h5",
 };
 
 export const H6 = Template.bind({});
 H6.args = {
-  text: "Text",
-  type: 'h6'
+  type: "h6",
 };
 
-
-export const Body1= Template.bind({});
+export const Body1 = Template.bind({});
 Body1.args = {
-  text: "Text",
-  type: 'body1'
+  type: "body1",
 };
 
-export const Body2= Template.bind({});
+export const Body2 = Template.bind({});
 Body2.args = {
-  text: "Text",
-  type: 'body2'
+  type: "body2",
 };
