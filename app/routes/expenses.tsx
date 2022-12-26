@@ -7,10 +7,8 @@ import {
 import { requireAuth } from "~/server/auth.server";
 import {
   Outlet,
-  useLoaderData,
   useNavigate,
 } from "@remix-run/react";
-import { useState } from "react";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await requireAuth(request);
@@ -26,18 +24,16 @@ const ContentContainer = styled.div`
   padding-right: 2em;
   padding-top: 5em;
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 700px) {
     padding-left: 0.25em;
     padding-right: 0.25em;
-    padding-top: 0.5em;
+    padding-top: 10em;
   }
 `;
 
 export default function ExpenseView() {
-  const [addModalOpen, setAddModalOpen] = useState(true);
   const navigate = useNavigate();
 
-  const data = useLoaderData();
   return (
     <>
       <Outlet />
