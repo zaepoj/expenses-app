@@ -13,7 +13,7 @@ type TypographyVariant =
 
 type TypographyProps = {
   type: TypographyVariant;
-  text: string;
+  children: any;
 };
 
 const BaseTypography = styled.p``;
@@ -34,42 +34,42 @@ const Typography = (props: TypographyProps) => {
     <>
       {props.type === "h1" && (
         <H1>
-          <Balancer>{props.text}</Balancer>
+          <Balancer>{props.children}</Balancer>
         </H1>
       )}
       {props.type === "h2" && (
         <H2>
-          <Balancer>{props.text}</Balancer>
+          <Balancer>{props.children}</Balancer>
         </H2>
       )}
       {props.type === "h3" && (
         <H3>
-          <Balancer>{props.text}</Balancer>
+          <Balancer>{props.children}</Balancer>
         </H3>
       )}
       {props.type === "h4" && (
         <H4>
-          <Balancer>{props.text}</Balancer>
+          <Balancer>{props.children}</Balancer>
         </H4>
       )}
       {props.type === "h5" && (
         <Subheading1>
-          <Balancer>{props.text}</Balancer>
+          <Balancer>{props.children}</Balancer>
         </Subheading1>
       )}
       {props.type === "h6" && (
         <Subheading2>
-          <Balancer>{props.text}</Balancer>
+          <Balancer>{props.children}</Balancer>
         </Subheading2>
       )}
       {props.type === "body1" && (
         <Body1>
-          <Balancer>{props.text}</Balancer>
+          <Balancer>{props.children}</Balancer>
         </Body1>
       )}
       {props.type === "body2" && (
         <Body2>
-          <Balancer>{props.text}</Balancer>
+          <Balancer>{props.children}</Balancer>
         </Body2>
       )}
     </>

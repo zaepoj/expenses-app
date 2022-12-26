@@ -1,12 +1,16 @@
 import styled from "styled-components";
-import { z } from "zod";
-import TextField from "~/components/TextField";
 import Button from "~/components/Button";
-import { ActionFunction, json, LoaderFunction, redirect } from "@remix-run/node";
-import { requireAuth, signIn } from "~/server/auth.server";
-import { commitSession, getSession } from "~/sessions";
-import { Link, useActionData, useLoaderData } from "@remix-run/react";
-
+import {
+  json,
+  LoaderFunction,
+} from "@remix-run/node";
+import { requireAuth } from "~/server/auth.server";
+import {
+  Outlet,
+  useLoaderData,
+  useNavigate,
+} from "@remix-run/react";
+import { useState } from "react";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await requireAuth(request);
@@ -14,7 +18,6 @@ export const loader: LoaderFunction = async ({ request }) => {
     user,
   });
 };
-
 
 const ContentContainer = styled.div`
   height: 100%;
@@ -30,11 +33,17 @@ const ContentContainer = styled.div`
   }
 `;
 
-
 export default function ExpenseView() {
+  const [addModalOpen, setAddModalOpen] = useState(true);
+  const navigate = useNavigate();
+
   const data = useLoaderData();
   return (
-		<ContentContainer>test</ContentContainer>
+    <>
+      <Outlet />
+      <ContentContainer>
+        <Button onClick={() => navigate("/expenses/add")}>Add</Button>
+      </ContentContainer>
+    </>
   );
-
 }
