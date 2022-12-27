@@ -16,6 +16,7 @@ export default {
 
 const Template: ComponentStory<typeof TextField> = (args) => (
   <TextField
+    name="test"
     type={args.type}
     label={args.label}
     placeholder={args.placeholder}
