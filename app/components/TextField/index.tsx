@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useState } from "react";
 
 type TextFieldProps = {
-  type: "text" | "password";
+  type: "text" | "password" | "number";
   placeholder?: string;
   label?: string;
   onChange?: () => void;
@@ -10,16 +10,17 @@ type TextFieldProps = {
   showPasswordCheckbox?: boolean;
   defaultValue?: string;
   errorHelper?: string;
+  step?: any;
+  required?: boolean
 };
 
 const StyledTextField = styled.input`
-  background-color: ${props => props.theme.ghostWhite};
-  border: 1px solid ${props => props.theme.primaryLight};
-  border-radius: 4px;
+  background-color: ${(props) => props.theme.ghostWhite};
+  border: 1px solid ${(props) => props.theme.primaryLight};
+  border-radius: 0.125rem;
   height: 40px;
   padding-left: 0.7em;
   font-size: 1em;
-  margin-bottom: 0.5em;
 `;
 
 const FlexBox = styled.div`
@@ -32,11 +33,13 @@ const StyledLabel = styled.label`
   color: ${(props) => props.theme.fadedTeal};
   font-size: 0.9em;
   padding-bottom: 0;
+  line-height: 2;
 `;
 
 const ErrorLabel = styled.label`
   color: #ef7171;
-	height: 1em;
+  height: 1em;
+  margin-bottom: 1em;
 `;
 
 const TextField = (props: TextFieldProps) => {
@@ -50,6 +53,8 @@ const TextField = (props: TextFieldProps) => {
         type={props.type === "password" && showPassword ? "text" : props.type}
         placeholder={props.placeholder}
         defaultValue={props.defaultValue}
+        step={props.step}
+        required={props.required || false}
       />
       {props.type === "password" && props.showPasswordCheckbox && (
         <div>
