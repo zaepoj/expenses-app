@@ -17,11 +17,11 @@ const CardContainer = styled.div<{ fullWidth: boolean }>`
   background-color: ${(props) => props.theme.ghostWhite};
   display: flex;
   color: ${(props) => props.theme.primaryDark};
-  border-radius: 0.8em;
+  border-radius: 0.5em;
   padding: 1em;
   flex-direction: column;
   margin-top: 1em;
-  box-shadow: rgb(0 0 0 / 20%) 0px 4px 10px;
+  box-shadow: rgb(0 0 0 / 10%) 0px 4px 10px;
 
   @media only screen and (max-width: 820px) {
     width: 100%;

@@ -20,7 +20,7 @@ const Button = styled.button<
     props.disabled
       ? "#cdc9c8"
       : props.secondary
-      ? props.theme.purple1
+      ? props.theme.salmon
       : props.tertiary
       ? "transparent"
       : props.theme.primary};

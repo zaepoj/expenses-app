@@ -2,6 +2,7 @@ import styled from "styled-components";
 import ReactModal from "react-modal";
 import Typography from "../Typography";
 import { AiOutlineClose } from "react-icons/ai";
+import { useEffect, useLayoutEffect } from "react";
 
 type ModalProps = {
   open: boolean;
@@ -28,6 +29,7 @@ const StyledDialog = styled(ReactModal)`
     left: 0;
     margin-left: 0;
     height: 100%;
+    min-width: 100%;
   }
 `;
 
@@ -58,6 +60,14 @@ const ModalContent = styled.div`
 StyledDialog.defaultStyles.overlay!.backgroundColor = "rgba(0, 0, 0, 0.4)";
 
 const Modal = ({ open, onClose, title, children }: ModalProps) => {
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "initial";
+    };
+  }, []);
+
+  StyledDialog.setAppElement("body");
   return (
     <StyledDialog isOpen={open} onRequestClose={onClose}>
       <ModalHeader>
