@@ -1,8 +1,4 @@
-import {
-  ExpenseBillingType,
-  ExpenseType,
-  Prisma,
-} from "@prisma/client";
+import { ExpenseBillingType, ExpenseType, Prisma } from "@prisma/client";
 import { ActionFunction, redirect } from "@remix-run/node";
 import {
   Form,
@@ -10,6 +6,7 @@ import {
   useNavigate,
   useTransition,
 } from "@remix-run/react";
+import { Controller, useForm } from "react-hook-form";
 import styled from "styled-components";
 import { z } from "zod";
 import Button from "~/components/Button";
@@ -18,6 +15,7 @@ import Select from "~/components/Select";
 import TextField from "~/components/TextField";
 import { requireAuth } from "~/server/auth.server";
 import { createExpense } from "~/server/models/expense.server";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const ActionContainer = styled.div`
   padding-top: 2em;
@@ -105,6 +103,14 @@ const ExpensesEditModal = () => {
   const isSubmitting = !!transition.submission;
   const navigate = useNavigate();
   const onClose = () => navigate("/expenses");
+  const {
+    control,
+    formState: { errors },
+    register,
+  } = useForm({
+    resolver: zodResolver(createExpenseValidationSchema),
+    mode: "onTouched",
+  });
 
   return (
     <Modal title={"New expense"} open={true} onClose={onClose}>
@@ -113,33 +119,54 @@ const ExpensesEditModal = () => {
           name="name"
           type="text"
           label="Name"
-          errorHelper={actionData?.errors?.name}
-          required
+          errorHelper={errors?.name?.message || actionData?.errors?.name}
+          register={register}
         />
         <TextField
           name="price"
           type="number"
           label="Price"
-          errorHelper={actionData?.errors?.price}
+          errorHelper={errors?.price?.message || actionData?.errors?.price}
           step="0.01"
-          required
+          register={register}
         />
-        <Select
-          required
-        closeOnSelect={true}
+
+        <Controller
+          control={control}
           name="type"
-          label="type"
-          options={ExpenseTypeOptions}
-          errorHelper={actionData?.errors?.type}
+          render={({ field: { onChange, ref, onBlur, name } }) => (
+            <Select
+              onChange={(e: { value: string }) => onChange(e.value)}
+              ref={ref}
+              onBlur={onBlur}
+              name={name}
+              closeOnSelect={true}
+              label="type"
+              options={ExpenseTypeOptions}
+              errorHelper={errors?.type?.message || actionData?.errors?.type}
+            />
+          )}
         />
-        <Select
-          required
-          closeOnSelect={true}
+
+        <Controller
+          control={control}
           name="billingType"
-          label="billing type"
-          options={ExpenseBillingTypeOptions}
-          errorHelper={actionData?.errors?.billingType}
+          render={({ field: { onChange, ref, onBlur, name } }) => (
+            <Select
+              onChange={(e: { value: string }) => onChange(e.value)}
+              ref={ref}
+              onBlur={onBlur}
+              name={name}
+              closeOnSelect={true}
+              label="billing type"
+              options={ExpenseBillingTypeOptions}
+              errorHelper={
+                errors.billingType?.message || actionData?.errors?.type
+              }
+            />
+          )}
         />
+
         <ActionContainer>
           <Button onClick={onClose} secondary>
             Cancel
