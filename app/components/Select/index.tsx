@@ -10,7 +10,8 @@ type SelectProps = {
   label?: string;
   name: string;
   errorHelper?: string;
-	required?: boolean;
+	onChange?: any;
+	onBlur?: any;
 };
 
 type OptionType = { [x: string]: any };
@@ -37,37 +38,42 @@ const Container = styled.div`
   width: 100%;
 `;
 
-const Select = ({
-  options,
-  closeOnSelect = false,
-  isMulti = false,
-  label,
-  name,
-  errorHelper,
-	required = false
-}: SelectProps) => {
-  return (
-    <Container>
-      {label ? <StyledLabel>{label}</StyledLabel> : null}
-      <StyledSelect
-        styles={{
-          control: (baseStyles, state) => ({
-            ...baseStyles,
-            borderColor: "#5e5168",
-            minHeight: "40px",
-            borderRadius: "4px",
-            padding: ".3em",
-          }),
-        }}
-				required={required}
-        name={name}
-        options={options}
-        isMulti={isMulti}
-        closeMenuOnSelect={closeOnSelect}
-      />
-      <ErrorLabel>{errorHelper}</ErrorLabel>
-    </Container>
-  );
-};
+const Select = React.forwardRef(
+  ({
+    options,
+    closeOnSelect = false,
+    isMulti = false,
+    label,
+    name,
+    errorHelper,
+		onBlur,
+		onChange
+  }: SelectProps, ref) => {
+    return (
+      <Container>
+        {label ? <StyledLabel>{label}</StyledLabel> : null}
+        <ReactSelect
+					ref={ref as any}
+          styles={{
+            control: (baseStyles, state) => ({
+              ...baseStyles,
+              borderColor: "#5e5168",
+              minHeight: "40px",
+              borderRadius: "4px",
+              padding: ".3em",
+            }),
+          }}
+          name={name}
+          options={options}
+          isMulti={isMulti}
+					onBlur={onBlur}
+					onChange={onChange}
+          closeMenuOnSelect={closeOnSelect}
+        />
+        <ErrorLabel>{errorHelper}</ErrorLabel>
+      </Container>
+    );
+  }
+);
 
 export default Select;

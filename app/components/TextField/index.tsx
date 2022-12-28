@@ -11,7 +11,8 @@ type TextFieldProps = {
   defaultValue?: string;
   errorHelper?: string;
   step?: any;
-  required?: boolean
+  required?: boolean;
+  register?: any;
 };
 
 const StyledTextField = styled.input`
@@ -55,6 +56,7 @@ const TextField = (props: TextFieldProps) => {
         defaultValue={props.defaultValue}
         step={props.step}
         required={props.required || false}
+        {...(props.register ? props.register(props.name) : {})}
       />
       {props.type === "password" && props.showPasswordCheckbox && (
         <div>
