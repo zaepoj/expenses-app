@@ -6,10 +6,6 @@ type CreateExpenseType = Pick<
   "name" | "billingDay" | "price" | "userId" | "billingType" | "type"
 >;
 const createExpense = async (expense: CreateExpenseType) => {
-	console.log("input", expense)
-
-
-
   return prisma.expense.create({ data: expense });
 };
 
