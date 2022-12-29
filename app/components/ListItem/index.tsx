@@ -9,20 +9,29 @@ type ListItemProps = {
   unit?: string;
 };
 
+const Unit = styled.div`
+  padding-left: 8em;
+  text-align: right;
+  width: 100%;
+`;
+
 const Container = styled.div`
   display: flex;
   align-items: center;
-  gap: 2em;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  :hover {
+    background-color: ${(props) => props.theme.primaryLight};
+    color: ${(props) => props.theme.ghostWhite};
+  }
 `;
 
 const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding-left: 2em;
-`;
-
-const Unit = styled.div`
-  padding-left: 8em;
+  min-width: 100px;
+  width: 100%;
 `;
 
 const ListItem = ({ text, info, icon, unit }: ListItemProps) => {
@@ -31,10 +40,10 @@ const ListItem = ({ text, info, icon, unit }: ListItemProps) => {
     <Container>
       <h1>{Icon && <Icon />}</h1>
       <TextContainer>
-        <Typography type="h2">{text}</Typography>
-        {info && <Typography type="body1">{info}</Typography>}
+        <h2>{text}</h2>
+        {info && <p>{info}</p>}
       </TextContainer>
-      <Unit>{unit}</Unit>
+      <Unit>{`${unit} € `}</Unit>
     </Container>
   );
 };

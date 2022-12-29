@@ -172,7 +172,7 @@ const ExpensesEditModal = () => {
             Cancel
           </Button>
           <Button disabled={isSubmitting} type="submit">
-            Save
+            {isSubmitting ? "Saving.." : "Save"}
           </Button>
         </ActionContainer>
       </Form>

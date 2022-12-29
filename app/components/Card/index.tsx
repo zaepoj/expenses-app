@@ -70,11 +70,7 @@ export default function Card({
         </CardInfoLabel>
       </CardTopContainer>
       <CardContentContainer>{children}</CardContentContainer>
-      {clickable && (
-        <ViewButton secondary onClick={onClick}>
-          View
-        </ViewButton>
-      )}
+      {clickable && <ViewButton onClick={onClick}>View</ViewButton>}
     </CardContainer>
   );
 }

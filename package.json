@@ -7,7 +7,7 @@
     "start": "remix-serve build",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "pretty": "npx prettier --write '**/*.ts'"
+    "pretty": "npx prettier --write '**/*.{tsx,ts}'"
   },
   "dependencies": {
     "@hookform/resolvers": "^2.9.10",
