@@ -10,8 +10,8 @@ type SelectProps = {
   label?: string;
   name: string;
   errorHelper?: string;
-	onChange?: any;
-	onBlur?: any;
+  onChange?: any;
+  onBlur?: any;
 };
 
 type OptionType = { [x: string]: any };
@@ -39,21 +39,24 @@ const Container = styled.div`
 `;
 
 const Select = React.forwardRef(
-  ({
-    options,
-    closeOnSelect = false,
-    isMulti = false,
-    label,
-    name,
-    errorHelper,
-		onBlur,
-		onChange
-  }: SelectProps, ref) => {
+  (
+    {
+      options,
+      closeOnSelect = false,
+      isMulti = false,
+      label,
+      name,
+      errorHelper,
+      onBlur,
+      onChange,
+    }: SelectProps,
+    ref
+  ) => {
     return (
       <Container>
         {label ? <StyledLabel>{label}</StyledLabel> : null}
         <ReactSelect
-					ref={ref as any}
+          ref={ref as any}
           styles={{
             control: (baseStyles, state) => ({
               ...baseStyles,
@@ -66,8 +69,8 @@ const Select = React.forwardRef(
           name={name}
           options={options}
           isMulti={isMulti}
-					onBlur={onBlur}
-					onChange={onChange}
+          onBlur={onBlur}
+          onChange={onChange}
           closeMenuOnSelect={closeOnSelect}
         />
         <ErrorLabel>{errorHelper}</ErrorLabel>

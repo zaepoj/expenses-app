@@ -1,14 +1,8 @@
 import styled from "styled-components";
 import Button from "~/components/Button";
-import {
-  json,
-  LoaderFunction,
-} from "@remix-run/node";
+import { json, LoaderFunction } from "@remix-run/node";
 import { requireAuth } from "~/server/auth.server";
-import {
-  Outlet,
-  useNavigate,
-} from "@remix-run/react";
+import { Outlet, useNavigate } from "@remix-run/react";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await requireAuth(request);

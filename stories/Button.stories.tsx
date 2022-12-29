@@ -38,7 +38,7 @@ export const Tertiary = Template.bind({});
 Tertiary.args = {
   tertiary: true,
   label: "Tertiary",
-  uppercase: true
+  uppercase: true,
 };
 
 export const Round = Template.bind({});
@@ -47,4 +47,3 @@ Round.args = {
   label: "Round",
   round: true,
 };
-

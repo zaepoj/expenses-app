@@ -65,7 +65,11 @@ export default function App() {
         <Meta />
         <Links />
         <link href={shared} rel="stylesheet" />
-        <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css' />
+        <link
+          href="http://fonts.googleapis.com/css?family=Lato:400,700"
+          rel="stylesheet"
+          type="text/css"
+        />
         {typeof document === "undefined" ? "__STYLES__" : null}
       </head>
       <body>

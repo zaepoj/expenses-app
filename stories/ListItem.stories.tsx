@@ -5,7 +5,6 @@ import { ThemeProvider } from "styled-components";
 import { theme } from "../app/theme";
 import { FcHome } from "react-icons/fc";
 
-
 addDecorator((story) => <ThemeProvider theme={theme}>{story()}</ThemeProvider>);
 
 export default {
@@ -23,7 +22,7 @@ const Template: ComponentStory<typeof ListItem> = (args) => (
 export const Normal = Template.bind({});
 Normal.args = {
   text: "Rent",
-	info: "living costs",
-	icon:  FcHome,
-	unit: '650 $'
+  info: "living costs",
+  icon: FcHome,
+  unit: "650 $",
 };

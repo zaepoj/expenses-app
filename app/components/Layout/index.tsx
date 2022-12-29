@@ -9,7 +9,7 @@ const Container = styled.div`
   display: flex;
   padding-top: 5em;
   padding-bottom: 5em;
-  background-color: ${props => props.theme.primary};
+  background-color: ${(props) => props.theme.primary};
   height: 100%;
   max-width: 250px;
   box-shadow: rgb(0 0 0 / 10%) 5px 10px 44px;
@@ -68,7 +68,7 @@ const StyledNavLink = styled(NavLink)<{ $iscurrentpath?: boolean }>`
   transition-property: color;
   transition-duration: 0.15s;
   :hover {
-    color: ${(props) => props.theme.fadedTeal}
+    color: ${(props) => props.theme.fadedTeal};
   }
 `;
 
