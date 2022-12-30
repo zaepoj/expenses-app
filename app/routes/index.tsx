@@ -51,10 +51,7 @@ export default function Index() {
           title="Expenses"
           infoLabel="monthly"
         >
-          <p>Test</p>
-        </Card>
-        <Card clickable title="Savings" infoLabel="info">
-          <p>Test</p>
+          <p></p>
         </Card>
       </CardContainer>
     </ContentContainer>

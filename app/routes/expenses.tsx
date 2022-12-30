@@ -18,11 +18,15 @@ import { RiMovie2Line } from "react-icons/ri";
 import {
   MdOutlineLocalGroceryStore,
   MdAirplanemodeActive,
+  MdEdit,
+  MdOutlineModeEdit,
+  MdDelete,
 } from "react-icons/md";
 import { HiCamera } from "react-icons/hi";
 import { ImPriceTag } from "react-icons/im";
 import Typography from "~/components/Typography";
 import { useMemo } from "react";
+import IconButton from "~/components/IconButton";
 
 type LoaderData = {
   expenses: Awaited<ReturnType<typeof findExpensesByUserId>>;
@@ -92,7 +96,7 @@ export default function ExpenseView() {
         <div style={{ marginTop: "2em" }}>
           {expenses?.map((expense) => {
             return (
-              <div key={expense.id}>
+              <div style={{ width: "100%" }} key={expense.id}>
                 <ListItem
                   text={expense.name}
                   info={expense.type}
@@ -102,12 +106,26 @@ export default function ExpenseView() {
                       : `${expense.price}`
                   }
                   icon={iconByExpenseType[expense.type]}
+                  actions={
+                    <>
+                      <IconButton
+                        icon={MdOutlineModeEdit}
+                        tooltip="Edit"
+                        onClick={() => console.log("Edit")}
+                      />
+                      <IconButton
+                        icon={MdDelete}
+                        tooltip="Delete"
+                        onClick={() => console.log("Delete")}
+                      />
+                    </>
+                  }
                 />
               </div>
             );
           })}
         </div>
-        <div style={{ marginTop: "3em" }}>
+        <div style={{ marginTop: "3em", paddingBottom: "5em" }}>
           <Typography type="h2">{`Monthly total: ${totalSumOfExpenses} €`}</Typography>
         </div>
       </ContentContainer>
