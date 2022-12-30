@@ -13,5 +13,6 @@ export const theme = {
   fadedPrimaryText: "#5865f2b5",
   primary: "#34293d",
   primaryLight: "#5e5168",
+  primaryLightFaded: "#443b4c",
   primaryDark: "#0f0017",
 };
