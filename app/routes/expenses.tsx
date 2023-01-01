@@ -1,9 +1,19 @@
 import styled from "styled-components";
 import Button from "~/components/Button";
-import { json, LoaderArgs, LoaderFunction } from "@remix-run/node";
+import {
+  json,
+  LoaderArgs,
+  LoaderFunction,
+} from "@remix-run/node";
 import { requireAuth } from "~/server/auth.server";
-import { Outlet, useLoaderData, useNavigate } from "@remix-run/react";
-import { findExpensesByUserId } from "~/server/models/expense.server";
+import {
+  Outlet,
+  useLoaderData,
+  useNavigate,
+} from "@remix-run/react";
+import {
+  findExpensesByUserId,
+} from "~/server/models/expense.server";
 import ListItem from "~/components/ListItem";
 import { Expense, ExpenseBillingType, ExpenseType } from "@prisma/client";
 import {
@@ -18,7 +28,6 @@ import { RiMovie2Line } from "react-icons/ri";
 import {
   MdOutlineLocalGroceryStore,
   MdAirplanemodeActive,
-  MdEdit,
   MdOutlineModeEdit,
   MdDelete,
 } from "react-icons/md";
@@ -116,7 +125,9 @@ export default function ExpenseView() {
                       <IconButton
                         icon={MdDelete}
                         tooltip="Delete"
-                        onClick={() => console.log("Delete")}
+                        onClick={
+                          () => navigate(`/expenses/${expense.id}/delete`)
+                        }
                       />
                     </>
                   }

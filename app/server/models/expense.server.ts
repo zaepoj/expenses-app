@@ -21,4 +21,28 @@ const findExpensesByUserId = async (userId: string) => {
   });
 };
 
-export { createExpense, findExpensesByUserId };
+const findExpenseById = async (id: string, userId: string) => {
+  const expense = await prisma.expense.findUnique({ where: { id } });
+  if (expense?.userId !== userId) throw new Error("Access denied");
+  return {
+    ...expense,
+    price: Number(expense.price),
+    updatedAt: expense.updatedAt.toJSON(),
+    createdAt: expense.createdAt.toJSON(),
+  };
+};
+
+const deleteExpenseById = async (expenseId: string, userId: string) => {
+  const expense = await prisma.expense.findUnique({ where: { id: expenseId } });
+  if (!expense) throw new Error("Expense not found");
+  if (expense.userId !== userId) throw new Error("Access denied");
+
+  return await prisma.expense.delete({ where: { id: expense.id } });
+};
+
+export {
+  createExpense,
+  findExpensesByUserId,
+  findExpenseById,
+  deleteExpenseById,
+};
