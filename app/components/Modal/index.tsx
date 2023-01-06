@@ -2,7 +2,7 @@ import styled from "styled-components";
 import ReactModal from "react-modal";
 import Typography from "../Typography";
 import { AiOutlineClose } from "react-icons/ai";
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect } from "react";
 
 type ModalProps = {
   open: boolean;

@@ -5,7 +5,7 @@ import styled from "styled-components";
 type SelectProps = {
   options: OptionsType;
   closeOnSelect?: boolean;
-  defaultValue?: OptionsType;
+  defaultValue?: any;
   isMulti?: boolean;
   label?: string;
   name: string;
@@ -49,6 +49,7 @@ const Select = React.forwardRef(
       errorHelper,
       onBlur,
       onChange,
+      defaultValue,
     }: SelectProps,
     ref
   ) => {
@@ -72,6 +73,7 @@ const Select = React.forwardRef(
           onBlur={onBlur}
           onChange={onChange}
           closeMenuOnSelect={closeOnSelect}
+          defaultValue={defaultValue}
         />
         <ErrorLabel>{errorHelper}</ErrorLabel>
       </Container>

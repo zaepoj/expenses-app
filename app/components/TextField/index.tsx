@@ -8,7 +8,7 @@ type TextFieldProps = {
   onChange?: () => void;
   name?: string;
   showPasswordCheckbox?: boolean;
-  defaultValue?: string;
+  defaultValue?: string | number;
   errorHelper?: string;
   step?: any;
   required?: boolean;
@@ -59,7 +59,7 @@ const TextField = (props: TextFieldProps) => {
         {...(props.register ? props.register(props.name) : {})}
       />
       {props.type === "password" && props.showPasswordCheckbox && (
-        <div>
+        <div style={{ marginTop: "1em" }}>
           <input
             type="checkbox"
             onClick={() => setShowPassword(!showPassword)}
