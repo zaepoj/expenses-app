@@ -8,7 +8,6 @@ import {
 } from "@remix-run/react";
 import { Controller, useForm } from "react-hook-form";
 import styled from "styled-components";
-import { z } from "zod";
 import Button from "~/components/Button";
 import Modal from "~/components/Modal";
 import Select from "~/components/Select";
@@ -16,6 +15,11 @@ import TextField from "~/components/TextField";
 import { requireAuth } from "~/server/auth.server";
 import { createExpense } from "~/server/models/expense.server";
 import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  ExpenseBillingTypeOptions,
+  ExpenseTypeOptions,
+  expenseValidationSchema,
+} from "~/utils/expense";
 
 const ActionContainer = styled.div`
   padding-top: 2em;
@@ -25,48 +29,12 @@ const ActionContainer = styled.div`
   gap: 2%;
 `;
 
-const ExpenseTypeOptions = [
-  { value: ExpenseType.CLOTHING, label: "Clothing" },
-  { value: ExpenseType.ENTERTAINMENT, label: "Entertainment" },
-  { value: ExpenseType.FOOD, label: "Food" },
-  { value: ExpenseType.HOBBIES, label: "Hobbies" },
-  { value: ExpenseType.HOUSING, label: "Housing" },
-  { value: ExpenseType.INSURANCE, label: "Insurance" },
-  { value: ExpenseType.MEDICAL, label: "Medical" },
-  { value: ExpenseType.TRAVEL, label: "Traveling" },
-  { value: ExpenseType.UTILITIES, label: "Utilities" },
-  { value: ExpenseType.OTHER, label: "Other" },
-];
-const ExpenseBillingTypeOptions = [
-  { value: ExpenseBillingType.MONTHLY, label: "Monthly" },
-  { value: ExpenseBillingType.ANNUAL, label: "Annual" },
-];
-
-const createExpenseValidationSchema = z.object({
-  name: z
-    .string()
-    .min(2, { message: "Name must be atleast 2 characters long" }),
-  price: z.coerce
-    .number()
-    .positive({ message: "Price must be a positive number" }),
-  type: z.nativeEnum(ExpenseType, {
-    errorMap: () => {
-      return { message: "Expense type must be selected" };
-    },
-  }),
-  billingType: z.nativeEnum(ExpenseBillingType, {
-    errorMap: () => {
-      return { message: "Billing type must be selected" };
-    },
-  }),
-});
-
 export const action: ActionFunction = async ({ request }) => {
   let formData = await request.formData();
   const formPayload = Object.fromEntries(formData);
 
   try {
-    createExpenseValidationSchema.parse(formPayload);
+    expenseValidationSchema.parse(formPayload);
     const name = formData.get("name") as string;
     const price = new Prisma.Decimal(formData.get("price") as string);
     const type = formData.get("type") as ExpenseType;
@@ -84,7 +52,6 @@ export const action: ActionFunction = async ({ request }) => {
 
     return redirect("/expenses");
   } catch (e: any) {
-    console.log(e);
     let errors = {};
     if (e.issues) {
       errors = e.issues.reduce((acc: any, curr: any) => {
@@ -97,7 +64,7 @@ export const action: ActionFunction = async ({ request }) => {
   }
 };
 
-const ExpensesEditModal = () => {
+const ExpensesCreateModal = () => {
   const actionData = useActionData();
   const transition = useTransition();
   const isSubmitting = !!transition.submission;
@@ -108,7 +75,7 @@ const ExpensesEditModal = () => {
     formState: { errors },
     register,
   } = useForm({
-    resolver: zodResolver(createExpenseValidationSchema),
+    resolver: zodResolver(expenseValidationSchema),
     mode: "onTouched",
   });
 
@@ -180,4 +147,4 @@ const ExpensesEditModal = () => {
   );
 };
 
-export default ExpensesEditModal;
+export default ExpensesCreateModal;
