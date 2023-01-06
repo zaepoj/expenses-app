@@ -5,8 +5,24 @@ type CreateExpenseType = Pick<
   Expense,
   "name" | "billingDay" | "price" | "userId" | "billingType" | "type"
 >;
+type UpdateExpenseType = Pick<
+  Expense,
+  "id" | "name" | "price" | "billingType" | "type"
+>;
+
 const createExpense = async (expense: CreateExpenseType) => {
   return prisma.expense.create({ data: expense });
+};
+
+const updateExpense = async (expense: UpdateExpenseType, userId: string) => {
+  const expenseResource = await prisma.expense.findUnique({
+    where: { id: expense.id },
+  });
+  if (expenseResource?.userId !== userId) throw new Error("Access denied");
+  return prisma.expense.update({
+    where: { id: expenseResource.id },
+    data: expense,
+  });
 };
 
 const findExpensesByUserId = async (userId: string) => {
@@ -42,6 +58,7 @@ const deleteExpenseById = async (expenseId: string, userId: string) => {
 
 export {
   createExpense,
+  updateExpense,
   findExpensesByUserId,
   findExpenseById,
   deleteExpenseById,
