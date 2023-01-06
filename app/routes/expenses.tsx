@@ -5,7 +5,7 @@ import { requireAuth } from "~/server/auth.server";
 import { Outlet, useLoaderData, useNavigate } from "@remix-run/react";
 import { findExpensesByUserId } from "~/server/models/expense.server";
 import ListItem from "~/components/ListItem";
-import { Expense, ExpenseBillingType, ExpenseType } from "@prisma/client";
+import { ExpenseBillingType, ExpenseType } from "@prisma/client";
 import {
   FaTshirt,
   FaHouseUser,
@@ -81,6 +81,11 @@ export default function ExpenseView() {
     [expenses]
   );
 
+  const sortedExpenses = useMemo(
+    () => expenses.sort((a, b) => a.name.localeCompare(b.name)),
+    [expenses]
+  );
+
   return (
     <>
       <Outlet />
@@ -93,7 +98,7 @@ export default function ExpenseView() {
           <Typography type="h1">Monthly expenses</Typography>
         </div>
         <div style={{ marginTop: "2em" }}>
-          {expenses?.map((expense) => {
+          {sortedExpenses?.map((expense) => {
             return (
               <div style={{ width: "100%" }} key={expense.id}>
                 <ListItem
@@ -110,7 +115,7 @@ export default function ExpenseView() {
                       <IconButton
                         icon={MdOutlineModeEdit}
                         tooltip="Edit"
-                        onClick={() => console.log("Edit")}
+                        onClick={() => navigate(`/expenses/${expense.id}/edit`)}
                       />
                       <IconButton
                         icon={MdDelete}
