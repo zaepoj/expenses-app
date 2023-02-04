@@ -106,8 +106,8 @@ export default function ExpenseView() {
                   info={expense.type}
                   unit={
                     expense.billingType === ExpenseBillingType.ANNUAL
-                      ? `${expense.price / 12}`
-                      : `${expense.price}`
+                      ? `${(expense.price / 12).toFixed(2)}`
+                      : `${expense.price.toFixed(2)}`
                   }
                   icon={iconByExpenseType[expense.type]}
                   actions={
@@ -132,7 +132,9 @@ export default function ExpenseView() {
           })}
         </div>
         <div style={{ marginTop: "3em", paddingBottom: "5em" }}>
-          <Typography type="h2">{`Monthly total: ${totalSumOfExpenses} €`}</Typography>
+          <Typography type="h2">{`Monthly total: ${totalSumOfExpenses.toFixed(
+            2
+          )} €`}</Typography>
         </div>
       </ContentContainer>
     </>
