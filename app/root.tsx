@@ -14,11 +14,10 @@ import shared from "./shared.css";
 import { AiFillHome, AiFillProject } from "react-icons/ai";
 import Layout from "./components/Layout";
 import { requireAuth } from "./server/auth.server";
-import { FaCog } from "react-icons/fa";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  title: "New Remix App",
+  title: "Expenses Tracker",
   viewport: "width=device-width,initial-scale=1",
 });
 
@@ -55,7 +54,6 @@ export const loader: LoaderFunction = async ({ request, context }) => {
 };
 
 export default function App() {
-  // TODO type this
   const data = useLoaderData();
   const isLoginOrSignUpPage = data.isLoginOrSignUpPage;
   const user = data.user;
@@ -81,7 +79,7 @@ export default function App() {
                 navItems={[
                   { to: "/", title: "Dashboard", icon: AiFillHome },
                   { to: "/expenses", title: "Expenses", icon: AiFillProject },
-                  { to: "/settings", title: "Settings", icon: FaCog },
+                  // { to: "/settings", title: "Settings", icon: FaCog },
                 ]}
               />
             )}
