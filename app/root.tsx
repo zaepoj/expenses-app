@@ -14,6 +14,7 @@ import shared from "./shared.css";
 import { AiFillHome, AiFillProject } from "react-icons/ai";
 import Layout from "./components/Layout";
 import { requireAuth } from "./server/auth.server";
+import { cssBundleHref } from "@remix-run/css-bundle";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -52,6 +53,13 @@ export const loader: LoaderFunction = async ({ request, context }) => {
     isLoginOrSignUpPage,
   });
 };
+
+
+export function links() {
+  return [
+    { rel: "stylesheet", href: cssBundleHref },
+  ];
+}
 
 export default function App() {
   const data = useLoaderData();
