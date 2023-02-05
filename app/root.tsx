@@ -15,6 +15,8 @@ import { AiFillHome, AiFillProject } from "react-icons/ai";
 import Layout from "./components/Layout";
 import { requireAuth } from "./server/auth.server";
 import { cssBundleHref } from "@remix-run/css-bundle";
+import LoaderBar from "./components/LoaderBar";
+import { useTransition } from "@remix-run/react";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -54,17 +56,15 @@ export const loader: LoaderFunction = async ({ request, context }) => {
   });
 };
 
-
 export function links() {
-  return [
-    { rel: "stylesheet", href: cssBundleHref },
-  ];
+  return [{ rel: "stylesheet", href: cssBundleHref }];
 }
 
 export default function App() {
   const data = useLoaderData();
   const isLoginOrSignUpPage = data.isLoginOrSignUpPage;
   const user = data.user;
+  const transition = useTransition();
   return (
     <html lang="en">
       <head>
@@ -92,6 +92,12 @@ export default function App() {
               />
             )}
             <OutletContainer isLoginOrSignUpPage={isLoginOrSignUpPage}>
+              <LoaderBar
+                loading={
+                  transition.state === "loading" ||
+                  transition.state === "submitting"
+                }
+              />
               <Outlet />
             </OutletContainer>
           </Container>
