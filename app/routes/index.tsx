@@ -1,10 +1,9 @@
 import { json, LoaderFunction } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, useNavigate } from "@remix-run/react";
 import { requireAuth } from "~/server/auth.server";
 import Typography from "~/components/Typography";
 import styled from "styled-components";
 import Card from "~/components/Card";
-import { useNavigate } from "react-router-dom";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await requireAuth(request);

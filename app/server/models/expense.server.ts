@@ -1,5 +1,6 @@
 import { Expense } from "@prisma/client";
 import { prisma } from "../db.server";
+import { requireAuth } from "../auth.server"
 
 type CreateExpenseType = Pick<
   Expense,
@@ -37,6 +38,11 @@ const findExpensesByUserId = async (userId: string) => {
   });
 };
 
+const getExpenseById = async(request: Request, id: string) => {
+  const user = await requireAuth(request);
+  return findExpenseById(id, user.uid);
+}
+
 const findExpenseById = async (id: string, userId: string) => {
   const expense = await prisma.expense.findUnique({ where: { id } });
   if (expense?.userId !== userId) throw new Error("Access denied");
@@ -60,6 +66,7 @@ export {
   createExpense,
   updateExpense,
   findExpensesByUserId,
-  findExpenseById,
+  getExpenseById,
   deleteExpenseById,
+  findExpenseById
 };

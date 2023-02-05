@@ -1,4 +1,4 @@
-import { getAuth as getServerAuth, UserRecord } from "firebase-admin/auth";
+import { getAuth as getServerAuth } from "firebase-admin/auth";
 import {
   getApps as getServerApps,
   initializeApp as initializeServerApp,

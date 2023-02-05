@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import { NavLink } from "@remix-run/react";
+import { NavLink, useLocation } from "@remix-run/react";
 import type { IconType } from "react-icons";
 import { IoExitOutline } from "react-icons/io5";
-import { useLocation } from "react-router-dom";
 
 const Container = styled.div`
   position: fixed;
