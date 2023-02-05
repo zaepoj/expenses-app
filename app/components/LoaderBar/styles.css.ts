@@ -1,7 +1,6 @@
 import { style, keyframes } from "@vanilla-extract/css";
 
 export const base = style({
-  width: "100vw",
   height: "5px",
   overflow: "hidden",
 });
