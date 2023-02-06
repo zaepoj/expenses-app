@@ -23,6 +23,7 @@ const ActionsContainer = styled.div`
 `;
 
 const Container = styled.div`
+  border-radius: 1.5em;
   display: flex;
   align-items: center;
   padding: 0.5em 1em 0.5em 1em;

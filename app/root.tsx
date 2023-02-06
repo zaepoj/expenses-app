@@ -34,10 +34,10 @@ const Container = styled.div`
 `;
 
 const OutletContainer = styled.div<{ isLoginOrSignUpPage: boolean }>`
-  margin-left: ${(props) => (props.isLoginOrSignUpPage ? "auto" : "250px")};
+  margin-left: ${(props) => (props.isLoginOrSignUpPage ? "auto" : "200px")};
   margin-right: ${(props) => props.isLoginOrSignUpPage && "auto"};
   width: ${(props) => !props.isLoginOrSignUpPage && "100%"};
-  min-width: 300px;
+  width: 100%;
 
   @media only screen and (max-width: 700px) {
     margin: 0;

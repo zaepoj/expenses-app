@@ -4,6 +4,8 @@ export const base = style({
   width: "100vw",
   height: "5px",
   overflow: "hidden",
+  position: 'fixed',
+  left: '0'
 });
 
 export const animation = keyframes({

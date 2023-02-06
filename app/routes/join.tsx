@@ -8,16 +8,18 @@ import { commitSession, getSession } from "~/sessions";
 import { Form, Link, useActionData, useTransition } from "@remix-run/react";
 
 const Container = styled.div`
-  min-width: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  max-width: 400px;
+  padding: 1em;
   margin: auto;
   height: 100%;
-  display: flex;
-  align-items: center;
 `;
 
 const InputContainer = styled.div`
   display: grid;
-  row-gap: 5%;
   align-items: center;
 `;
 
@@ -26,6 +28,7 @@ const HeaderContainer = styled.div`
 `;
 
 const SignUpLink = styled(Link)`
+  margin-top: 1em;
   padding-left: 0.5em;
   color: #afafe6;
   text-decoration: none;
@@ -89,6 +92,7 @@ export const action: ActionFunction = async ({ request }) => {
       },
     });
   } catch (e: any) {
+    console.log(e);
     let errors = {} as ErrorActionResponse;
     if (e.issues) {
       errors = e.issues.reduce((acc: any, curr: any) => {
@@ -159,7 +163,7 @@ export default function Join() {
           <Button disabled={isSubmitting} type="submit">
             {isSubmitting ? "Loading.." : "Sign up"}
           </Button>
-          <div>
+          <div style={{ marginTop: "1em" }}>
             Already have an account?
             <SignUpLink to="/login">Sign in</SignUpLink>
           </div>
@@ -168,3 +172,37 @@ export default function Join() {
     </Container>
   );
 }
+/*
+
+
+    <Container>
+      <Form style={{ width: "100%", maxWidth: "350px" }} method="post">
+        <InputContainer>
+          <TextField type="text" placeholder="email" name="email" />
+          <TextField
+            type="password"
+            placeholder="password"
+            name="password"
+            showPasswordCheckbox={true}
+            errorHelper={actionData?.errorMessage}
+          />
+          <div style={{ marginTop: "1em", width: "100%" }}>
+            <Button fullWidth disabled={isSubmitting} type="submit">
+              {isSubmitting ? "Signing in.." : "Sign in"}
+            </Button>
+            <div style={{ marginTop: "1em" }}>
+              Don't have an account?
+              <SignUpLink to="/join">Sign up</SignUpLink>
+            </div>
+          </div>
+        </InputContainer>
+      </Form>
+    </Container>
+
+
+
+
+
+
+
+*/

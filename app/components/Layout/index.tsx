@@ -11,7 +11,7 @@ const Container = styled.div`
   padding-bottom: 5em;
   background-color: ${(props) => props.theme.primary};
   height: 100%;
-  max-width: 250px;
+  max-width: 100px;
   box-shadow: rgb(0 0 0 / 10%) 5px 10px 44px;
 
   @media only screen and (max-width: 700px) {
@@ -49,12 +49,17 @@ const StyledUl = styled.ul`
 `;
 
 const StyledListItem = styled.li`
+  width: 50px;
+  height: 50px;
   list-style-type: none;
   padding-bottom: 1.5em;
   padding-top: 1.5em;
   display: block;
   font-weight: 500;
   text-align: center;
+  margin: auto;
+  display: flex;
+  justify-content: center;
 `;
 
 const StyledNavLink = styled(NavLink)<{ $iscurrentpath?: boolean }>`
@@ -69,6 +74,32 @@ const StyledNavLink = styled(NavLink)<{ $iscurrentpath?: boolean }>`
   transition-duration: 0.15s;
   :hover {
     color: ${(props) => props.theme.fadedTeal};
+  }
+`;
+
+const TooltipText = styled.label`
+  visibility: hidden;
+  position: absolute;
+  margin-left: -1.5em;
+  margin-top: 1.5em;
+  z-index: 999;
+  opacity: 0;
+  transition: opacity 0.5s;
+  background: black;
+  color: ${(props) => props.theme.ghostWhite};
+  background: ${(props) => props.theme.primaryDark};
+  padding: 0.3em;
+  border-radius: 1em;
+`;
+
+const IconContainer = styled.div`
+  padding: 0.75em;
+  background: #1d1228;
+  border-radius: 0.5em;
+  box-shadow: -15px -15px 69px #180f21, 15px 15px 69px #22152f;
+  :hover ${TooltipText} {
+    visibility: visible;
+    opacity: 1;
   }
 `;
 
@@ -103,14 +134,19 @@ const Layout = (props: LayoutProps) => {
                   to={item.to}
                 >
                   {" "}
-                  {Icon && <Icon />} {item.title}
+                  <IconContainer>
+                    {Icon && <Icon />} <TooltipText>{item.title}</TooltipText>
+                  </IconContainer>
                 </StyledNavLink>
               </StyledListItem>
             );
           })}
           <StyledListItem>
             <StyledNavLink to={"/logout"}>
-              <IoExitOutline /> Logout
+              <IconContainer>
+                <IoExitOutline />
+                <TooltipText>Logout</TooltipText>
+              </IconContainer>
             </StyledNavLink>
           </StyledListItem>
         </StyledUl>
