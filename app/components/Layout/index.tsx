@@ -81,7 +81,7 @@ const TooltipText = styled.label`
   visibility: hidden;
   position: absolute;
   margin-left: -1.5em;
-  margin-top: 1.5em;
+  margin-top: 2.5em;
   z-index: 999;
   opacity: 0;
   transition: opacity 0.5s;
@@ -90,6 +90,7 @@ const TooltipText = styled.label`
   background: ${(props) => props.theme.primaryDark};
   padding: 0.3em;
   border-radius: 1em;
+  font-size: .7em;
 `;
 
 const IconContainer = styled.div`
