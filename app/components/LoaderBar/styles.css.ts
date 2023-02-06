@@ -3,8 +3,6 @@ import { style, keyframes } from "@vanilla-extract/css";
 export const base = style({
   height: "5px",
   overflow: "hidden",
-  position: 'fixed',
-  left: '0'
 });
 
 export const animation = keyframes({

@@ -34,7 +34,7 @@ const Container = styled.div`
 `;
 
 const OutletContainer = styled.div<{ isLoginOrSignUpPage: boolean }>`
-  margin-left: ${(props) => (props.isLoginOrSignUpPage ? "auto" : "200px")};
+  margin-left: ${(props) => (props.isLoginOrSignUpPage ? "auto" : "100px")};
   margin-right: ${(props) => props.isLoginOrSignUpPage && "auto"};
   width: ${(props) => !props.isLoginOrSignUpPage && "100%"};
   width: 100%;

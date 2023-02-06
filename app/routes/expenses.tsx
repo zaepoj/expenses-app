@@ -43,6 +43,7 @@ const ContentContainer = styled.div`
   height: 100%;
   flex: 1;
   padding: 2em 2em 5em 2em;
+  margin-left: 5em;
 
   @media only screen and (max-width: 700px) {
     padding-left: 0.25em;

@@ -27,6 +27,7 @@ const ContentContainer = styled.div`
   padding-left: 2em;
   padding-right: 2em;
   padding-top: 5em;
+  margin-left: 5em;
 
   @media only screen and (max-width: 700px) {
     padding-left: 0.25em;
