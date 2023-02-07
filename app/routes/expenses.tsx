@@ -190,7 +190,7 @@ export default function ExpenseView() {
 
         <div style={{ marginTop: "5em", height: "500px" }}>
           <ResponsivePie
-            margin={{ top: 20, right: 80, bottom: 80, left: 80 }}
+            margin={{ top: 80, right: 80, bottom: 80, left: 80 }}
             motionConfig="wobbly"
             transitionMode="pushIn"
             activeOuterRadiusOffset={15}
