@@ -5,11 +5,15 @@ import Typography from "~/components/Typography";
 import styled from "styled-components";
 import Card from "~/components/Card";
 import { useNavigate } from "react-router-dom";
+import { getMonthlyTotalExpensesForUser } from "~/server/models/expense.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await requireAuth(request);
+  const monthlyTotalExpenses = await getMonthlyTotalExpensesForUser(user.uid);
+
   return json({
     user,
+    monthlyTotalExpenses,
   });
 };
 
@@ -52,7 +56,9 @@ export default function Index() {
           title="Expenses"
           infoLabel="monthly"
         >
-          <p></p>
+          <div style={{ paddingTop: "2em" }}>
+            <Typography type="h1">{data?.monthlyTotalExpenses} €</Typography>
+          </div>
         </Card>
       </CardContainer>
     </ContentContainer>

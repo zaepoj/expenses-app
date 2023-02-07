@@ -1,4 +1,4 @@
-import { Expense } from "@prisma/client";
+import { Expense, ExpenseBillingType } from "@prisma/client";
 import { prisma } from "../db.server";
 
 type CreateExpenseType = Pick<
@@ -56,10 +56,33 @@ const deleteExpenseById = async (expenseId: string, userId: string) => {
   return await prisma.expense.delete({ where: { id: expense.id } });
 };
 
+const getMonthlyTotalExpensesForUser = async (userId: string) => {
+  const sumOfTotalExpensesGroupedByBillingType = await prisma.expense.groupBy({
+    by: ["billingType"],
+    where: {
+      userId: userId,
+    },
+    _sum: {
+      price: true,
+    },
+  });
+
+  const totalMonthlyExpenses = sumOfTotalExpensesGroupedByBillingType.reduce(
+    (sum, item) =>
+      (sum +=
+        item.billingType === ExpenseBillingType.ANNUAL
+          ? Number(item._sum.price) / 12
+          : Number(item._sum.price)),
+    0
+  );
+  return totalMonthlyExpenses.toFixed(2);
+};
+
 export {
   createExpense,
   updateExpense,
   findExpensesByUserId,
   findExpenseById,
   deleteExpenseById,
+  getMonthlyTotalExpensesForUser,
 };
