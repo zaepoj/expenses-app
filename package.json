@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^2.9.10",
+    "@nivo/core": "^0.80.0",
+    "@nivo/pie": "^0.80.0",
     "@prisma/client": "^4.5.0",
     "@remix-run/css-bundle": "^1.11.0",
     "@remix-run/node": "1.11.0",
