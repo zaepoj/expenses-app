@@ -1,4 +1,4 @@
-import { Expense, ExpenseBillingType } from "@prisma/client";
+import { type Expense, ExpenseBillingType } from "@prisma/client";
 import { prisma } from "../db.server";
 
 type CreateExpenseType = Pick<

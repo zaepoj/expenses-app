@@ -1,4 +1,4 @@
-import { json, LoaderFunction } from "@remix-run/node";
+import {json, type LoaderFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { requireAuth } from "~/server/auth.server";
 import Typography from "~/components/Typography";

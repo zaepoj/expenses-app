@@ -1,4 +1,4 @@
-import { getAuth as getServerAuth, UserRecord } from "firebase-admin/auth";
+import { getAuth as getServerAuth } from "firebase-admin/auth";
 import {
   getApps as getServerApps,
   initializeApp as initializeServerApp,
@@ -6,9 +6,9 @@ import {
 } from "firebase-admin/app";
 import { signInWithPassword } from "~/firebaseClientSdk";
 import { destroySession, getSession } from "~/sessions";
-import { redirect, Session } from "@remix-run/node";
+import { redirect, type Session } from "@remix-run/node";
 import { getUser, storeUser } from "./db.server";
-import { User } from "@prisma/client";
+import { type User } from "@prisma/client";
 
 if (getServerApps().length === 0) {
   if (process.env.FIREBASE_AUTH) {

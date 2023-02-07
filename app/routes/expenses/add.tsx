@@ -1,5 +1,5 @@
-import { ExpenseBillingType, ExpenseType, Prisma } from "@prisma/client";
-import { ActionFunction, redirect } from "@remix-run/node";
+import { type ExpenseBillingType, type ExpenseType, Prisma } from "@prisma/client";
+import { type ActionFunction, redirect } from "@remix-run/node";
 import {
   Form,
   useActionData,

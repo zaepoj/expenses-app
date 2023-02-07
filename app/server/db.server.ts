@@ -1,4 +1,4 @@
-import { PrismaClient, User } from "@prisma/client";
+import { PrismaClient, type User } from "@prisma/client";
 
 declare global {
   var prisma: PrismaClient | undefined;

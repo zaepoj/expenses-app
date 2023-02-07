@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { LoaderFunction, redirect } from "@remix-run/node";
+import { type LoaderFunction, redirect } from "@remix-run/node";
 import { destroySession, getSession } from "~/sessions";
 
 const Container = styled.div`

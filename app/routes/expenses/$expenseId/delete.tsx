@@ -1,8 +1,8 @@
 import {
-  ActionArgs,
-  ActionFunction,
-  LoaderArgs,
-  LoaderFunction,
+  type ActionArgs,
+  type ActionFunction,
+  type LoaderArgs,
+  type LoaderFunction,
   redirect,
 } from "@remix-run/node";
 import {

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { z } from "zod";
 import TextField from "~/components/TextField";
 import Button from "~/components/Button";
-import { ActionFunction, redirect } from "@remix-run/node";
+import { type ActionFunction, redirect } from "@remix-run/node";
 import { signIn } from "~/server/auth.server";
 import { commitSession, getSession } from "~/sessions";
 import { Form, Link, useActionData, useTransition } from "@remix-run/react";

@@ -1,9 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ExpenseBillingType, ExpenseType, Prisma } from "@prisma/client";
 import {
-  ActionFunction,
-  LoaderArgs,
-  LoaderFunction,
+  type ExpenseBillingType,
+  type ExpenseType,
+  Prisma,
+} from "@prisma/client";
+import {
+  type ActionFunction,
+  type LoaderArgs,
+  type LoaderFunction,
   redirect,
 } from "@remix-run/node";
 import {
