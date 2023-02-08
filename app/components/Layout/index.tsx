@@ -90,7 +90,7 @@ const TooltipText = styled.label`
   background: ${(props) => props.theme.primaryDark};
   padding: 0.3em;
   border-radius: 1em;
-  font-size: .7em;
+  font-size: 0.7em;
 `;
 
 const IconContainer = styled.div`
@@ -134,9 +134,15 @@ const Layout = (props: LayoutProps) => {
                   $iscurrentpath={location.pathname === item.to}
                   to={item.to}
                 >
-                  {" "}
                   <IconContainer>
-                    {Icon && <Icon />} <TooltipText>{item.title}</TooltipText>
+                    {Icon && (
+                      <Icon
+                        fill={
+                          location.pathname === item.to ? "#e5bdff" : "white"
+                        }
+                      />
+                    )}{" "}
+                    <TooltipText>{item.title}</TooltipText>
                   </IconContainer>
                 </StyledNavLink>
               </StyledListItem>
