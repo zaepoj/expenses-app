@@ -27,6 +27,8 @@ import Typography from "~/components/Typography";
 import { useCallback, useMemo, useState } from "react";
 import IconButton from "~/components/IconButton";
 import { ResponsivePie } from "@nivo/pie";
+import ToggleButton from "~/components/ToggleButton";
+import Divider from "~/components/Divider";
 
 type LoaderData = {
   expenses: Awaited<ReturnType<typeof findExpensesByUserId>>;
@@ -50,7 +52,7 @@ const ContentContainer = styled.div`
     padding-left: 0.25em;
     padding-right: 0.25em;
     padding-top: 10em;
-    margin-left: .5em;
+    margin-left: 0.5em;
   }
 `;
 
@@ -70,7 +72,7 @@ const iconByExpenseType: { [x: string]: IconType } = {
 export default function ExpenseView() {
   const navigate = useNavigate();
   const { expenses } = useLoaderData() as LoaderData;
-  const [pieChartDataSortBy, setPieChartDataSortBy] = useState("type");
+  const [pieChartSortByType, setPieChartSortByType] = useState(false);
 
   const totalSumOfExpenses = useMemo(
     () =>
@@ -107,17 +109,18 @@ export default function ExpenseView() {
 
   const formatPieChartData = useCallback(
     (expensesMonthly: ExpenseWithMonthlyCost[]) => {
-      switch (pieChartDataSortBy) {
-        case "type": {
+      switch (pieChartSortByType) {
+        case true: {
           const grouped = (expensesMonthly || []).reduce((obj, item) => {
             if (!obj[item.type]) {
               obj[item.type] = {
                 id: item.type,
                 label: item.type,
-                value: Number(item.cost),
+                value: (Number(item.cost) / totalSumOfExpenses) * 100,
               };
             } else {
-              obj[item.type].value += Number(item.cost);
+              obj[item.type].value +=
+                (Number(item.cost) / totalSumOfExpenses) * 100;
             }
 
             return obj;
@@ -129,11 +132,11 @@ export default function ExpenseView() {
           return (expensesMonthly || []).map((expense) => ({
             id: expense.name,
             label: expense.name,
-            value: expense.cost,
+            value: Number(expense.cost),
           }));
       }
     },
-    [pieChartDataSortBy]
+    [pieChartSortByType, totalSumOfExpenses]
   );
 
   const pieChartData = useMemo(
@@ -157,7 +160,7 @@ export default function ExpenseView() {
             2
           )} €`}</Typography>
         </div>
-        <div style={{ marginTop: "2em" }}>
+        <div style={{ marginTop: "2em", marginBottom: "3em" }}>
           {expensesMonthly?.map((expense) => {
             return (
               <div style={{ width: "100%" }} key={expense.id}>
@@ -187,12 +190,17 @@ export default function ExpenseView() {
             );
           })}
         </div>
-
+        <Divider />
         <div style={{ marginTop: "5em", height: "500px" }}>
+          <ToggleButton
+            checked={pieChartSortByType}
+            onChange={(e) => setPieChartSortByType(e.target.checked)}
+            label="By type of expense"
+          />
           <ResponsivePie
             margin={{ top: 80, right: 80, bottom: 80, left: 80 }}
-            motionConfig="wobbly"
-            transitionMode="pushIn"
+            motionConfig="gentle"
+            transitionMode="startAngle"
             activeOuterRadiusOffset={15}
             startAngle={-50}
             innerRadius={0.5}
@@ -201,6 +209,9 @@ export default function ExpenseView() {
             cornerRadius={9}
             colors={{ scheme: "purples" }}
             data={pieChartData}
+            valueFormat={(v) =>
+              pieChartSortByType ? `${v.toFixed(2)}%` : `${v}`
+            }
           />
         </div>
       </ContentContainer>
