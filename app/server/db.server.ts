@@ -1,4 +1,4 @@
-import { PrismaClient, type User } from "@prisma/client";
+import { PrismaClient, type UserMonthlyExpenses, type User } from "@prisma/client";
 
 declare global {
   var prisma: PrismaClient | undefined;
@@ -18,4 +18,19 @@ const getUser = async (uid: string) => {
   return prisma.user.findFirst({ where: { uid } });
 };
 
-export { storeUser, getUser };
+const getAllUsers = async () => {
+  return prisma.user.findMany();
+};
+
+type StoreMonthlyExpenseStatType = Pick<
+  UserMonthlyExpenses,
+  "userId" | "value" | "month"
+>;
+
+const storeMonthlyExpenseStat = async (
+  statEntry: StoreMonthlyExpenseStatType
+) => {
+  return prisma.userMonthlyExpenses.create({ data: statEntry });
+};
+
+export { storeUser, getUser, getAllUsers, storeMonthlyExpenseStat };

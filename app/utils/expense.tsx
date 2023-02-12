@@ -1,4 +1,4 @@
-import { ExpenseBillingType, ExpenseType } from "@prisma/client";
+import { ExpenseBillingType, ExpenseType, Month } from "@prisma/client";
 import { z } from "zod";
 
 export const expenseValidationSchema = z.object({
@@ -36,3 +36,21 @@ export const ExpenseBillingTypeOptions = [
   { value: ExpenseBillingType.MONTHLY, label: "Monthly" },
   { value: ExpenseBillingType.ANNUAL, label: "Annual" },
 ];
+
+export const monthByNumber = (val: number) => {
+  const months = [
+    Month.JANUARY,
+    Month.FEBRUARY,
+    Month.MARCH,
+    Month.APRIL,
+    Month.MAY,
+    Month.JUNE,
+    Month.AUGUST,
+    Month.SEPTEMBER,
+    Month.OCTOBER,
+    Month.NOVEMBER,
+    Month.DECEMBER,
+  ];
+
+  return months[val];
+};
