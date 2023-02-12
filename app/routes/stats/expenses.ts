@@ -16,7 +16,7 @@ export const action = async ({ request }: ActionArgs) => {
     apiKey !== process.env.STATS_API_KEY
   );
   console.log("APIKEY", apiKey, !apiKey);
-  if (!apiKey || apiKey !== process.env.STATS_API_KEY) {
+  if (!apiKey || apiKey != process.env.STATS_API_KEY) {
     return json({ message: "unauthorized" }, 401);
   }
 
