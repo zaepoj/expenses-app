@@ -10,14 +10,7 @@ export const action = async ({ request }: ActionArgs) => {
   if (method !== "POST") return json({ message: "not found" }, 404);
 
   const apiKey = request.headers.get("api_key");
-  console.log(
-    "ENV",
-    process.env.STATS_API_KEY,
-    `${apiKey}` != `${process.env.STATS_API_KEY}`,
-    typeof process.env.STATS_API_KEY
-  );
-  console.log("APIKEY", apiKey, !apiKey, typeof apiKey);
-  if (!apiKey || apiKey != process.env.STATS_API_KEY) {
+  if (!apiKey || apiKey !== process.env.STATS_API_KEY) {
     return json({ message: "unauthorized" }, 401);
   }
 
