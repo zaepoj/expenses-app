@@ -7,11 +7,11 @@ import { monthByNumber } from "~/utils/expense";
 export const action = async ({ request }: ActionArgs) => {
   const method = request.method;
 
-  if (method !== "POST") return json({ message: "not found" }, 404);
+  if (method !== "POST") return json({ message: "METHOD NOT ALLOWED" }, 405);
 
   const apiKey = request.headers.get("api_key");
   if (!apiKey || apiKey !== process.env.STATS_API_KEY) {
-    return json({ message: "unauthorized" }, 401);
+    return json({ message: "UNAUTHORIZED" }, 401);
   }
 
   const users = await getAllUsers();
