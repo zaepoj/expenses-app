@@ -1,0 +1,13 @@
+name: monthly-cron
+on:
+  schedule:
+    - cron: '0 0 15 * *'
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Monthly stats
+        run: |
+          curl --request POST \
+          --url 'https://expenses.henril.com/stats/expenses' \
+          --header 'API_KEY: ${{ secrets.STATS_API_KEY }}'
