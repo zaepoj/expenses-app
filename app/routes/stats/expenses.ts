@@ -13,7 +13,7 @@ export const action = async ({ request }: ActionArgs) => {
   console.log(
     "ENV",
     process.env.STATS_API_KEY,
-    apiKey !== process.env.STATS_API_KEY
+    `${apiKey}` != `${process.env.STATS_API_KEY}`
   );
   console.log("APIKEY", apiKey, !apiKey);
   if (!apiKey || apiKey != process.env.STATS_API_KEY) {
