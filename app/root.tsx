@@ -1,4 +1,4 @@
-import { json, LoaderFunction, MetaFunction } from "@remix-run/node";
+import { json, LinksFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -56,9 +56,14 @@ export const loader: LoaderFunction = async ({ request, context }) => {
   });
 };
 
-export function links() {
-  return [{ rel: "stylesheet", href: cssBundleHref }];
-}
+export const links: LinksFunction = () => {
+  return [
+    ...(cssBundleHref
+      ? [{ rel: "stylesheet", href: cssBundleHref }]
+      : []),
+    // ...
+  ];
+};
 
 export default function App() {
   const data = useLoaderData();
