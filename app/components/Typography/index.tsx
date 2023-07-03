@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Balancer from "react-wrap-balancer";
+// import Balancer from "react-wrap-balancer";
 
 type TypographyVariant =
   | "h1"
@@ -35,42 +35,42 @@ const Typography = (props: TypographyProps) => {
     <>
       {props.type === "h1" && (
         <H1 {...props}>
-          <Balancer>{props.children}</Balancer>
+          {props.children}
         </H1>
       )}
       {props.type === "h2" && (
         <H2 {...props}>
-          <Balancer>{props.children}</Balancer>
+          {props.children}
         </H2>
       )}
       {props.type === "h3" && (
         <H3 {...props}>
-          <Balancer>{props.children}</Balancer>
+          {props.children}
         </H3>
       )}
       {props.type === "h4" && (
         <H4 {...props}>
-          <Balancer>{props.children}</Balancer>
+          {props.children}
         </H4>
       )}
       {props.type === "h5" && (
         <Subheading1 {...props}>
-          <Balancer>{props.children}</Balancer>
+          {props.children}
         </Subheading1>
       )}
       {props.type === "h6" && (
         <Subheading2 {...props}>
-          <Balancer>{props.children}</Balancer>
+          {props.children}
         </Subheading2>
       )}
       {props.type === "body1" && (
         <Body1 {...props}>
-          <Balancer>{props.children}</Balancer>
+          {props.children}
         </Body1>
       )}
       {props.type === "body2" && (
         <Body2 {...props}>
-          <Balancer>{props.children}</Balancer>
+          {props.children}
         </Body2>
       )}
     </>
