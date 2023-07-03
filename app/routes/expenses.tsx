@@ -148,7 +148,11 @@ export default function ExpenseView() {
     <>
       <Outlet />
       <ContentContainer>
-        <Button onClick={() => navigate("/expenses/add")}>
+        <Button
+          onClick={() =>
+            navigate("/expenses/add", { preventScrollReset: true })
+          }
+        >
           <Typography type="h3">Add new</Typography>
         </Button>
 
@@ -174,13 +178,19 @@ export default function ExpenseView() {
                       <IconButton
                         icon={MdOutlineModeEdit}
                         tooltip="Edit"
-                        onClick={() => navigate(`/expenses/${expense.id}/edit`)}
+                        onClick={() =>
+                          navigate(`/expenses/${expense.id}/edit`, {
+                            preventScrollReset: true,
+                          })
+                        }
                       />
                       <IconButton
                         icon={MdDelete}
                         tooltip="Delete"
                         onClick={() =>
-                          navigate(`/expenses/${expense.id}/delete`)
+                          navigate(`/expenses/${expense.id}/delete`, {
+                            preventScrollReset: true,
+                          })
                         }
                       />
                     </>

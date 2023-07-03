@@ -88,14 +88,14 @@ export const action: ActionFunction = async ({
 const ExpenseDelete = () => {
   const navigate = useNavigate();
   const transition = useTransition();
-  const onClose = () => navigate("/expenses");
+  const onClose = () => navigate("/expenses", { preventScrollReset: true });
   const { expense, error } = useLoaderData() as LoaderData;
   const actionData = useActionData() as ActionData;
   const isSubmitting = !!transition.submission;
 
   return (
     <Modal title={"Delete expense"} open={true} onClose={onClose}>
-      <Form method="delete">
+      <Form method="delete" preventScrollReset={true}>
         {actionData?.deleteError ? (
           <ErrorContainer>
             <MdError style={{ fontSize: "2em" }} />

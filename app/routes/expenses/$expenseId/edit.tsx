@@ -103,7 +103,7 @@ const ActionContainer = styled.div`
 
 const ExpenseEdit = () => {
   const navigate = useNavigate();
-  const onClose = () => navigate("/expenses");
+  const onClose = () => navigate("/expenses", { preventScrollReset: true });
   const actionData = useActionData();
   const transition = useTransition();
   const isSubmitting = !!transition.submission;
@@ -119,7 +119,7 @@ const ExpenseEdit = () => {
 
   return (
     <Modal title={"Edit expense"} open={true} onClose={onClose}>
-      <Form method="post">
+      <Form method="post" preventScrollReset={true}>
         <TextField
           defaultValue={expense.name}
           name="name"
