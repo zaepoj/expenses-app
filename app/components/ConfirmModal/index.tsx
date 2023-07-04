@@ -1,7 +1,7 @@
-import styled from "styled-components";
 import Button from "../Button";
 import Modal from "../Modal";
 import Typography from "../Typography";
+import * as styles from "./styles.css";
 
 type ConfirmModalProps = {
   open: boolean;
@@ -11,15 +11,6 @@ type ConfirmModalProps = {
   onPrimary: () => void;
 };
 
-const ActionContainer = styled.div`
-  padding-top: 2em;
-  padding-bottom: 1em;
-  display: flex;
-  justify-content: flex-end;
-  gap: 2%;
-`;
-
-const ConfirmModalContent = styled.div``;
 const ConfirmModal = ({
   open,
   title,
@@ -30,15 +21,15 @@ const ConfirmModal = ({
   return (
     <Modal title={title} onClose={onClose} open={open}>
       <>
-        <ConfirmModalContent>
+        <div>
           <Typography type="body1">{confirmText}</Typography>
-        </ConfirmModalContent>
-        <ActionContainer>
-          <Button onClick={onClose} secondary>
+        </div>
+        <div className={styles.actionContainer}>
+          <Button onClick={onClose} secondary={true}>
             Cancel
           </Button>
           <Button onClick={onPrimary}>Confirm</Button>
-        </ActionContainer>
+        </div>
       </>
     </Modal>
   );

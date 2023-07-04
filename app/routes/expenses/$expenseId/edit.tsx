@@ -18,7 +18,6 @@ import {
   useTransition,
 } from "@remix-run/react";
 import { Controller, useForm } from "react-hook-form";
-import styled from "styled-components";
 import Button from "~/components/Button";
 import Modal from "~/components/Modal";
 import Select from "~/components/Select";
@@ -30,6 +29,7 @@ import {
   ExpenseTypeOptions,
   expenseValidationSchema,
 } from "~/utils/expense";
+import * as styles from "./edit.css";
 
 type LoaderData = {
   expense: Awaited<ReturnType<typeof findExpenseById>>;
@@ -92,14 +92,6 @@ export const loader: LoaderFunction = async ({
     return { error: e.message };
   }
 };
-
-const ActionContainer = styled.div`
-  padding-top: 2em;
-  padding-bottom: 1em;
-  display: flex;
-  justify-content: flex-end;
-  gap: 2%;
-`;
 
 const ExpenseEdit = () => {
   const navigate = useNavigate();
@@ -180,14 +172,14 @@ const ExpenseEdit = () => {
           )}
         />
 
-        <ActionContainer>
-          <Button onClick={onClose} secondary>
+        <div className={styles.actionContainer}>
+          <Button onClick={onClose} secondary={true}>
             Cancel
           </Button>
           <Button disabled={isSubmitting} type="submit">
             {isSubmitting ? "Saving.." : "Save"}
           </Button>
-        </ActionContainer>
+        </div>
       </Form>
     </Modal>
   );

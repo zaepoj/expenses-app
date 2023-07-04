@@ -1,4 +1,8 @@
-import { type ExpenseBillingType, type ExpenseType, Prisma } from "@prisma/client";
+import {
+  type ExpenseBillingType,
+  type ExpenseType,
+  Prisma,
+} from "@prisma/client";
 import { type ActionFunction, redirect } from "@remix-run/node";
 import {
   Form,
@@ -7,7 +11,6 @@ import {
   useTransition,
 } from "@remix-run/react";
 import { Controller, useForm } from "react-hook-form";
-import styled from "styled-components";
 import Button from "~/components/Button";
 import Modal from "~/components/Modal";
 import Select from "~/components/Select";
@@ -20,14 +23,7 @@ import {
   ExpenseTypeOptions,
   expenseValidationSchema,
 } from "~/utils/expense";
-
-const ActionContainer = styled.div`
-  padding-top: 2em;
-  padding-bottom: 1em;
-  display: flex;
-  justify-content: flex-end;
-  gap: 2%;
-`;
+import * as styles from "./add.css";
 
 export const action: ActionFunction = async ({ request }) => {
   let formData = await request.formData();
@@ -134,14 +130,14 @@ const ExpensesCreateModal = () => {
           )}
         />
 
-        <ActionContainer>
-          <Button onClick={onClose} secondary>
+        <div className={styles.actionContainer}>
+          <Button onClick={onClose} secondary={true}>
             Cancel
           </Button>
           <Button disabled={isSubmitting} type="submit">
             {isSubmitting ? "Saving.." : "Save"}
           </Button>
-        </ActionContainer>
+        </div>
       </Form>
     </Modal>
   );

@@ -1,4 +1,9 @@
-import { json, LinksFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
+import {
+  json,
+  LinksFunction,
+  LoaderFunction,
+  MetaFunction,
+} from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -8,8 +13,6 @@ import {
   ScrollRestoration,
   useLoaderData,
 } from "@remix-run/react";
-import styled, { ThemeProvider } from "styled-components";
-import { theme } from "./theme";
 import shared from "./shared.css";
 import { AiFillHome, AiFillProject } from "react-icons/ai";
 import Layout from "./components/Layout";
@@ -17,32 +20,13 @@ import { requireAuth } from "./server/auth.server";
 import { cssBundleHref } from "@remix-run/css-bundle";
 import LoaderBar from "./components/LoaderBar";
 import { useTransition } from "@remix-run/react";
+import * as styles from "./app.css";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
   title: "Expenses Tracker",
   viewport: "width=device-width,initial-scale=1",
 });
-
-const Container = styled.div`
-  height: 100%;
-  display: flex;
-
-  @media only screen and (max-width: 700px) {
-    flex-direction: column;
-  }
-`;
-
-const OutletContainer = styled.div<{ isLoginOrSignUpPage: boolean }>`
-  margin-left: ${(props) => (props.isLoginOrSignUpPage ? "auto" : "100px")};
-  margin-right: ${(props) => props.isLoginOrSignUpPage && "auto"};
-  width: ${(props) => !props.isLoginOrSignUpPage && "100%"};
-  width: 100%;
-
-  @media only screen and (max-width: 700px) {
-    margin: 0;
-  }
-`;
 
 export const loader: LoaderFunction = async ({ request, context }) => {
   const url = new URL(request.url);
@@ -58,9 +42,7 @@ export const loader: LoaderFunction = async ({ request, context }) => {
 
 export const links: LinksFunction = () => {
   return [
-    ...(cssBundleHref
-      ? [{ rel: "stylesheet", href: cssBundleHref }]
-      : []),
+    ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
     // ...
   ];
 };
@@ -71,7 +53,7 @@ export default function App() {
   const user = data.user;
   const transition = useTransition();
   return (
-    <html lang="en">
+    <html className={styles.html} lang="en">
       <head>
         <Meta />
         <Links />
@@ -81,35 +63,38 @@ export default function App() {
           rel="stylesheet"
           type="text/css"
         />
-        {typeof document === "undefined" ? "__STYLES__" : null}
       </head>
-      <body>
-        <ThemeProvider theme={theme}>
-          <Container>
-            {!isLoginOrSignUpPage && (
-              <Layout
-                userInfo={{ uid: user.uid, name: user.name }}
-                navItems={[
-                  { to: "/", title: "Dashboard", icon: AiFillHome },
-                  { to: "/expenses", title: "Expenses", icon: AiFillProject },
-                  // { to: "/settings", title: "Settings", icon: FaCog },
-                ]}
-              />
-            )}
-            <OutletContainer isLoginOrSignUpPage={isLoginOrSignUpPage}>
-              <LoaderBar
-                loading={
-                  transition.state === "loading" ||
-                  transition.state === "submitting"
-                }
-              />
-              <Outlet />
-            </OutletContainer>
-          </Container>
-          <ScrollRestoration />
-          <Scripts />
-          <LiveReload />
-        </ThemeProvider>
+      <body className={styles.body}>
+        <div className={styles.container}>
+          {!isLoginOrSignUpPage && (
+            <Layout
+              userInfo={{ uid: user.uid, name: user.name }}
+              navItems={[
+                { to: "/", title: "Dashboard", icon: AiFillHome },
+                { to: "/expenses", title: "Expenses", icon: AiFillProject },
+                // { to: "/settings", title: "Settings", icon: FaCog },
+              ]}
+            />
+          )}
+          <div
+            className={
+              isLoginOrSignUpPage
+                ? styles.outletContainerLoginOrSignUpPage
+                : styles.outlerContainer
+            }
+          >
+            <LoaderBar
+              loading={
+                transition.state === "loading" ||
+                transition.state === "submitting"
+              }
+            />
+            <Outlet />
+          </div>
+        </div>
+        <ScrollRestoration />
+        <Scripts />
+        <LiveReload />
       </body>
     </html>
   );

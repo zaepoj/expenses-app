@@ -1,3 +1,9 @@
+/**
+ * By default, Remix will handle generating the HTTP Response for you.
+ * You are free to delete this file if you'd like to, but if you ever want it revealed again, you can run `npx remix reveal` ✨
+ * For more information, see https://remix.run/docs/en/main/file-conventions/entry.server
+ */
+
 import { PassThrough } from "node:stream";
 
 import type { EntryContext } from "@remix-run/node";
@@ -5,11 +11,8 @@ import { Response } from "@remix-run/node";
 import { RemixServer } from "@remix-run/react";
 import isbot from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
-import { ServerStyleSheet } from "styled-components";
 
 const ABORT_DELAY = 5_000;
-
-const styleSheet = new ServerStyleSheet();
 
 export default function handleRequest(
   request: Request,
@@ -40,43 +43,32 @@ function handleBotRequest(
 ) {
   return new Promise((resolve, reject) => {
     const { pipe, abort } = renderToPipeableStream(
-      styleSheet.collectStyles(
-        <RemixServer
-          context={remixContext}
-          url={request.url}
-          abortDelay={ABORT_DELAY}
-        />
-      ),
+      <RemixServer
+        context={remixContext}
+        url={request.url}
+        abortDelay={ABORT_DELAY}
+      />,
       {
-        // use onShellReady to wait until a suspense boundary is triggered
-        onShellReady() {
+        onAllReady() {
+          const body = new PassThrough();
+
           responseHeaders.set("Content-Type", "text/html");
-          const body = new PassThrough({
-            transform: (chunk, _, done) => {
-              // perform previous behaviour and replace the "__STYLES__" placeholder as it's streamed to the client
-              const stringChunk = (chunk as Buffer).toString();
-              done(
-                undefined,
-                Buffer.from(
-                  stringChunk.replace("__STYLES__", styleSheet.getStyleTags())
-                )
-              );
-            },
-          });
-          pipe(body);
+
           resolve(
             new Response(body, {
               headers: responseHeaders,
               status: responseStatusCode,
             })
           );
+
+          pipe(body);
         },
-        onShellError(err: unknown) {
-          reject(err);
+        onShellError(error: unknown) {
+          reject(error);
         },
-        onError(err: unknown) {
-          console.error(err);
+        onError(error: unknown) {
           responseStatusCode = 500;
+          console.error(error);
         },
       }
     );
@@ -93,42 +85,31 @@ function handleBrowserRequest(
 ) {
   return new Promise((resolve, reject) => {
     const { pipe, abort } = renderToPipeableStream(
-      styleSheet.collectStyles(
-        <RemixServer
-          context={remixContext}
-          url={request.url}
-          abortDelay={ABORT_DELAY}
-        />
-      ),
+      <RemixServer
+        context={remixContext}
+        url={request.url}
+        abortDelay={ABORT_DELAY}
+      />,
       {
-        // use onShellReady to wait until a suspense boundary is triggered
         onShellReady() {
+          const body = new PassThrough();
+
           responseHeaders.set("Content-Type", "text/html");
-          const body = new PassThrough({
-            transform: (chunk, _, done) => {
-              // perform previous behaviour and replace the "__STYLES__" placeholder as it's streamed to the client
-              const stringChunk = (chunk as Buffer).toString();
-              done(
-                undefined,
-                Buffer.from(
-                  stringChunk.replace("__STYLES__", styleSheet.getStyleTags())
-                )
-              );
-            },
-          });
-          pipe(body);
+
           resolve(
             new Response(body, {
               headers: responseHeaders,
               status: responseStatusCode,
             })
           );
+
+          pipe(body);
         },
-        onShellError(err: unknown) {
-          reject(err);
+        onShellError(error: unknown) {
+          reject(error);
         },
-        onError(err: unknown) {
-          console.error(err);
+        onError(error: unknown) {
+          console.error(error);
           responseStatusCode = 500;
         },
       }

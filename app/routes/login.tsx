@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { z } from "zod";
 import TextField from "~/components/TextField";
 import Button from "~/components/Button";
@@ -6,30 +5,7 @@ import { type ActionFunction, redirect } from "@remix-run/node";
 import { signIn } from "~/server/auth.server";
 import { commitSession, getSession } from "~/sessions";
 import { Form, Link, useActionData, useTransition } from "@remix-run/react";
-
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  flex-direction: column;
-  min-width: 350px;
-  padding: 1em;
-  margin: auto;
-`;
-
-const InputContainer = styled.div`
-  display: grid;
-  row-gap: 10%;
-  align-items: center;
-`;
-
-const SignUpLink = styled(Link)`
-  padding-left: 0.5em;
-  color: #afafe6;
-  text-decoration: none;
-  font-size: 1.1em;
-`;
+import * as styles from "./login.css";
 
 export const action: ActionFunction = async ({ request }) => {
   let formData = await request.formData();
@@ -71,9 +47,9 @@ export default function Join() {
   const isSubmitting = !!transition.submission;
 
   return (
-    <Container>
+    <div className={styles.Container}>
       <Form style={{ width: "100%", maxWidth: "350px" }} method="post">
-        <InputContainer>
+        <div className={styles.InputContainer}>
           <TextField type="text" placeholder="email" name="email" />
           <TextField
             type="password"
@@ -88,11 +64,13 @@ export default function Join() {
             </Button>
             <div style={{ marginTop: "1em" }}>
               Don't have an account?
-              <SignUpLink to="/join">Sign up</SignUpLink>
+              <Link className={styles.SignUpLink} to="/join">
+                Sign up
+              </Link>
             </div>
           </div>
-        </InputContainer>
+        </div>
       </Form>
-    </Container>
+    </div>
   );
 }

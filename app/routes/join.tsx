@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { z } from "zod";
 import TextField from "~/components/TextField";
 import Button from "~/components/Button";
@@ -6,34 +5,7 @@ import { type ActionFunction, redirect } from "@remix-run/node";
 import { signUp } from "~/server/auth.server";
 import { commitSession, getSession } from "~/sessions";
 import { Form, Link, useActionData, useTransition } from "@remix-run/react";
-
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  max-width: 400px;
-  padding: 1em;
-  margin: auto;
-  height: 100%;
-`;
-
-const InputContainer = styled.div`
-  display: grid;
-  align-items: center;
-`;
-
-const HeaderContainer = styled.div`
-  padding-bottom: 3em;
-`;
-
-const SignUpLink = styled(Link)`
-  margin-top: 1em;
-  padding-left: 0.5em;
-  color: #afafe6;
-  text-decoration: none;
-  font-size: 1.1em;
-`;
+import * as styles from "./join.css";
 
 type ErrorActionResponse = {
   name: string;
@@ -123,12 +95,12 @@ export default function Join() {
   const isSubmitting = !!transition.submission;
 
   return (
-    <Container>
+    <div className={styles.Container}>
       <Form style={{ width: "100%" }} method="post">
-        <HeaderContainer>
+        <div className={styles.HeaderContainer}>
           <h1>Sign up</h1>
-        </HeaderContainer>
-        <InputContainer>
+        </div>
+        <div className={styles.InputContainer}>
           <TextField
             type="text"
             placeholder="Name"
@@ -165,44 +137,12 @@ export default function Join() {
           </Button>
           <div style={{ marginTop: "1em" }}>
             Already have an account?
-            <SignUpLink to="/login">Sign in</SignUpLink>
+            <Link className={styles.SignUpLink} to="/login">
+              Sign in
+            </Link>
           </div>
-        </InputContainer>
+        </div>
       </Form>
-    </Container>
+    </div>
   );
 }
-/*
-
-
-    <Container>
-      <Form style={{ width: "100%", maxWidth: "350px" }} method="post">
-        <InputContainer>
-          <TextField type="text" placeholder="email" name="email" />
-          <TextField
-            type="password"
-            placeholder="password"
-            name="password"
-            showPasswordCheckbox={true}
-            errorHelper={actionData?.errorMessage}
-          />
-          <div style={{ marginTop: "1em", width: "100%" }}>
-            <Button fullWidth disabled={isSubmitting} type="submit">
-              {isSubmitting ? "Signing in.." : "Sign in"}
-            </Button>
-            <div style={{ marginTop: "1em" }}>
-              Don't have an account?
-              <SignUpLink to="/join">Sign up</SignUpLink>
-            </div>
-          </div>
-        </InputContainer>
-      </Form>
-    </Container>
-
-
-
-
-
-
-
-*/

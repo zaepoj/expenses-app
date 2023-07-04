@@ -1,16 +1,6 @@
-import styled from "styled-components";
 import { type LoaderFunction, redirect } from "@remix-run/node";
 import { destroySession, getSession } from "~/sessions";
-
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  flex-direction: column;
-  max-width: 500px;
-  margin: auto;
-`;
+import * as styles from "./logout.css";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const session = await getSession(request.headers.get("Cookie"));
@@ -20,5 +10,5 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export default function Logout() {
-  return <Container>Logging off..</Container>;
+  return <div className={styles.container}>Logging off..</div>;
 }

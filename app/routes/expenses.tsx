@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import Button from "~/components/Button";
 import { json, type LoaderArgs, type LoaderFunction } from "@remix-run/node";
 import { requireAuth } from "~/server/auth.server";
@@ -29,6 +28,7 @@ import IconButton from "~/components/IconButton";
 import { ResponsivePie } from "@nivo/pie";
 import ToggleButton from "~/components/ToggleButton";
 import Divider from "~/components/Divider";
+import * as styles from "./expenses.css";
 
 type LoaderData = {
   expenses: Awaited<ReturnType<typeof findExpensesByUserId>>;
@@ -41,20 +41,6 @@ export const loader: LoaderFunction = async ({ request }: LoaderArgs) => {
     expenses,
   });
 };
-
-const ContentContainer = styled.div`
-  height: 100%;
-  flex: 1;
-  padding: 2em 2em 5em 2em;
-  margin-left: 5em;
-
-  @media only screen and (max-width: 700px) {
-    padding-left: 0.25em;
-    padding-right: 0.25em;
-    padding-top: 10em;
-    margin-left: 0.5em;
-  }
-`;
 
 const iconByExpenseType: { [x: string]: IconType } = {
   [ExpenseType.CLOTHING]: FaTshirt,
@@ -128,7 +114,8 @@ export default function ExpenseView() {
           return Object.values(grouped);
         }
 
-        default: //use name as default
+        default:
+          //use name as default
           return (expensesMonthly || []).map((expense) => ({
             id: expense.name,
             label: expense.name,
@@ -147,84 +134,86 @@ export default function ExpenseView() {
   return (
     <>
       <Outlet />
-      <ContentContainer>
-        <Button
-          onClick={() =>
-            navigate("/expenses/add", { preventScrollReset: true })
-          }
-        >
-          <Typography type="h3">Add new</Typography>
-        </Button>
-
-        <div style={{ marginTop: "3em" }}>
-          <Typography type="h1">Monthly expenses</Typography>
-        </div>
-        <div style={{ marginTop: "3em" }}>
-          <Typography type="h2">{`Total: ${totalSumOfExpenses.toFixed(
-            2
-          )} €`}</Typography>
-        </div>
-        <div style={{ marginTop: "2em", marginBottom: "3em" }}>
-          {expensesMonthly?.map((expense) => {
-            return (
-              <div style={{ width: "100%" }} key={expense.id}>
-                <ListItem
-                  text={expense.name}
-                  info={expense.type}
-                  unit={expense.cost}
-                  icon={iconByExpenseType[expense.type]}
-                  actions={
-                    <>
-                      <IconButton
-                        icon={MdOutlineModeEdit}
-                        tooltip="Edit"
-                        onClick={() =>
-                          navigate(`/expenses/${expense.id}/edit`, {
-                            preventScrollReset: true,
-                          })
-                        }
-                      />
-                      <IconButton
-                        icon={MdDelete}
-                        tooltip="Delete"
-                        onClick={() =>
-                          navigate(`/expenses/${expense.id}/delete`, {
-                            preventScrollReset: true,
-                          })
-                        }
-                      />
-                    </>
-                  }
-                />
-              </div>
-            );
-          })}
-        </div>
-        <Divider />
-        <div style={{ marginTop: "5em", height: "500px" }}>
-          <ToggleButton
-            checked={pieChartSortByType}
-            onChange={(e) => setPieChartSortByType(e.target.checked)}
-            label="By type of expense"
-          />
-          <ResponsivePie
-            margin={{ top: 80, right: 80, bottom: 80, left: 80 }}
-            motionConfig="gentle"
-            transitionMode="startAngle"
-            activeOuterRadiusOffset={15}
-            startAngle={-50}
-            innerRadius={0.5}
-            padAngle={2}
-            borderWidth={4}
-            cornerRadius={9}
-            colors={{ scheme: "purples" }}
-            data={pieChartData}
-            valueFormat={(v) =>
-              pieChartSortByType ? `${v.toFixed(2)}%` : `${v}`
+      <div>
+        <div className={styles.contentContainer}>
+          <Button
+            onClick={() =>
+              navigate("/expenses/add", { preventScrollReset: true })
             }
-          />
+          >
+            <Typography type="h3">Add new</Typography>
+          </Button>
+
+          <div style={{ marginTop: "3em" }}>
+            <Typography type="h1">Monthly expenses</Typography>
+          </div>
+          <div style={{ marginTop: "3em" }}>
+            <Typography type="h2">{`Total: ${totalSumOfExpenses.toFixed(
+              2
+            )} €`}</Typography>
+          </div>
+          <div style={{ marginTop: "2em", marginBottom: "3em" }}>
+            {expensesMonthly?.map((expense) => {
+              return (
+                <div style={{ width: "100%" }} key={expense.id}>
+                  <ListItem
+                    text={expense.name}
+                    info={expense.type}
+                    unit={expense.cost}
+                    icon={iconByExpenseType[expense.type]}
+                    actions={
+                      <>
+                        <IconButton
+                          icon={MdOutlineModeEdit}
+                          tooltip="Edit"
+                          onClick={() =>
+                            navigate(`/expenses/${expense.id}/edit`, {
+                              preventScrollReset: true,
+                            })
+                          }
+                        />
+                        <IconButton
+                          icon={MdDelete}
+                          tooltip="Delete"
+                          onClick={() =>
+                            navigate(`/expenses/${expense.id}/delete`, {
+                              preventScrollReset: true,
+                            })
+                          }
+                        />
+                      </>
+                    }
+                  />
+                </div>
+              );
+            })}
+          </div>
+          <Divider />
+          <div style={{ marginTop: "5em", height: "500px" }}>
+            <ToggleButton
+              checked={pieChartSortByType}
+              onChange={(e) => setPieChartSortByType(e.target.checked)}
+              label="By type of expense"
+            />
+            <ResponsivePie
+              margin={{ top: 80, right: 80, bottom: 80, left: 80 }}
+              motionConfig="gentle"
+              transitionMode="startAngle"
+              activeOuterRadiusOffset={15}
+              startAngle={-50}
+              innerRadius={0.5}
+              padAngle={2}
+              borderWidth={4}
+              cornerRadius={9}
+              colors={{ scheme: "purples" }}
+              data={pieChartData}
+              valueFormat={(v) =>
+                pieChartSortByType ? `${v.toFixed(2)}%` : `${v}`
+              }
+            />
+          </div>
         </div>
-      </ContentContainer>
+      </div>
     </>
   );
 }

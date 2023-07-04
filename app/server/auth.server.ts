@@ -47,7 +47,6 @@ const signInWithToken = async (idToken: string) => {
   return sessionCookie;
 };
 
-
 const checkSessionCookie = async (session: Session) => {
   try {
     const auth = getServerAuth();

@@ -1,6 +1,6 @@
 import React from "react";
 import ReactSelect from "react-select";
-import styled from "styled-components";
+import * as styles from "./styles.css";
 
 type SelectProps = {
   options: OptionsType;
@@ -16,27 +16,6 @@ type SelectProps = {
 
 type OptionType = { [x: string]: any };
 type OptionsType = Array<OptionType>;
-
-const StyledLabel = styled.label`
-  color: ${(props) => props.theme.fadedTeal};
-  font-size: 0.9em;
-  line-height: 2;
-  text-transform: capitalize;
-`;
-
-const StyledSelect = styled(ReactSelect)``;
-
-const ErrorLabel = styled.label`
-  color: #ef7171;
-  height: 1em;
-  margin-bottom: 1em;
-`;
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-`;
 
 const Select = React.forwardRef(
   (
@@ -54,8 +33,8 @@ const Select = React.forwardRef(
     ref
   ) => {
     return (
-      <Container>
-        {label ? <StyledLabel>{label}</StyledLabel> : null}
+      <div className={styles.container}>
+        {label ? <label className={styles.label}>{label}</label> : null}
         <ReactSelect
           ref={ref as any}
           styles={{
@@ -75,10 +54,12 @@ const Select = React.forwardRef(
           closeMenuOnSelect={closeOnSelect}
           defaultValue={defaultValue}
         />
-        <ErrorLabel>{errorHelper}</ErrorLabel>
-      </Container>
+        <label className={styles.label}>{errorHelper}</label>
+      </div>
     );
   }
 );
+
+Select.displayName = "Select";
 
 export default Select;

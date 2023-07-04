@@ -1,4 +1,3 @@
-import styled from "styled-components";
 // import Balancer from "react-wrap-balancer";
 
 type TypographyVariant =
@@ -17,61 +16,20 @@ type TypographyProps = {
   style?: any;
 };
 
-const BaseTypography = styled.p``;
-
-const H1 = styled(BaseTypography).attrs({ as: "h1" })``;
-const H2 = styled(BaseTypography).attrs({ as: "h2" })``;
-const H3 = styled(BaseTypography).attrs({ as: "h3" })``;
-const H4 = styled(BaseTypography).attrs({ as: "h4" })``;
-const Subheading1 = styled(BaseTypography).attrs({ as: "h5" })``;
-const Subheading2 = styled(BaseTypography).attrs({ as: "h6" })``;
-const Body1 = styled(BaseTypography).attrs({ as: "p" })``;
-const Body2 = styled(BaseTypography).attrs({ as: "p" })`
-  font-size: 0.8em;
-`;
-
 const Typography = (props: TypographyProps) => {
   return (
     <>
-      {props.type === "h1" && (
-        <H1 {...props}>
-          {props.children}
-        </H1>
-      )}
-      {props.type === "h2" && (
-        <H2 {...props}>
-          {props.children}
-        </H2>
-      )}
-      {props.type === "h3" && (
-        <H3 {...props}>
-          {props.children}
-        </H3>
-      )}
-      {props.type === "h4" && (
-        <H4 {...props}>
-          {props.children}
-        </H4>
-      )}
-      {props.type === "h5" && (
-        <Subheading1 {...props}>
-          {props.children}
-        </Subheading1>
-      )}
-      {props.type === "h6" && (
-        <Subheading2 {...props}>
-          {props.children}
-        </Subheading2>
-      )}
-      {props.type === "body1" && (
-        <Body1 {...props}>
-          {props.children}
-        </Body1>
-      )}
+      {props.type === "h1" && <h1 {...props}>{props.children}</h1>}
+      {props.type === "h2" && <h2 {...props}>{props.children}</h2>}
+      {props.type === "h3" && <h3 {...props}>{props.children}</h3>}
+      {props.type === "h4" && <h4 {...props}>{props.children}</h4>}
+      {props.type === "h5" && <h5 {...props}>{props.children}</h5>}
+      {props.type === "h6" && <h6 {...props}>{props.children}</h6>}
+      {props.type === "body1" && <p {...props}>{props.children}</p>}
       {props.type === "body2" && (
-        <Body2 {...props}>
+        <p style={{ fontSize: "0.8em" }} {...props}>
           {props.children}
-        </Body2>
+        </p>
       )}
     </>
   );

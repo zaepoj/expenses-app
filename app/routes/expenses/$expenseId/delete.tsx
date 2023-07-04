@@ -12,7 +12,6 @@ import {
   useNavigate,
   useTransition,
 } from "@remix-run/react";
-import styled from "styled-components";
 import Button from "~/components/Button";
 import Modal from "~/components/Modal";
 import Typography from "~/components/Typography";
@@ -22,6 +21,7 @@ import {
   findExpenseById,
 } from "~/server/models/expense.server";
 import { MdError } from "react-icons/md";
+import * as styles from "./delete.css";
 
 type LoaderData = {
   expense: Awaited<ReturnType<typeof findExpenseById>>;
@@ -31,27 +31,6 @@ type LoaderData = {
 type ActionData = {
   deleteError: string;
 };
-
-const ActionContainer = styled.div`
-  padding-top: 2em;
-  padding-bottom: 1em;
-  display: flex;
-  justify-content: flex-end;
-  gap: 2%;
-`;
-
-const ErrorMessage = styled(Typography)`
-  width: 100%;
-`;
-
-const ErrorContainer = styled.div`
-  padding-left: 1em;
-  color: #ef7171;
-  display: flex;
-  width: 100%;
-  align-items: center;
-  gap: 2%;
-`;
 
 export const loader: LoaderFunction = async ({
   request,
@@ -97,10 +76,12 @@ const ExpenseDelete = () => {
     <Modal title={"Delete expense"} open={true} onClose={onClose}>
       <Form method="delete" preventScrollReset={true}>
         {actionData?.deleteError ? (
-          <ErrorContainer>
+          <div className={styles.errorContainer}>
             <MdError style={{ fontSize: "2em" }} />
-            <ErrorMessage type="h3">{actionData.deleteError}</ErrorMessage>
-          </ErrorContainer>
+            <Typography className={styles.errorMessage} type="h3">
+              {actionData.deleteError}
+            </Typography>
+          </div>
         ) : (
           <div>
             <Typography type="body1">{`Are you sure you want to delete following expense:`}</Typography>
@@ -110,8 +91,8 @@ const ExpenseDelete = () => {
           </div>
         )}
 
-        <ActionContainer>
-          <Button onClick={onClose} secondary>
+        <div className={styles.actionContainer}>
+          <Button onClick={onClose} secondary={true}>
             Cancel
           </Button>
           <Button
@@ -120,7 +101,7 @@ const ExpenseDelete = () => {
           >
             Confirm
           </Button>
-        </ActionContainer>
+        </div>
       </Form>
     </Modal>
   );
