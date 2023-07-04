@@ -12,6 +12,7 @@ import {
   Scripts,
   ScrollRestoration,
   useLoaderData,
+  useTransition
 } from "@remix-run/react";
 import shared from "./shared.css";
 import { AiFillHome, AiFillProject } from "react-icons/ai";
@@ -19,7 +20,6 @@ import Layout from "./components/Layout";
 import { requireAuth } from "./server/auth.server";
 import { cssBundleHref } from "@remix-run/css-bundle";
 import LoaderBar from "./components/LoaderBar";
-import { useTransition } from "@remix-run/react";
 import * as styles from "./app.css";
 
 export const meta: MetaFunction = () => ({
