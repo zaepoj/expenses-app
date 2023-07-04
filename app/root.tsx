@@ -21,6 +21,8 @@ import { requireAuth } from "./server/auth.server";
 import { cssBundleHref } from "@remix-run/css-bundle";
 import LoaderBar from "./components/LoaderBar";
 import * as styles from "./app.css";
+import { ClientOnly } from "remix-utils";
+import { createPortal } from "react-dom";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -47,24 +49,32 @@ export const links: LinksFunction = () => {
   ];
 };
 
+export function Head() {
+  return (
+    <>
+            <link href={shared} rel="stylesheet" />
+        <link
+          href="https://fonts.googleapis.com/css?family=Lato:400,700"
+          rel="stylesheet"
+          type="text/css"
+        />
+      <Meta />
+      <Links />
+    </>
+  );
+}
+
+
 export default function App() {
   const data = useLoaderData();
   const isLoginOrSignUpPage = data.isLoginOrSignUpPage;
   const user = data.user;
   const transition = useTransition();
   return (
-    <html className={styles.html} lang="en">
-      <head>
-        <Meta />
-        <Links />
-        <link href={shared} rel="stylesheet" />
-        <link
-          href="https://fonts.googleapis.com/css?family=Lato:400,700"
-          rel="stylesheet"
-          type="text/css"
-        />
-      </head>
-      <body className={styles.body}>
+    <>
+    {/* <html className={styles.html} lang="en"> */}
+
+      {/* <body className={styles.body}>
         <div className={styles.container}>
           {!isLoginOrSignUpPage && (
             <Layout
@@ -91,11 +101,14 @@ export default function App() {
             />
             <Outlet />
           </div>
-        </div>
+        </div> */}
+        <ClientOnly>{() => createPortal(<Head />, document.head)}</ClientOnly>
+        <Outlet />
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
-      </body>
-    </html>
+      {/* </body> */}
+  {/* </html> */}
+    </>
   );
 }

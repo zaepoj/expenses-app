@@ -10,7 +10,8 @@ import type { EntryContext } from "@remix-run/node";
 import { Response } from "@remix-run/node";
 import { RemixServer } from "@remix-run/react";
 import isbot from "isbot";
-import { renderToPipeableStream } from "react-dom/server";
+import { renderToPipeableStream, renderToString } from "react-dom/server";
+import { Head } from "./root";
 
 const ABORT_DELAY = 5_000;
 
@@ -83,13 +84,25 @@ function handleBrowserRequest(
   responseHeaders: Headers,
   remixContext: EntryContext
 ) {
+  // swap out default component with <Head>
+  const defaultRoot = remixContext.routeModules.root;
+  remixContext.routeModules.root = {
+    ...defaultRoot,
+    default: Head,
+  };
+
+  let head = renderToString(
+    <RemixServer context={remixContext} url={request.url} />
+  );
+
+  // restore the default root component
+  remixContext.routeModules.root = defaultRoot;
+
   return new Promise((resolve, reject) => {
+    let didError = false;
+
     const { pipe, abort } = renderToPipeableStream(
-      <RemixServer
-        context={remixContext}
-        url={request.url}
-        abortDelay={ABORT_DELAY}
-      />,
+      <RemixServer context={remixContext} url={request.url} />,
       {
         onShellReady() {
           const body = new PassThrough();
@@ -99,18 +112,23 @@ function handleBrowserRequest(
           resolve(
             new Response(body, {
               headers: responseHeaders,
-              status: responseStatusCode,
+              status: didError ? 500 : responseStatusCode,
             })
           );
 
+          body.write(
+            `<!DOCTYPE html><html><head><!--start head-->${head}<!--end head--></head><body><div id="root">`
+          );
           pipe(body);
+          body.write(`</div></body></html>`);
         },
-        onShellError(error: unknown) {
-          reject(error);
+        onShellError(err: unknown) {
+          reject(err);
         },
         onError(error: unknown) {
+          didError = true;
+
           console.error(error);
-          responseStatusCode = 500;
         },
       }
     );
@@ -118,3 +136,4 @@ function handleBrowserRequest(
     setTimeout(abort, ABORT_DELAY);
   });
 }
+
