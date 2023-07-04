@@ -32,10 +32,15 @@ function RemixApp() {
   );
 }
 
-if (typeof requestIdleCallback === "function") {
-  requestIdleCallback(hydrate);
-} else {
-  // Safari doesn't support requestIdleCallback
-  // https://caniuse.com/requestidlecallback
-  setTimeout(hydrate, 1);
-}
+// console.log(typeof requestIdleCallback)
+
+// if (typeof requestIdleCallback === "function") {
+//   requestIdleCallback(hydrate);
+// } else {
+//   // Safari doesn't support requestIdleCallback
+//   // https://caniuse.com/requestidlecallback
+//   setTimeout(hydrate, 1);
+// }
+
+// setTimeout(hydrate, 0);
+hydrate();
