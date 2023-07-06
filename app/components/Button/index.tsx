@@ -5,17 +5,15 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   round?: boolean;
   secondary?: boolean;
   tertiary?: boolean;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   uppercase?: boolean;
   fullWidth?: boolean;
 };
-
 const Button = (props: ButtonProps) => {
-  const { secondary, fullWidth, ...restProps } = props;
-
   return (
     <button
-      {...restProps}
+      style={props.style}
+      onClick={props.onClick}
       className={button({
         variant: props.disabled
           ? "disabled"

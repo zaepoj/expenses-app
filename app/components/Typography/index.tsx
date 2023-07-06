@@ -12,8 +12,9 @@ type TypographyVariant =
 
 type TypographyProps = {
   type: TypographyVariant;
-  children: any;
+  children: React.ReactNode;
   style?: any;
+  className?: string;
 };
 
 const Typography = (props: TypographyProps) => {

@@ -8,7 +8,7 @@ import { Form, Link, useActionData, useTransition } from "@remix-run/react";
 import * as styles from "./login.css";
 
 export const action: ActionFunction = async ({ request }) => {
-  let formData = await request.formData();
+  const formData = await request.formData();
   const formPayload = Object.fromEntries(formData);
 
   const validationSchema = z.object({
@@ -18,12 +18,11 @@ export const action: ActionFunction = async ({ request }) => {
 
   try {
     validationSchema.parse(formPayload);
-    let sessionCookie;
 
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
 
-    sessionCookie = await signIn(email, password);
+    const sessionCookie = await signIn(email, password);
 
     const session = await getSession(request.headers.get("cookie"));
     session.set("session", sessionCookie);

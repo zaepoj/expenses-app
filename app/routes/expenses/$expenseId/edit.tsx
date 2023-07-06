@@ -37,7 +37,7 @@ type LoaderData = {
 };
 
 export const action: ActionFunction = async ({ request, params }) => {
-  let formData = await request.formData();
+  const formData = await request.formData();
   const formPayload = Object.fromEntries(formData);
 
   try {
@@ -87,15 +87,24 @@ export const loader: LoaderFunction = async ({
     const expense = await findExpenseById(expenseId, user.uid);
 
     return { expense };
-  } catch (e: any) {
-    console.log({ e: e.message });
-    return { error: e.message };
+  } catch (e) {
+    if(e instanceof Error) {
+      return { error: e.message };
+    }
   }
 };
 
 const ExpenseEdit = () => {
   const navigate = useNavigate();
-  const onClose = () => navigate("/expenses", { preventScrollReset: true });
+  const onClose = () => {
+    navigate("/expenses", { preventScrollReset: true });
+  };
+
+  const onCancel = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    onClose();
+  };
+
   const actionData = useActionData();
   const transition = useTransition();
   const isSubmitting = !!transition.submission;
@@ -173,7 +182,7 @@ const ExpenseEdit = () => {
         />
 
         <div className={styles.actionContainer}>
-          <Button onClick={onClose} secondary={true}>
+          <Button onClick={onCancel} secondary={true}>
             Cancel
           </Button>
           <Button disabled={isSubmitting} type="submit">

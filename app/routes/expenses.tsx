@@ -1,5 +1,6 @@
 import Button from "~/components/Button";
-import { json, type LoaderArgs, type LoaderFunction } from "@remix-run/node";
+import { json } from "@remix-run/node";
+import type { LoaderArgs, LoaderFunction } from "@remix-run/node";
 import { requireAuth } from "~/server/auth.server";
 import { Outlet, useLoaderData, useNavigate } from "@remix-run/react";
 import { findExpensesByUserId } from "~/server/models/expense.server";

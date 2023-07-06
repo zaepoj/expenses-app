@@ -54,7 +54,7 @@ const Select = React.forwardRef(
           closeMenuOnSelect={closeOnSelect}
           defaultValue={defaultValue}
         />
-        <label className={styles.label}>{errorHelper}</label>
+        <label className={styles.errorLabel}>{errorHelper}</label>
       </div>
     );
   }

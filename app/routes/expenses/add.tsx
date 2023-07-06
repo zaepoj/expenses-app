@@ -26,7 +26,7 @@ import {
 import * as styles from "./add.css";
 
 export const action: ActionFunction = async ({ request }) => {
-  let formData = await request.formData();
+  const formData = await request.formData();
   const formPayload = Object.fromEntries(formData);
 
   try {
@@ -65,7 +65,14 @@ const ExpensesCreateModal = () => {
   const transition = useTransition();
   const isSubmitting = !!transition.submission;
   const navigate = useNavigate();
-  const onClose = () => navigate("/expenses");
+  const onClose = () => {
+    navigate("/expenses", { preventScrollReset: true });
+  };
+
+  const onCancel = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    onClose();
+  };
   const {
     control,
     formState: { errors },
@@ -131,7 +138,7 @@ const ExpensesCreateModal = () => {
         />
 
         <div className={styles.actionContainer}>
-          <Button onClick={onClose} secondary={true}>
+          <Button onClick={onCancel} secondary={true}>
             Cancel
           </Button>
           <Button disabled={isSubmitting} type="submit">

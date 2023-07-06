@@ -43,9 +43,12 @@ export const loader: LoaderFunction = async ({
     const expense = await findExpenseById(expenseId, user.uid);
 
     return { expense };
-  } catch (e: any) {
-    console.log({ e: e.message });
-    return { error: e.message };
+  } catch (e) {
+    if (e instanceof Error) {
+      return { error: e.message };
+    } else {
+      console.log(e);
+    }
   }
 };
 
@@ -59,15 +62,25 @@ export const action: ActionFunction = async ({
     const user = await requireAuth(request);
     await deleteExpenseById(expenseId, user.uid);
     return redirect("/expenses");
-  } catch (e: any) {
-    return { deleteError: e.message };
+  } catch (e) {
+    if (e instanceof Error) {
+      return { deleteError: e.message };
+    }
   }
 };
 
 const ExpenseDelete = () => {
   const navigate = useNavigate();
   const transition = useTransition();
-  const onClose = () => navigate("/expenses", { preventScrollReset: true });
+  const onClose = () => {
+    navigate("/expenses", { preventScrollReset: true });
+  };
+
+  const onCancel = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    onClose();
+  };
+
   const { expense, error } = useLoaderData() as LoaderData;
   const actionData = useActionData() as ActionData;
   const isSubmitting = !!transition.submission;
@@ -92,7 +105,7 @@ const ExpenseDelete = () => {
         )}
 
         <div className={styles.actionContainer}>
-          <Button onClick={onClose} secondary={true}>
+          <Button onClick={onCancel} secondary={true}>
             Cancel
           </Button>
           <Button

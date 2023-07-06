@@ -27,7 +27,7 @@ type ActionResponse = {
 };
 
 export const action: ActionFunction = async ({ request }) => {
-  let formData = await request.formData();
+  const formData = await request.formData();
   const formPayload = Object.fromEntries(formData);
   const validationSchema = z
     .object({
