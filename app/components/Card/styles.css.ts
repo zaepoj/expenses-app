@@ -2,7 +2,6 @@ import { style } from "@vanilla-extract/css";
 import { theme } from "~/theme";
 
 export const cardContainer = style({
-  width: "500px",
   minHeight: "250px",
   backgroundColor: theme.ghostWhite,
   display: "flex",

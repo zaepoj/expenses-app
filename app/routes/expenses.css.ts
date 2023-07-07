@@ -39,7 +39,6 @@ export const expensesSummaryContainer = style({
 
   "@media": {
     "only screen and (max-width: 700px)": {
-      flexDirection: "column",
       justifyContent: "center",
       alignItems: "center",
     },
@@ -51,4 +50,15 @@ export const pieContainer = style({
   height: "500px",
   maxWidth: "700px",
   width: "100%",
+});
+
+export const progressContainer = style({
+  flexGrow: 1,
+  padding: "1em",
+
+  "@media": {
+    "only screen and (max-width: 700px)": {
+      padding: "0.25em",
+    },
+  },
 });

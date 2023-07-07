@@ -3,6 +3,12 @@ import { style } from "@vanilla-extract/css";
 export const unit = style({
   textAlign: "right",
   width: "100%",
+
+  '@media': {
+    'only screen and (max-width: 700px)': {
+      fontSize: "0.7em",
+    },
+  },
 });
 
 export const container = style({
@@ -35,4 +41,11 @@ export const textContainer = style({
   paddingLeft: "2em",
   minWidth: "100px",
   width: "100%",
+
+
+  '@media': {
+    'only screen and (max-width: 700px)': {
+      fontSize: "0.7em",
+    },
+  },
 });

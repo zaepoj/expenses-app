@@ -206,35 +206,39 @@ export default function ExpenseView() {
           </div>
           <Divider />
           <div className={styles.expensesSummaryContainer}>
-            <div className={styles.pieContainer}>
-              <ToggleButton
-                checked={pieChartSortByType}
-                onChange={(e) => setPieChartSortByType(e.target.checked)}
-                label="By type of expense"
-              />
-              <ResponsivePie
-                margin={{ top: 80, right: 80, bottom: 80, left: 80 }}
-                motionConfig="gentle"
-                transitionMode="startAngle"
-                activeOuterRadiusOffset={15}
-                startAngle={-50}
-                innerRadius={0.5}
-                padAngle={2}
-                borderWidth={4}
-                cornerRadius={9}
-                colors={{ scheme: "purples" }}
-                data={pieChartData}
-                valueFormat={(v) =>
-                  pieChartSortByType ? `${v.toFixed(2)}%` : `${v}`
-                }
-              />
+            <div style={{ flexGrow: 1 }}>
+              <Card>
+                <div className={styles.pieContainer}>
+                  <ToggleButton
+                    checked={pieChartSortByType}
+                    onChange={(e) => setPieChartSortByType(e.target.checked)}
+                    label="By type of expense"
+                  />
+                  <ResponsivePie
+                    margin={{ top: 80, right: 80, bottom: 80, left: 80 }}
+                    motionConfig="gentle"
+                    transitionMode="startAngle"
+                    activeOuterRadiusOffset={15}
+                    startAngle={-50}
+                    innerRadius={0.5}
+                    padAngle={2}
+                    borderWidth={4}
+                    cornerRadius={9}
+                    colors={{ scheme: "purples" }}
+                    data={pieChartData}
+                    valueFormat={(v) =>
+                      pieChartSortByType ? `${v.toFixed(2)}%` : `${v}`
+                    }
+                  />
+                </div>
+              </Card>
             </div>
-            <div>
+            <div className={styles.progressContainer}>
               <Card title={"Monthly progression"}>
                 <>
                   <Typography
                     style={{
-                      fontSize: "6em",
+                      fontSize: "4em",
                       color: monthlyExpensesPercentageChange.isPositive
                         ? theme.salmon
                         : theme.green,

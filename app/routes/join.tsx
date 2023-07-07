@@ -45,8 +45,8 @@ export const action: ActionFunction = async ({ request }) => {
 
   try {
     validationSchema.parse(formPayload);
-    const name = formData.get("name") as string;
-    const email = formData.get("email") as string;
+    const name = formData.get("join_name") as string;
+    const email = formData.get("join_email") as string;
     const password = formData.get("password") as string;
 
     let sessionCookie;
@@ -112,7 +112,7 @@ export default function Join() {
           <TextField
             type="text"
             placeholder="email"
-            name="email"
+            name="join_email"
             label="Email"
             defaultValue={actionData?.formData?.email}
             errorHelper={actionData?.errors?.email}
@@ -120,7 +120,7 @@ export default function Join() {
           <TextField
             type="password"
             placeholder="password"
-            name="password"
+            name="join_password"
             label="Password"
             defaultValue={actionData?.formData?.password}
             errorHelper={actionData?.errors?.password}

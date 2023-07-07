@@ -3,6 +3,7 @@ import { recipe } from "@vanilla-extract/recipes";
 import { theme } from "~/theme";
 
 export const container = style({
+  zIndex: '9999',
   position: "fixed",
   display: "flex",
   paddingTop: "5em",
@@ -22,7 +23,6 @@ export const container = style({
       maxWidth: "100%",
       borderRadius: "0",
       marginTop: "0",
-      overflowX: "auto",
       whiteSpace: "nowrap",
     },
   },
