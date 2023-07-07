@@ -14,8 +14,7 @@ export const cardContainer = style({
   boxShadow: "rgb(0 0 0 / 10%) 0px 4px 10px",
 
   "@media": {
-    "only screen and (max-width: 820px)": {
-      width: "100%",
+    "only screen and (max-width: 700px)": {
       paddingRight: "1em",
     },
   },

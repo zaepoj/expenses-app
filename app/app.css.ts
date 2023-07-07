@@ -33,7 +33,13 @@ export const outletContainerLoginOrSignUpPage = style({
   },
 });
 
-export const outlerContainer = style({
+export const outletContainer = style({
   marginLeft: "100px",
   width: "100%",
+
+  "@media": {
+    "only screen and (max-width: 700px)": {
+      margin: 0,
+    },
+  },
 });

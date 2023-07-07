@@ -47,10 +47,8 @@ export const ul = style({
     "only screen and (max-width: 700px)": {
       display: "flex",
       flexDirection: "row",
-      justifyContent: "space-between",
+      justifyContent: "space-evenly",
       width: "100%",
-      padding: "0.5em",
-      margin: "0.5em",
     },
   },
 });

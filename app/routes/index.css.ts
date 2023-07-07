@@ -16,12 +16,15 @@ export const ContentContainer = style({
   paddingRight: "2em",
   paddingTop: "5em",
   marginLeft: "5em",
+  marginRight: "5em",
 
   "@media": {
     "only screen and (max-width: 700px)": {
       paddingLeft: "0.25em",
       paddingRight: "0.25em",
       paddingTop: "10em",
+      marginLeft: "0.5em",
+      marginRight: "0.5em",
     },
   },
 });

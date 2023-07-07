@@ -12,7 +12,7 @@ import {
   Scripts,
   ScrollRestoration,
   useLoaderData,
-  useTransition
+  useTransition,
 } from "@remix-run/react";
 import shared from "./shared.css";
 import { AiFillHome, AiFillProject } from "react-icons/ai";
@@ -80,7 +80,7 @@ export default function App() {
             className={
               isLoginOrSignUpPage
                 ? styles.outletContainerLoginOrSignUpPage
-                : styles.outlerContainer
+                : styles.outletContainer
             }
           >
             <LoaderBar
