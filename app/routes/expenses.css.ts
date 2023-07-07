@@ -48,7 +48,8 @@ export const expensesSummaryContainer = style({
 export const pieContainer = style({
   marginTop: "5em",
   height: "500px",
-  maxWidth: "700px",
+  minWidth: "350px",
+  maxWidth: "500px",
   width: "100%",
 });
 

@@ -27,11 +27,13 @@ export default function Card({
         </div>
       </div>
       <div className={styles.cardContentContainer}>{children}</div>
-      {clickable && (
-        <Button style={{ alignSelf: "flex-end" }} onClick={onClick}>
-          View
-        </Button>
-      )}
+      <div style={{ padding: "1em" }}>
+        {clickable && (
+          <Button style={{ alignSelf: "flex-end" }} onClick={onClick}>
+            View
+          </Button>
+        )}
+      </div>
     </div>
   );
 }

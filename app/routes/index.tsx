@@ -26,7 +26,7 @@ export default function Index() {
       <Typography type="h1">{`Welcome back ${
         data.user.name || data.user.email || "unknown"
       }!`}</Typography>
-      <div className={styles.CardContainer}>
+      <div style={{ width: "100%" }} className={styles.CardContainer}>
         <Card
           clickable
           onClick={() => navigate("/expenses")}

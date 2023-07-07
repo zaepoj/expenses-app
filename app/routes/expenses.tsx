@@ -206,32 +206,38 @@ export default function ExpenseView() {
           </div>
           <Divider />
           <div className={styles.expensesSummaryContainer}>
-            <div style={{ flexGrow: 1 }}>
-              <Card>
-                <div className={styles.pieContainer}>
-                  <ToggleButton
-                    checked={pieChartSortByType}
-                    onChange={(e) => setPieChartSortByType(e.target.checked)}
-                    label="By type of expense"
-                  />
-                  <ResponsivePie
-                    margin={{ top: 80, right: 80, bottom: 80, left: 80 }}
-                    motionConfig="gentle"
-                    transitionMode="startAngle"
-                    activeOuterRadiusOffset={15}
-                    startAngle={-50}
-                    innerRadius={0.5}
-                    padAngle={2}
-                    borderWidth={4}
-                    cornerRadius={9}
-                    colors={{ scheme: "purples" }}
-                    data={pieChartData}
-                    valueFormat={(v) =>
-                      pieChartSortByType ? `${v.toFixed(2)}%` : `${v}`
-                    }
-                  />
-                </div>
-              </Card>
+            <div
+              style={{
+                margin: "1.2em",
+                height: "50vh",
+                padding: ".2em",
+                width: "100%",
+              }}
+            >
+              <Typography type="h1">Monthly expenses summary</Typography>
+              <div style={{ padding: "1em" }}>
+                <ToggleButton
+                  checked={pieChartSortByType}
+                  onChange={(e) => setPieChartSortByType(e.target.checked)}
+                  label="By type of expense"
+                />
+              </div>
+              <ResponsivePie
+                motionConfig="gentle"
+                margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
+                transitionMode="startAngle"
+                activeOuterRadiusOffset={15}
+                startAngle={-50}
+                innerRadius={0.5}
+                padAngle={2}
+                borderWidth={4}
+                cornerRadius={9}
+                colors={{ scheme: "purples" }}
+                data={pieChartData}
+                valueFormat={(v) =>
+                  pieChartSortByType ? `${v.toFixed(2)}%` : `${v}`
+                }
+              />
             </div>
             <div className={styles.progressContainer}>
               <Card title={"Monthly progression"}>
