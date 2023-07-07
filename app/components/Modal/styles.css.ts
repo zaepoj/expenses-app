@@ -33,8 +33,8 @@ export const modalHeader = style({
 
 export const closeIcon = style({
   position: "absolute",
-  top: "1em",
-  right: "1em",
+  top: "0em",
+  right: "0em",
   paddingTop: "1em",
   paddingRight: "1em",
   fontSize: "1.5em",
