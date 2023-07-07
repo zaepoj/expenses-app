@@ -5,14 +5,50 @@ export const contentContainer = style({
   flex: "1",
   paddingLeft: "2em",
   paddingRight: "2em",
+  paddingBottom: "2em",
   paddingTop: "5em",
-  marginLeft: "5em",
+  marginLeft: "auto",
 
   "@media": {
     "only screen and (max-width: 700px)": {
       paddingLeft: "0.25em",
       paddingRight: "0.25em",
       paddingTop: "10em",
+      marginLeft: "0.25em",
     },
   },
+});
+
+export const expenseListContainer = style({
+  padding: "4em",
+
+  "@media": {
+    "only screen and (max-width: 700px)": {
+      padding: "0.25em",
+    },
+  },
+});
+
+export const expensesSummaryContainer = style({
+  display: "flex",
+  justifyContent: "space-evenly",
+  flexWrap: "wrap",
+  marginTop: "3em",
+  marginBottom: "3em",
+  alignItems: "center",
+
+  "@media": {
+    "only screen and (max-width: 700px)": {
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+  },
+});
+
+export const pieContainer = style({
+  marginTop: "5em",
+  height: "500px",
+  maxWidth: "700px",
+  width: "100%",
 });

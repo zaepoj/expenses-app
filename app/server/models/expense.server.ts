@@ -1,5 +1,6 @@
-import { type Expense, ExpenseBillingType } from "@prisma/client";
+import { type Expense, ExpenseBillingType, Month } from "@prisma/client";
 import { prisma } from "../db.server";
+import { subMonths } from "date-fns";
 
 type CreateExpenseType = Pick<
   Expense,
@@ -27,7 +28,7 @@ const updateExpense = async (expense: UpdateExpenseType, userId: string) => {
 
 const findExpensesByUserId = async (userId: string) => {
   const expenses = await prisma.expense.findMany({ where: { userId } });
-  return expenses.map((expense) => {
+  return expenses.map((expense: Expense) => {
     return {
       ...expense,
       price: Number(expense.price),
@@ -78,6 +79,38 @@ const getMonthlyTotalExpensesForUser = async (userId: string) => {
   return totalMonthlyExpenses.toFixed(2);
 };
 
+const getMontlyTotalExpensesHistoryForUser = async (userId: string) => {
+  const prevMonth = subMonths(new Date(), 0).getUTCMonth();
+  const monthKey = Object.keys(Month)[prevMonth - 1] as Month;
+
+  const prevMonthExpenses = await prisma.userMonthlyExpenses.findFirst({
+    where: { userId, month: monthKey },
+  });
+
+  if (!prevMonthExpenses) {
+    return {
+      percentChange: "0",
+      isPositive: true,
+    };
+  }
+
+  const currentMonthExpensesTotal = await getMonthlyTotalExpensesForUser(
+    userId
+  );
+
+  const percentChange =
+    ((Number(currentMonthExpensesTotal) - Number(prevMonthExpenses.value)) /
+      Number(prevMonthExpenses.value)) *
+    100;
+
+  const isPositive = percentChange >= 0;
+
+  return {
+    percentChange: percentChange.toFixed(2).replace("-", ""),
+    isPositive,
+  };
+};
+
 export {
   createExpense,
   updateExpense,
@@ -85,4 +118,5 @@ export {
   findExpenseById,
   deleteExpenseById,
   getMonthlyTotalExpensesForUser,
+  getMontlyTotalExpensesHistoryForUser,
 };
