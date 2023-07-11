@@ -1,4 +1,5 @@
 import { style } from "@vanilla-extract/css";
+import { recipe } from "@vanilla-extract/recipes";
 
 export const contentContainer = style({
   height: "100%",
@@ -45,12 +46,22 @@ export const expensesSummaryContainer = style({
   },
 });
 
-export const pieContainer = style({
-  marginTop: "5em",
-  height: "500px",
-  minWidth: "350px",
-  maxWidth: "500px",
-  width: "100%",
+export const pieContainer = recipe({
+  base: {
+    margin: "1.2em",
+    height: "50vh",
+    padding: ".2em",
+  },
+  variants: {
+    desktop: {
+      true: {
+        width: "50%",
+      },
+      false: {
+        width: "100%",
+      }
+    },
+  },
 });
 
 export const progressContainer = style({

@@ -35,6 +35,7 @@ import Divider from "~/components/Divider";
 import * as styles from "./expenses.css";
 import Card from "~/components/Card";
 import { theme } from "~/theme";
+import useMedia from "~/hooks/useMedia";
 
 type LoaderData = {
   expenses: Awaited<ReturnType<typeof findExpensesByUserId>>;
@@ -73,6 +74,8 @@ export default function ExpenseView() {
   const { expenses, monthlyExpensesPercentageChange } =
     useLoaderData() as LoaderData;
   const [pieChartSortByType, setPieChartSortByType] = useState(false);
+
+  const isDesktopScreen = useMedia({ breakpoint: "lg" });
 
   const totalSumOfExpenses = useMemo(
     () =>
@@ -207,12 +210,9 @@ export default function ExpenseView() {
           <Divider />
           <div className={styles.expensesSummaryContainer}>
             <div
-              style={{
-                margin: "1.2em",
-                height: "50vh",
-                padding: ".2em",
-                width: "100%",
-              }}
+              className={styles.pieContainer({
+                desktop: isDesktopScreen,
+              })}
             >
               <Typography type="h1">Monthly expenses summary</Typography>
               <div style={{ padding: "1em" }}>
