@@ -1,7 +1,6 @@
 import ReactModal from "react-modal";
 import Typography from "../Typography";
 import { AiOutlineClose } from "react-icons/ai/index.js";
-import { useEffect } from "react";
 import * as styles from "./styles.css";
 
 type ModalProps = {
@@ -13,13 +12,6 @@ type ModalProps = {
 ReactModal.defaultStyles.overlay!.backgroundColor = "rgba(0, 0, 0, 0.4)";
 
 const Modal = ({ open, onClose, title, children }: ModalProps) => {
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = "initial";
-    };
-  }, []);
-
   ReactModal.setAppElement("body");
   return (
     <ReactModal

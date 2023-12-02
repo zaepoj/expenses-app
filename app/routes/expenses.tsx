@@ -31,7 +31,6 @@ import { useCallback, useMemo, useState } from "react";
 import IconButton from "~/components/IconButton";
 import { ResponsivePie } from "@nivo/pie";
 import ToggleButton from "~/components/ToggleButton";
-import Divider from "~/components/Divider";
 import * as styles from "./expenses.css";
 import Card from "~/components/Card";
 import { theme } from "~/theme";
@@ -155,61 +154,63 @@ export default function ExpenseView() {
       <Outlet />
       <div>
         <div className={styles.contentContainer}>
-          <div className={styles.expenseListContainer}>
-            <Button
-              onClick={() =>
-                navigate("/expenses/add", { preventScrollReset: true })
-              }
-            >
-              <Typography type="h3">Add new</Typography>
-            </Button>
+          <Card>
+            <div className={styles.expenseListContainer}>
+              <Button
+                onClick={() =>
+                  navigate("/expenses/add", { preventScrollReset: true })
+                }
+              >
+                <Typography type="h3">Add new</Typography>
+              </Button>
 
-            <div style={{ marginTop: "3em" }}>
-              <Typography type="h1">Monthly expenses</Typography>
+              <div style={{ marginTop: "3em" }}>
+                <Typography type="h1">Monthly expenses</Typography>
+              </div>
+              <div style={{ marginTop: "3em" }}>
+                <Typography type="h2">{`Total: ${totalSumOfExpenses.toFixed(
+                  2
+                )} €`}</Typography>
+              </div>
+              <div style={{ marginTop: "2em", marginBottom: "3em" }}>
+                {expensesMonthly?.map((expense) => {
+                  return (
+                    <div style={{ width: "100%" }} key={expense.id}>
+                      <ListItem
+                        text={expense.name}
+                        info={expense.type}
+                        unit={expense.cost}
+                        icon={iconByExpenseType[expense.type]}
+                        actions={
+                          <>
+                            <IconButton
+                              icon={MdOutlineModeEdit}
+                              tooltip="Edit"
+                              onClick={() =>
+                                navigate(`/expenses/${expense.id}/edit`, {
+                                  preventScrollReset: true,
+                                })
+                              }
+                            />
+                            <IconButton
+                              icon={MdDelete}
+                              tooltip="Delete"
+                              onClick={() =>
+                                navigate(`/expenses/${expense.id}/delete`, {
+                                  preventScrollReset: true,
+                                })
+                              }
+                            />
+                          </>
+                        }
+                      />
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-            <div style={{ marginTop: "3em" }}>
-              <Typography type="h2">{`Total: ${totalSumOfExpenses.toFixed(
-                2
-              )} €`}</Typography>
-            </div>
-            <div style={{ marginTop: "2em", marginBottom: "3em" }}>
-              {expensesMonthly?.map((expense) => {
-                return (
-                  <div style={{ width: "100%" }} key={expense.id}>
-                    <ListItem
-                      text={expense.name}
-                      info={expense.type}
-                      unit={expense.cost}
-                      icon={iconByExpenseType[expense.type]}
-                      actions={
-                        <>
-                          <IconButton
-                            icon={MdOutlineModeEdit}
-                            tooltip="Edit"
-                            onClick={() =>
-                              navigate(`/expenses/${expense.id}/edit`, {
-                                preventScrollReset: true,
-                              })
-                            }
-                          />
-                          <IconButton
-                            icon={MdDelete}
-                            tooltip="Delete"
-                            onClick={() =>
-                              navigate(`/expenses/${expense.id}/delete`, {
-                                preventScrollReset: true,
-                              })
-                            }
-                          />
-                        </>
-                      }
-                    />
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-          <Divider />
+          </Card>
+          <div className="mt-4"></div>
           <div className={styles.expensesSummaryContainer}>
             <div
               className={styles.pieContainer({
@@ -234,16 +235,17 @@ export default function ExpenseView() {
                 padAngle={2}
                 borderWidth={4}
                 cornerRadius={9}
-                colors={{ scheme: "purples" }}
+                colors={{ scheme: "pastel1" }}
+                theme={{ textColor: "#fff" }}
                 data={pieChartData}
                 valueFormat={(v) =>
                   pieChartSortByType ? `${v.toFixed(2)}%` : `${v}`
                 }
               />
             </div>
-            <div className={styles.progressContainer}>
+            <div className="grow p-2 md:p-0.5">
               <Card title={"Monthly progression"}>
-                <>
+                <div className="p-5">
                   <Typography
                     style={{
                       fontSize: "4em",
@@ -256,12 +258,12 @@ export default function ExpenseView() {
                     {monthlyExpensesPercentageChange.percentChange}
                     {" %"}
                   </Typography>
-                  <Typography type="body1">
+                  <Typography className="pt-10" type="h4">
                     {monthlyExpensesPercentageChange.isPositive
                       ? "increase in monthly expenses since last month"
                       : "decrease in monthly expenses since last month"}
                   </Typography>
-                </>
+                </div>
               </Card>
             </div>
           </div>

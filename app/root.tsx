@@ -16,6 +16,7 @@ import { requireAuth } from "./server/auth.server";
 import { cssBundleHref } from "@remix-run/css-bundle";
 import LoaderBar from "./components/LoaderBar";
 import * as styles from "./app.css";
+import twStyles from "./tailwind.css";
 
 export const meta = () => {
   return [
@@ -40,6 +41,7 @@ export const loader: LoaderFunction = async ({ request, context }) => {
 export const links: LinksFunction = () => {
   return [
     ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
+    { rel: "stylesheet", href: twStyles },
     // ...
   ];
 };

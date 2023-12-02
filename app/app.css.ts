@@ -4,10 +4,11 @@ export const html = style({ height: "100%", margin: 0 });
 
 export const body = style({
   height: "100%",
-  background: "#fff",
+  background: "#11131F",
   fontFamily: "Lato",
-  color: "#34293d",
+  color: "rgb(220, 220, 220)",
   margin: 0,
+  overflow: "initial",
 });
 
 export const container = style({

@@ -3,12 +3,12 @@ import { recipe } from "@vanilla-extract/recipes";
 import { theme } from "~/theme";
 
 export const container = style({
-  zIndex: '9999',
+  zIndex: "9999",
   position: "fixed",
   display: "flex",
   paddingTop: "5em",
   paddingBottom: "5em",
-  backgroundColor: "rgb(65, 35, 89)",
+  backgroundColor: "#1F2132",
   height: "100%",
   maxWidth: "100px",
   boxShadow: "rgb(0 0 0 / 10%) 5px 10px 44px",
@@ -62,7 +62,7 @@ export const li = style({
   transition: "all 0.2s ease-in-out",
 
   ":hover": {
-    backgroundColor: "rgb(65, 35, 89)",
+    backgroundColor: "rgb(45, 42, 70)",
     color: "white",
   },
 
