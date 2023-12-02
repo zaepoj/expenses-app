@@ -6,7 +6,7 @@ import {
 } from "@prisma/client";
 import {
   type ActionFunction,
-  type LoaderArgs,
+  type LoaderFunctionArgs,
   type LoaderFunction,
   redirect,
 } from "@remix-run/node";
@@ -15,7 +15,7 @@ import {
   useActionData,
   useLoaderData,
   useNavigate,
-  useTransition,
+  useNavigation,
 } from "@remix-run/react";
 import { Controller, useForm } from "react-hook-form";
 import Button from "~/components/Button";
@@ -29,7 +29,7 @@ import {
   ExpenseTypeOptions,
   expenseValidationSchema,
 } from "~/utils/expense";
-import * as styles from "./edit.css";
+import * as styles from "./expenses.$expenseId.edit.css";
 
 type LoaderData = {
   expense: Awaited<ReturnType<typeof findExpenseById>>;
@@ -79,7 +79,7 @@ export const action: ActionFunction = async ({ request, params }) => {
 export const loader: LoaderFunction = async ({
   request,
   params,
-}: LoaderArgs) => {
+}: LoaderFunctionArgs) => {
   try {
     const expenseId = params.expenseId;
     if (!expenseId) throw new Error("Missing expense id");
@@ -88,7 +88,7 @@ export const loader: LoaderFunction = async ({
 
     return { expense };
   } catch (e) {
-    if(e instanceof Error) {
+    if (e instanceof Error) {
       return { error: e.message };
     }
   }
@@ -105,10 +105,10 @@ const ExpenseEdit = () => {
     onClose();
   };
 
-  const actionData = useActionData();
-  const transition = useTransition();
-  const isSubmitting = !!transition.submission;
-  const { expense, error } = useLoaderData() as LoaderData;
+  const actionData = useActionData<typeof action>();
+  const transition = useNavigation();
+  const isSubmitting = transition.state === "submitting";
+  const { expense } = useLoaderData() as LoaderData;
   const {
     control,
     formState: { errors },

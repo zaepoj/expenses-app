@@ -5,7 +5,7 @@ import Typography from "~/components/Typography";
 import Card from "~/components/Card";
 import { useNavigate } from "react-router-dom";
 import { getMonthlyTotalExpensesForUser } from "~/server/models/expense.server";
-import * as styles from "./index.css";
+import * as styles from "./_index.css";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await requireAuth(request);
@@ -18,7 +18,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export default function Index() {
-  const data = useLoaderData();
+  const data = useLoaderData<typeof loader>();
   const navigate = useNavigate();
 
   return (

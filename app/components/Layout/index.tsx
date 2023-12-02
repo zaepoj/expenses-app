@@ -1,6 +1,6 @@
 import { NavLink } from "@remix-run/react";
 import type { IconType } from "react-icons";
-import { IoExitOutline } from "react-icons/io5";
+import { IoExitOutline } from "react-icons/io5/index.js";
 import { useLocation } from "react-router-dom";
 import * as styles from "./styles.css";
 

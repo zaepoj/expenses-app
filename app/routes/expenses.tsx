@@ -1,6 +1,6 @@
 import Button from "~/components/Button";
 import { json } from "@remix-run/node";
-import type { LoaderArgs, LoaderFunction } from "@remix-run/node";
+import type { LoaderFunctionArgs, LoaderFunction } from "@remix-run/node";
 import { requireAuth } from "~/server/auth.server";
 import { Outlet, useLoaderData, useNavigate } from "@remix-run/react";
 import {
@@ -15,17 +15,17 @@ import {
   FaShieldAlt,
   FaBriefcaseMedical,
   FaTools,
-} from "react-icons/fa";
+} from "react-icons/fa/index.js";
 import { type IconType } from "react-icons";
-import { RiMovie2Line } from "react-icons/ri";
+import { RiMovie2Line } from "react-icons/ri/index.js";
 import {
   MdOutlineLocalGroceryStore,
   MdAirplanemodeActive,
   MdOutlineModeEdit,
   MdDelete,
-} from "react-icons/md";
-import { HiCamera } from "react-icons/hi";
-import { ImPriceTag } from "react-icons/im";
+} from "react-icons/md/index.js";
+import { HiCamera } from "react-icons/hi/index.js";
+import { ImPriceTag } from "react-icons/im/index.js";
 import Typography from "~/components/Typography";
 import { useCallback, useMemo, useState } from "react";
 import IconButton from "~/components/IconButton";
@@ -44,7 +44,9 @@ type LoaderData = {
   >;
 };
 
-export const loader: LoaderFunction = async ({ request }: LoaderArgs) => {
+export const loader: LoaderFunction = async ({
+  request,
+}: LoaderFunctionArgs) => {
   const user = await requireAuth(request);
   const expenses = await findExpensesByUserId(user.uid);
 

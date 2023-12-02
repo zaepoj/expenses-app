@@ -1,6 +1,6 @@
 import ReactModal from "react-modal";
 import Typography from "../Typography";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose } from "react-icons/ai/index.js";
 import { useEffect } from "react";
 import * as styles from "./styles.css";
 

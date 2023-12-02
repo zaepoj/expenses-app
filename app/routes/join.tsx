@@ -4,7 +4,7 @@ import Button from "~/components/Button";
 import { type ActionFunction, redirect } from "@remix-run/node";
 import { signUp } from "~/server/auth.server";
 import { commitSession, getSession } from "~/sessions";
-import { Form, Link, useActionData, useTransition } from "@remix-run/react";
+import { Form, Link, useActionData, useNavigation } from "@remix-run/react";
 import * as styles from "./join.css";
 
 type ErrorActionResponse = {
@@ -31,14 +31,14 @@ export const action: ActionFunction = async ({ request }) => {
   const formPayload = Object.fromEntries(formData);
   const validationSchema = z
     .object({
-      name: z
+      join_name: z
         .string()
         .min(2, { message: "Name must be atleast 2 characters long" }),
-      email: z.string().email({ message: "Invalid email" }),
-      password: z.string().min(3, { message: "Invalid password" }),
-      confirmPassword: z.string().min(3, { message: "Invalid password" }),
+      join_email: z.string().email({ message: "Invalid email" }),
+      join_password: z.string().min(3, { message: "Invalid password" }),
+      join_confirmPassword: z.string().min(3, { message: "Invalid password" }),
     })
-    .refine((data) => data.confirmPassword === data.password, {
+    .refine((data) => data.join_confirmPassword === data.join_password, {
       message: "Password mismatch!",
       path: ["confirmPassword"],
     });
@@ -47,7 +47,7 @@ export const action: ActionFunction = async ({ request }) => {
     validationSchema.parse(formPayload);
     const name = formData.get("join_name") as string;
     const email = formData.get("join_email") as string;
-    const password = formData.get("password") as string;
+    const password = formData.get("join_password") as string;
 
     let sessionCookie;
 
@@ -91,8 +91,8 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function Join() {
   const actionData = useActionData() as ActionResponse;
-  const transition = useTransition();
-  const isSubmitting = !!transition.submission;
+  const transition = useNavigation();
+  const isSubmitting = transition.state === "submitting";
 
   return (
     <div className={styles.Container}>
@@ -104,7 +104,7 @@ export default function Join() {
           <TextField
             type="text"
             placeholder="Name"
-            name="name"
+            name="join_name"
             label="Name"
             defaultValue={actionData?.formData?.name}
             errorHelper={actionData?.errors?.name}
@@ -128,7 +128,7 @@ export default function Join() {
           <TextField
             type="password"
             placeholder="confirm password"
-            name="confirmPassword"
+            name="join_confirmPassword"
             errorHelper={actionData?.errors?.confirmPassword}
             defaultValue={actionData?.formData?.confirmPassword}
           />

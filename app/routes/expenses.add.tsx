@@ -8,7 +8,7 @@ import {
   Form,
   useActionData,
   useNavigate,
-  useTransition,
+  useNavigation,
 } from "@remix-run/react";
 import { Controller, useForm } from "react-hook-form";
 import Button from "~/components/Button";
@@ -23,7 +23,7 @@ import {
   ExpenseTypeOptions,
   expenseValidationSchema,
 } from "~/utils/expense";
-import * as styles from "./add.css";
+import * as styles from "./expenses.add.css";
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
@@ -61,9 +61,9 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 const ExpensesCreateModal = () => {
-  const actionData = useActionData();
-  const transition = useTransition();
-  const isSubmitting = !!transition.submission;
+  const actionData = useActionData<typeof action>();
+  const transition = useNavigation();
+  const isSubmitting = transition.state === "submitting";
   const navigate = useNavigate();
   const onClose = () => {
     navigate("/expenses", { preventScrollReset: true });

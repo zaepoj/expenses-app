@@ -1,9 +1,4 @@
-import {
-  json,
-  LinksFunction,
-  LoaderFunction,
-  MetaFunction,
-} from "@remix-run/node";
+import { json, type LinksFunction, type LoaderFunction } from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -12,21 +7,23 @@ import {
   Scripts,
   ScrollRestoration,
   useLoaderData,
-  useTransition,
+  useNavigation,
 } from "@remix-run/react";
 import shared from "./shared.css";
-import { AiFillHome, AiFillProject } from "react-icons/ai";
+import { AiFillHome, AiFillProject } from "react-icons/ai/index.js";
 import Layout from "./components/Layout";
 import { requireAuth } from "./server/auth.server";
 import { cssBundleHref } from "@remix-run/css-bundle";
 import LoaderBar from "./components/LoaderBar";
 import * as styles from "./app.css";
 
-export const meta: MetaFunction = () => ({
-  charset: "utf-8",
-  title: "Expenses Tracker",
-  viewport: "width=device-width,initial-scale=1",
-});
+export const meta = () => {
+  return [
+    { charset: "utf-8" },
+    { title: "Expenses Tracker" },
+    { viewport: "width=device-width,initial-scale=1" },
+  ];
+};
 
 export const loader: LoaderFunction = async ({ request, context }) => {
   const url = new URL(request.url);
@@ -48,10 +45,10 @@ export const links: LinksFunction = () => {
 };
 
 export default function App() {
-  const data = useLoaderData();
+  const data = useLoaderData<typeof loader>();
   const isLoginOrSignUpPage = data.isLoginOrSignUpPage;
   const user = data.user;
-  const transition = useTransition();
+  const navigate = useNavigation();
   return (
     <html className={styles.html} lang="en">
       <head>
@@ -85,8 +82,7 @@ export default function App() {
           >
             <LoaderBar
               loading={
-                transition.state === "loading" ||
-                transition.state === "submitting"
+                navigate.state === "loading" || navigate.state === "submitting"
               }
             />
             <Outlet />

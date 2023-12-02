@@ -4,7 +4,7 @@ import Button from "~/components/Button";
 import { type ActionFunction, redirect } from "@remix-run/node";
 import { signIn } from "~/server/auth.server";
 import { commitSession, getSession } from "~/sessions";
-import { Form, Link, useActionData, useTransition } from "@remix-run/react";
+import { Form, Link, useActionData, useNavigation } from "@remix-run/react";
 import * as styles from "./login.css";
 
 export const action: ActionFunction = async ({ request }) => {
@@ -42,8 +42,8 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function Join() {
   const actionData = useActionData() as { errorMessage: string };
-  const transition = useTransition();
-  const isSubmitting = !!transition.submission;
+  const transition = useNavigation();
+  const isSubmitting = transition.state === "submitting";
 
   return (
     <div className={styles.Container}>

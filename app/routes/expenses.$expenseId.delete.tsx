@@ -1,7 +1,7 @@
 import {
-  type ActionArgs,
+  type ActionFunctionArgs,
   type ActionFunction,
-  type LoaderArgs,
+  type LoaderFunctionArgs,
   type LoaderFunction,
   redirect,
 } from "@remix-run/node";
@@ -10,7 +10,7 @@ import {
   useActionData,
   useLoaderData,
   useNavigate,
-  useTransition,
+  useNavigation,
 } from "@remix-run/react";
 import Button from "~/components/Button";
 import Modal from "~/components/Modal";
@@ -20,8 +20,8 @@ import {
   deleteExpenseById,
   findExpenseById,
 } from "~/server/models/expense.server";
-import { MdError } from "react-icons/md";
-import * as styles from "./delete.css";
+import { MdError } from "react-icons/md/index.js";
+import * as styles from "./expenses.$expenseId.delete.css";
 
 type LoaderData = {
   expense: Awaited<ReturnType<typeof findExpenseById>>;
@@ -35,7 +35,7 @@ type ActionData = {
 export const loader: LoaderFunction = async ({
   request,
   params,
-}: LoaderArgs) => {
+}: LoaderFunctionArgs) => {
   try {
     const expenseId = params.expenseId;
     if (!expenseId) throw new Error("Missing expense id");
@@ -55,7 +55,7 @@ export const loader: LoaderFunction = async ({
 export const action: ActionFunction = async ({
   request,
   params,
-}: ActionArgs) => {
+}: ActionFunctionArgs) => {
   try {
     const expenseId = params.expenseId;
     if (!expenseId) throw new Error("Missing expense id");
@@ -71,7 +71,7 @@ export const action: ActionFunction = async ({
 
 const ExpenseDelete = () => {
   const navigate = useNavigate();
-  const transition = useTransition();
+  const transition = useNavigation();
   const onClose = () => {
     navigate("/expenses", { preventScrollReset: true });
   };
@@ -81,9 +81,9 @@ const ExpenseDelete = () => {
     onClose();
   };
 
-  const { expense, error } = useLoaderData() as LoaderData;
+  const { expense } = useLoaderData() as LoaderData;
   const actionData = useActionData() as ActionData;
-  const isSubmitting = !!transition.submission;
+  const isSubmitting = transition.state === "submitting";
 
   return (
     <Modal title={"Delete expense"} open={true} onClose={onClose}>
