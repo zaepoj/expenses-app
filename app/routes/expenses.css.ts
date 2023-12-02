@@ -21,7 +21,7 @@ export const contentContainer = style({
 });
 
 export const expenseListContainer = style({
-  padding: "4em",
+  padding: "1rem",
 
   "@media": {
     "only screen and (max-width: 700px)": {
@@ -59,7 +59,7 @@ export const pieContainer = recipe({
       },
       false: {
         width: "100%",
-      }
+      },
     },
   },
 });

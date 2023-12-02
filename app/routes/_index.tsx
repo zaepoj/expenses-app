@@ -26,14 +26,14 @@ export default function Index() {
       <Typography type="h1">{`Welcome back ${
         data.user.name || data.user.email || "unknown"
       }!`}</Typography>
-      <div style={{ width: "100%" }} className={styles.CardContainer}>
+      <div style={{ width: "100%" }} className={`${styles.CardContainer}`}>
         <Card
           clickable
           onClick={() => navigate("/expenses")}
           title="Expenses"
           infoLabel="monthly"
         >
-          <div style={{ paddingTop: "2em" }}>
+          <div className="p-5">
             <Typography type="h1">{data?.monthlyTotalExpenses} €</Typography>
           </div>
         </Card>
