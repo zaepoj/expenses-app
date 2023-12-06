@@ -4,8 +4,8 @@ import { recipe } from "@vanilla-extract/recipes";
 export const contentContainer = style({
   height: "100%",
   flex: "1",
-  paddingLeft: "2em",
-  paddingRight: "2em",
+  paddingLeft: "5em",
+  paddingRight: "5em",
   paddingBottom: "2em",
   paddingTop: "5em",
   marginLeft: "auto",

@@ -5,7 +5,6 @@ import { type ActionFunction, redirect } from "@remix-run/node";
 import { signIn } from "~/server/auth.server";
 import { commitSession, getSession } from "~/sessions";
 import { Form, Link, useActionData, useNavigation } from "@remix-run/react";
-import * as styles from "./login.css";
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
@@ -46,9 +45,9 @@ export default function Join() {
   const isSubmitting = transition.state === "submitting";
 
   return (
-    <div className={styles.Container}>
-      <Form style={{ width: "100%", maxWidth: "350px" }} method="post">
-        <div className={styles.InputContainer}>
+    <div className="flex justify-center items-center h-full flex-col text-slate-600">
+      <Form className="w-full max-w-md " method="post">
+        <div className="grid gap-4">
           <TextField type="text" placeholder="email" name="email" />
           <TextField
             type="password"
@@ -57,13 +56,13 @@ export default function Join() {
             showPasswordCheckbox={true}
             errorHelper={actionData?.errorMessage}
           />
-          <div style={{ marginTop: "1em", width: "100%" }}>
+          <div className="mt-4 w-full">
             <Button fullWidth disabled={isSubmitting} type="submit">
               {isSubmitting ? "Signing in.." : "Sign in"}
             </Button>
-            <div style={{ marginTop: "1em" }}>
+            <div className="mt-4">
               Don't have an account?
-              <Link className={styles.SignUpLink} to="/join">
+              <Link className="text-lg pl-5 no-underline" to="/join">
                 Sign up
               </Link>
             </div>

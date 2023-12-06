@@ -2,19 +2,12 @@ import { recipe } from "@vanilla-extract/recipes";
 import { theme } from "~/theme";
 
 export const button = recipe({
-  base: {
-    minHeight: "32px",
-    padding: "0px 14px",
-    border: "0px solid transparent",
-    lineHeight: "normal",
-    transitionProperty: "background",
-    transitionDuration: "0.25s",
-    borderRadius: "4px",
-    minWidth: "50px",
-    color: theme.ghostWhite,
-    fontWeight: "500",
-    userSelect: "none",
-  },
+  base: [
+    "h-8 rounded  px-4 border-0 leading-normal transition-background duration-250 min-w-50 font-semibold user-select-none",
+    {
+      color: theme.ghostWhite,
+    },
+  ],
   variants: {
     variant: {
       disabled: { background: "#cdc9c8" },
@@ -22,10 +15,7 @@ export const button = recipe({
         background: theme.salmon,
         ":hover": { background: theme.fadedTeal, cursor: "pointer" },
       },
-      primary: {
-        background: theme.primary,
-        ":hover": { background: theme.primaryLight, cursor: "pointer" },
-      },
+      primary: ["bg-indigo-900 hover:bg-indigo-700", {}],
       tertiary: {
         background: "transparent",
         color: theme.salmon,

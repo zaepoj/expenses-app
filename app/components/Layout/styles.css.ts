@@ -3,7 +3,6 @@ import { recipe } from "@vanilla-extract/recipes";
 import { theme } from "~/theme";
 
 export const container = style({
-  zIndex: "9999",
   position: "fixed",
   display: "flex",
   paddingTop: "5em",
@@ -108,8 +107,6 @@ export const iconContainer = style({
 export const tooltipText = style({
   visibility: "hidden",
   position: "absolute",
-  marginLeft: "-1.5em",
-  marginTop: "2.5em",
   zIndex: 999,
   opacity: 0,
   transition: "opacity 0.5s",

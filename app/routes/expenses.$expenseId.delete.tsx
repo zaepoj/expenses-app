@@ -21,7 +21,6 @@ import {
   findExpenseById,
 } from "~/server/models/expense.server";
 import { MdError } from "react-icons/md/index.js";
-import * as styles from "./expenses.$expenseId.delete.css";
 
 type LoaderData = {
   expense: Awaited<ReturnType<typeof findExpenseById>>;
@@ -87,33 +86,35 @@ const ExpenseDelete = () => {
 
   return (
     <Modal title={"Delete expense"} open={true} onClose={onClose}>
-      <Form method="delete" preventScrollReset={true}>
-        {actionData?.deleteError ? (
-          <div className={styles.errorContainer}>
-            <MdError style={{ fontSize: "2em" }} />
-            <Typography className={styles.errorMessage} type="h3">
-              {actionData.deleteError}
-            </Typography>
-          </div>
-        ) : (
-          <div>
-            <Typography type="body1">{`Are you sure you want to delete following expense:`}</Typography>
-            <div style={{ padding: "1em" }}>
-              <Typography type="h4">{expense.name} ?</Typography>
+      <Form className="h-full" method="delete" preventScrollReset={true}>
+        <div className="">
+          {actionData?.deleteError ? (
+            <div className="pl-4 flex w-full justify-center gap-2">
+              <MdError style={{ fontSize: "2em" }} />
+              <Typography className="w-full" type="h3">
+                {actionData.deleteError}
+              </Typography>
             </div>
-          </div>
-        )}
+          ) : (
+            <div className="text-almostWhite">
+              <Typography type="body1">{`Are you sure you want to delete following expense:`}</Typography>
+              <div style={{ padding: "1em" }}>
+                <Typography type="h4">{expense.name} ?</Typography>
+              </div>
+            </div>
+          )}
 
-        <div className={styles.actionContainer}>
-          <Button onClick={onCancel} secondary={true}>
-            Cancel
-          </Button>
-          <Button
-            disabled={!!actionData?.deleteError || isSubmitting}
-            type="submit"
-          >
-            Confirm
-          </Button>
+          <div className="pl-4 flex w-full justify-end gap-2">
+            <Button onClick={onCancel} secondary={true}>
+              Cancel
+            </Button>
+            <Button
+              disabled={!!actionData?.deleteError || isSubmitting}
+              type="submit"
+            >
+              Confirm
+            </Button>
+          </div>
         </div>
       </Form>
     </Modal>
@@ -121,3 +122,39 @@ const ExpenseDelete = () => {
 };
 
 export default ExpenseDelete;
+
+/*
+
+import { style } from "@vanilla-extract/css";
+
+export const actionContainer = style({
+  paddingTop: "2em",
+  paddingBottom: "1em",
+  display: "flex",
+  justifyContent: "flex-end",
+  gap: "2%",
+});
+
+export const errorMessage = style({
+  width: "100%",
+});
+
+export const errorContainer = style({
+  paddingLeft: "1em",
+  color: "#ef7171",
+  display: "flex",
+  width: "100%",
+  alignItems: "center",
+  gap: "2%",
+});
+
+
+
+
+
+
+
+
+
+
+*/

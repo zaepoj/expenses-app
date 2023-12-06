@@ -25,3 +25,7 @@
     @apply text-base;
   }
 }
+
+input:autofill {
+  background: #fff; /* or any other */
+}

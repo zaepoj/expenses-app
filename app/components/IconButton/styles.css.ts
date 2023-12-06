@@ -1,16 +1,7 @@
 import { style } from "@vanilla-extract/css";
 import { theme } from "~/theme";
 
-export const iconButtonContainer = style({
-  cursor: "pointer",
-  width: "30px",
-  textAlign: "center",
-  padding: "0 0.35em 0 0.35em",
-  ":hover": {
-    background: theme.primaryLightFaded,
-    borderRadius: "0.8em",
-  },
-});
+export const iconButtonContainer = style({});
 
 export const tooltipText = style({
   visibility: "hidden",

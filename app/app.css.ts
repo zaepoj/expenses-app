@@ -6,9 +6,8 @@ export const body = style({
   height: "100%",
   background: "#11131F",
   fontFamily: "Lato",
-  color: "rgb(220, 220, 220)",
   margin: 0,
-  overflow: "initial",
+  overflowX: "hidden",
 });
 
 export const container = style({
