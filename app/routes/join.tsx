@@ -5,20 +5,19 @@ import { type ActionFunction, redirect } from "@remix-run/node";
 import { signUp } from "~/server/auth.server";
 import { commitSession, getSession } from "~/sessions";
 import { Form, Link, useActionData, useNavigation } from "@remix-run/react";
-import * as styles from "./join.css";
 
 type ErrorActionResponse = {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
+  join_name: string;
+  join_email: string;
+  join_password: string;
+  join_confirmPassword: string;
 };
 
 type FormDataEntries = {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
+  join_name: string;
+  join_email: string;
+  join_password: string;
+  join_confirmPassword: string;
 };
 
 type ActionResponse = {
@@ -75,11 +74,11 @@ export const action: ActionFunction = async ({ request }) => {
     }
     const code = typeof e.code === "string" && (e.code as string);
     if (code === "auth/email-already-exists") {
-      errors.email = "User with this email already exists";
+      errors.join_email = "User with this email already exists";
     }
 
     if (code === "auth/invalid-password") {
-      errors.password = "password must be at least 6 characters";
+      errors.join_password = "password must be at least 6 characters";
     }
 
     return {
@@ -94,50 +93,58 @@ export default function Join() {
   const transition = useNavigation();
   const isSubmitting = transition.state === "submitting";
 
+  console.log(actionData);
   return (
-    <div className={styles.Container}>
+    <div className="flex justify-center items-center h-full flex-col p-5 lg:max-w-2xl mx-auto ">
       <Form style={{ width: "100%" }} method="post">
-        <div className={styles.HeaderContainer}>
+        <div className="text-lg text-almostWhite mb-10 ">
           <h1>Sign up</h1>
         </div>
-        <div className={styles.InputContainer}>
-          <TextField
-            type="text"
-            placeholder="Name"
-            name="join_name"
-            label="Name"
-            defaultValue={actionData?.formData?.name}
-            errorHelper={actionData?.errors?.name}
-          />
-          <TextField
-            type="text"
-            placeholder="email"
-            name="join_email"
-            label="Email"
-            defaultValue={actionData?.formData?.email}
-            errorHelper={actionData?.errors?.email}
-          />
-          <TextField
-            type="password"
-            placeholder="password"
-            name="join_password"
-            label="Password"
-            defaultValue={actionData?.formData?.password}
-            errorHelper={actionData?.errors?.password}
-          />
-          <TextField
-            type="password"
-            placeholder="confirm password"
-            name="join_confirmPassword"
-            errorHelper={actionData?.errors?.confirmPassword}
-            defaultValue={actionData?.formData?.confirmPassword}
-          />
+        <div className="grid">
+          <div className="pb-10 grid gap-5">
+            <TextField
+              type="text"
+              placeholder="Name"
+              name="join_name"
+              label="Name"
+              defaultValue={actionData?.formData?.join_name}
+              errorHelper={actionData?.errors?.join_name}
+            />
+            <TextField
+              type="text"
+              placeholder="email"
+              name="join_email"
+              label="Email"
+              defaultValue={actionData?.formData?.join_email}
+              errorHelper={actionData?.errors?.join_email}
+            />
+            <TextField
+              type="password"
+              placeholder="password"
+              name="join_password"
+              label="Password"
+              defaultValue={actionData?.formData?.join_password}
+              errorHelper={actionData?.errors?.join_password}
+            />
+            <TextField
+              type="password"
+              placeholder="confirm password"
+              name="join_confirmPassword"
+              label="Confirm Password"
+              errorHelper={actionData?.errors?.join_confirmPassword}
+              defaultValue={actionData?.formData?.join_confirmPassword}
+            />
+          </div>
+
           <Button disabled={isSubmitting} type="submit">
             {isSubmitting ? "Loading.." : "Sign up"}
           </Button>
-          <div style={{ marginTop: "1em" }}>
+          <div className="text-almostWhite" style={{ marginTop: "1em" }}>
             Already have an account?
-            <Link className={styles.SignUpLink} to="/login">
+            <Link
+              className="pl-2 text-indigo-400 text-lg decoration-transparent"
+              to="/login"
+            >
               Sign in
             </Link>
           </div>

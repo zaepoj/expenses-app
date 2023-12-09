@@ -19,11 +19,7 @@ import * as styles from "./app.css";
 import twStyles from "./tailwind.css";
 
 export const meta = () => {
-  return [
-    { charset: "utf-8" },
-    { title: "Expenses Tracker" },
-    { viewport: "width=device-width,initial-scale=1" },
-  ];
+  return [{ charset: "utf-8" }, { title: "Expenses Tracker" }];
 };
 
 export const loader: LoaderFunction = async ({ request, context }) => {
@@ -55,6 +51,7 @@ export default function App() {
     <html className={styles.html} lang="en">
       <head>
         <Meta />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Links />
         <link href={shared} rel="stylesheet" />
         <link

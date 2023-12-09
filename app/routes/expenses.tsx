@@ -235,8 +235,9 @@ export default function ExpenseView() {
                 padAngle={2}
                 borderWidth={4}
                 cornerRadius={9}
-                colors={{ scheme: "pastel1" }}
+                colors={{ scheme: "blue_purple" }}
                 theme={{ textColor: "#fff" }}
+                arcLabelsTextColor="#141726"
                 data={pieChartData}
                 valueFormat={(v) =>
                   pieChartSortByType ? `${v.toFixed(2)}%` : `${v}`

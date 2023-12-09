@@ -45,8 +45,8 @@ export default function Join() {
   const isSubmitting = transition.state === "submitting";
 
   return (
-    <div className="flex justify-center items-center h-full flex-col text-slate-600">
-      <Form className="w-full max-w-md " method="post">
+    <div className="flex p-5 lg:max-w-2xl justify-center items-center h-full flex-col text-slate-600 mx-auto">
+      <Form className="w-full mx-4 " method="post">
         <div className="grid gap-4">
           <TextField type="text" placeholder="email" name="email" />
           <TextField
@@ -62,7 +62,10 @@ export default function Join() {
             </Button>
             <div className="mt-4">
               Don't have an account?
-              <Link className="text-lg pl-5 no-underline" to="/join">
+              <Link
+                className="pl-2 text-indigo-400 text-lg decoration-transparent"
+                to="/join"
+              >
                 Sign up
               </Link>
             </div>

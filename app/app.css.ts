@@ -25,6 +25,7 @@ export const outletContainerLoginOrSignUpPage = style({
   marginLeft: "auto",
   marginRight: "auto",
   width: "100%",
+  height: "100%",
 
   "@media": {
     "only screen and (max-width: 700px)": {

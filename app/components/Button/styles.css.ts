@@ -10,7 +10,7 @@ export const button = recipe({
   ],
   variants: {
     variant: {
-      disabled: { background: "#cdc9c8" },
+      disabled: ["bg-gray-700 cursor-not-allowed", {}],
       secondary: {
         background: theme.salmon,
         ":hover": { background: theme.fadedTeal, cursor: "pointer" },

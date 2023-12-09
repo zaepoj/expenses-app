@@ -1,5 +1,4 @@
 import { useState } from "react";
-import * as styles from "./styles.css";
 
 type TextFieldProps = {
   type: "text" | "password" | "number";
@@ -18,10 +17,14 @@ type TextFieldProps = {
 const TextField = (props: TextFieldProps) => {
   const [showPassword, setShowPassword] = useState(false);
   return (
-    <div className={styles.container}>
-      {props.label && <label className={styles.label}>{props.label}</label>}
+    <div className="flex flex-col w-full">
+      {props.label && (
+        <label className="text-teal-100 text-xs leading-8 pb-0">
+          {props.label}
+        </label>
+      )}
       <input
-        className={styles.textField}
+        className="text-slate-600 bg-ghostWhite border-primaryLight border rounded text-lg h-10 px-4 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:border-transparent"
         name={props.name}
         onChange={props.onChange}
         type={props.type === "password" && showPassword ? "text" : props.type}
@@ -40,7 +43,7 @@ const TextField = (props: TextFieldProps) => {
           <label>Show Password</label>{" "}
         </div>
       )}
-      <label className={styles.errorLabel}>{props.errorHelper}</label>
+      <label className="text-red-400 h-4">{props.errorHelper}</label>
     </div>
   );
 };

@@ -12,9 +12,9 @@ type ListItemProps = {
 const ListItem = ({ text, info, icon, unit, actions }: ListItemProps) => {
   const Icon = icon;
   return (
-    <div className="rounded flex items-center px-4 py-2 gap-4 hover:bg-indigo-900">
+    <div className="rounded flex items-center md:px-2 lg:px-4 py-2 gap-4 hover:bg-indigo-900">
       <h1>{Icon && <Icon />}</h1>
-      <div className="flex flex-col pl-8">
+      <div className="flex flex-col md:pl-4 lg:pl-8">
         <Typography type="h2">{text}</Typography>
         {info && <Typography type="body2">{info}</Typography>}
       </div>
