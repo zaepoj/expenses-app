@@ -14,7 +14,7 @@ export const animation = keyframes({
 export const indicator = style({
   height: "100%",
   opacity: "0.5",
-  backgroundColor: "rgb(65, 35, 89)",
+  backgroundColor: "#5958B1",
   animation: `${animation} 1.25s infinite linear`,
   transformOrigin: "0% 50%",
 });

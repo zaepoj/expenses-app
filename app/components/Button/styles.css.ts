@@ -11,10 +11,7 @@ export const button = recipe({
   variants: {
     variant: {
       disabled: ["bg-gray-700 cursor-not-allowed", {}],
-      secondary: {
-        background: theme.salmon,
-        ":hover": { background: theme.fadedTeal, cursor: "pointer" },
-      },
+      secondary: ["bg-red-500 hover:bg-red-400 cursor-pointer"],
       primary: ["bg-indigo-900 hover:bg-indigo-700", {}],
       tertiary: {
         background: "transparent",

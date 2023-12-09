@@ -34,7 +34,9 @@ const Select = React.forwardRef(
   ) => {
     return (
       <div className={styles.container}>
-        {label ? <label className={styles.label}>{label}</label> : null}
+        {label ? (
+          <label className={`${styles.label} text-teal-100`}>{label}</label>
+        ) : null}
         <ReactSelect
           ref={ref as any}
           styles={{

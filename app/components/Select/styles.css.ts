@@ -1,8 +1,6 @@
 import { style } from "@vanilla-extract/css";
-import { theme } from "~/theme";
 
 export const label = style({
-  color: theme.fadedTeal,
   fontSize: "0.9em",
   lineHeight: "2",
   textTransform: "capitalize",
