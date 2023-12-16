@@ -48,19 +48,8 @@ export const expensesSummaryContainer = style({
 
 export const pieContainer = recipe({
   base: {
-    margin: "1.2em",
     height: "50vh",
-    padding: ".2em",
-  },
-  variants: {
-    desktop: {
-      true: {
-        width: "50%",
-      },
-      false: {
-        width: "100%",
-      },
-    },
+    padding: "1rem",
   },
 });
 

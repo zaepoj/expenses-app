@@ -34,7 +34,6 @@ import ToggleButton from "~/components/ToggleButton";
 import * as styles from "./expenses.css";
 import Card from "~/components/Card";
 import { theme } from "~/theme";
-import useMedia from "~/hooks/useMedia";
 
 type LoaderData = {
   expenses: Awaited<ReturnType<typeof findExpensesByUserId>>;
@@ -75,8 +74,6 @@ export default function ExpenseView() {
   const { expenses, monthlyExpensesPercentageChange } =
     useLoaderData() as LoaderData;
   const [pieChartSortByType, setPieChartSortByType] = useState(false);
-
-  const isDesktopScreen = useMedia({ breakpoint: "lg" });
 
   const totalSumOfExpenses = useMemo(
     () =>
@@ -212,38 +209,52 @@ export default function ExpenseView() {
           </Card>
           <div className="mt-4"></div>
           <div className={styles.expensesSummaryContainer}>
-            <div
-              className={styles.pieContainer({
-                desktop: isDesktopScreen,
-              })}
-            >
-              <Typography type="h1">Monthly expenses summary</Typography>
-              <div style={{ padding: "1em" }}>
-                <ToggleButton
-                  checked={pieChartSortByType}
-                  onChange={(e) => setPieChartSortByType(e.target.checked)}
-                  label="By type of expense"
-                />
+            <Card>
+              <div className={styles.pieContainer()}>
+                <div className="flex max-md:flex-col justify-between">
+                  <div>
+                    <Typography type="h1">Monthly expenses summary</Typography>
+                  </div>
+                  <div className="p-4">
+                    <ToggleButton
+                      checked={pieChartSortByType}
+                      onChange={(e) => setPieChartSortByType(e.target.checked)}
+                      label="By type of expense"
+                    />
+                  </div>
+                </div>
+                <div className="h-full text-indigo-900 mt-10">
+                  <ResponsivePie
+                    motionConfig="gentle"
+                    margin={{ top: 40, right: 100, bottom: 100, left: 100 }}
+                    transitionMode="startAngle"
+                    activeOuterRadiusOffset={15}
+                    startAngle={-50}
+                    innerRadius={0.5}
+                    padAngle={2}
+                    borderWidth={4}
+                    cornerRadius={9}
+                    colors={[
+                      "#303f9f",
+                      "#3f51b5",
+                      "#5c6bc0",
+                      "#7986cb",
+                      "#9fa8da",
+                      "#b39ddb",
+                      "#c5cae9",
+                      "#d1c4e9",
+                      "#b39ddb",
+                      "#9fa8da",
+                    ]}
+                    theme={{ textColor: "#fff" }}
+                    data={pieChartData}
+                    valueFormat={(v) =>
+                      pieChartSortByType ? `${v.toFixed(2)}%` : `${v}`
+                    }
+                  />
+                </div>
               </div>
-              <ResponsivePie
-                motionConfig="gentle"
-                margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
-                transitionMode="startAngle"
-                activeOuterRadiusOffset={15}
-                startAngle={-50}
-                innerRadius={0.5}
-                padAngle={2}
-                borderWidth={4}
-                cornerRadius={9}
-                colors={{ scheme: "blue_purple" }}
-                theme={{ textColor: "#fff" }}
-                arcLabelsTextColor="#141726"
-                data={pieChartData}
-                valueFormat={(v) =>
-                  pieChartSortByType ? `${v.toFixed(2)}%` : `${v}`
-                }
-              />
-            </div>
+            </Card>
             <div className="grow p-2 md:p-0.5">
               <Card title={"Monthly progression"}>
                 <div className="p-5">

@@ -30,7 +30,7 @@ export default function Index() {
         <Card
           clickable
           onClick={() => navigate("/expenses")}
-          title="Expenses"
+          title="Monthly Expenses"
           infoLabel="monthly"
         >
           <div className="p-5">
