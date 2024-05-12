@@ -26,17 +26,34 @@ export default function Index() {
       <Typography type="h1">{`Welcome back ${
         data.user.name || data.user.email || "unknown"
       }!`}</Typography>
-      <div style={{ width: "100%" }} className={`${styles.CardContainer}`}>
-        <Card
-          clickable
-          onClick={() => navigate("/expenses")}
-          title="Monthly Expenses"
-          infoLabel="monthly"
-        >
-          <div className="p-5">
-            <Typography type="h1">{data?.monthlyTotalExpenses} €</Typography>
-          </div>
-        </Card>
+      <div
+        style={{ width: "100%" }}
+        className="mt-10 flex gap-10 max-xl:flex-col"
+      >
+        <div className="w-full">
+          <Card
+            clickable
+            onClick={() => navigate("/expenses")}
+            title="Monthly Expenses"
+            infoLabel="monthly"
+          >
+            <div className="p-5">
+              <Typography type="h1">{data?.monthlyTotalExpenses} €</Typography>
+            </div>
+          </Card>
+        </div>
+        <div className="w-full">
+          <Card
+            clickable
+            onClick={() => navigate("/savings")}
+            title="Savings"
+            infoLabel="Planner"
+          >
+            <div className="p-5">
+              <Typography type="body1">Saving goals and calculator</Typography>
+            </div>
+          </Card>
+        </div>
       </div>
     </div>
   );

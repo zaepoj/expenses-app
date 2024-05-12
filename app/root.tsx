@@ -11,6 +11,7 @@ import {
 } from "@remix-run/react";
 import shared from "./shared.css";
 import { AiFillHome, AiFillProject } from "react-icons/ai/index.js";
+import { FaPiggyBank } from "react-icons/fa/index.js";
 import Layout from "./components/Layout";
 import { requireAuth } from "./server/auth.server";
 import { cssBundleHref } from "@remix-run/css-bundle";
@@ -68,7 +69,7 @@ export default function App() {
               navItems={[
                 { to: "/", title: "Dashboard", icon: AiFillHome },
                 { to: "/expenses", title: "Expenses", icon: AiFillProject },
-                // { to: "/settings", title: "Settings", icon: FaCog },
+                { to: "/savings", title: "Savings", icon: FaPiggyBank },
               ]}
             />
           )}

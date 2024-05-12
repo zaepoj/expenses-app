@@ -25,7 +25,7 @@ export default function Card({
           <p>{infoLabel}</p>
         </div>
       </div>
-      <div className="font-semibold text-base pt-4 pl-4">{children}</div>
+      <div className="text-base pt-4 pl-4">{children}</div>
       <div className="p-4">
         {clickable && (
           <Button style={{ alignSelf: "flex-end" }} onClick={onClick}>
