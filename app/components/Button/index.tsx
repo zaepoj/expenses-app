@@ -12,16 +12,17 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 const Button = (props: ButtonProps) => {
   return (
     <button
+      {...props}
       style={props.style}
       onClick={props.onClick}
       className={button({
         variant: props.disabled
           ? "disabled"
           : props.secondary
-          ? "secondary"
-          : props.tertiary
-          ? "tertiary"
-          : "primary",
+            ? "secondary"
+            : props.tertiary
+              ? "tertiary"
+              : "primary",
         fullWidth: props.fullWidth,
       })}
     >
