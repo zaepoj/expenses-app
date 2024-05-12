@@ -39,7 +39,7 @@ export const action: ActionFunction = async ({ request }) => {
   }
 };
 
-export default function Join() {
+export default function Login() {
   const actionData = useActionData() as { errorMessage: string };
   const transition = useNavigation();
   const isSubmitting = transition.state === "submitting";

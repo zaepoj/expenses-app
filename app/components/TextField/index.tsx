@@ -47,7 +47,7 @@ const TextField = ({
           defaultValue={defaultValue}
           step={step}
           required={required || false}
-          {...register(name, { required: required || false })}
+          {...(register ? register(name, { required: required || false }) : {})}
         />
         {helperIcon && helperIcon}
       </div>
