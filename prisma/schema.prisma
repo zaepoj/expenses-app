@@ -14,6 +14,7 @@ model User {
   email    String?
   expenses Expense[]
   settings UserSettings?
+  savingGoals SavingGoals[]
 
   @@index([uid])
   @@map("user")
@@ -56,6 +57,21 @@ model UserMonthlyExpenses {
   value     Decimal
   month     Month
   createdAt DateTime @default(now())
+}
+
+model SavingGoals {
+  id            String   @id @default(uuid())
+  name          String
+  description   String?
+  goal          Decimal
+  currentAmount Decimal
+  monthlyGoal   Decimal?
+  targetDate    DateTime?
+  user          User     @relation(fields: [userId], references: [uid])
+  userId        String   @unique
+  createdAt     DateTime @default(now())
+
+  @@map("savingGoals")
 }
 
 enum ExpenseType {
