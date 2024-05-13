@@ -16,6 +16,7 @@
     "@hookform/resolvers": "^2.9.10",
     "@nivo/core": "^0.80.0",
     "@nivo/pie": "^0.80.0",
+    "@nivo/radial-bar": "^0.80.0",
     "@prisma/client": "^4.5.0",
     "@remix-run/css-bundle": "2.3.1",
     "@remix-run/node": "2.3.1",
