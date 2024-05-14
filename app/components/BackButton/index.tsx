@@ -11,8 +11,7 @@ const BackButton = ({ to, text }: BackButtonProps) => {
 
   return (
     <>
-      <Typography type="h1">
-        {" "}
+      <Typography type="h1" className="text-almostWhite hover:text-slate-300">
         <button onClick={() => (to ? navigate(to) : navigate(-1))}>
           {"<"} {text}
         </button>

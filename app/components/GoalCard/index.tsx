@@ -1,12 +1,18 @@
-import { RadialBar, type RadialBarCustomLayerProps } from "@nivo/radial-bar";
+import {
+  ResponsiveRadialBar,
+  type RadialBarCustomLayerProps,
+} from "@nivo/radial-bar";
 import Card from "../Card";
+import Button from "../Button";
+import { Link } from "@remix-run/react";
 
 type GoalCardProps = {
   goal: number;
   currentAmount: number;
+  linkTo: string;
 };
 
-const GoalCard = ({ goal, currentAmount }: GoalCardProps) => {
+const GoalCard = ({ goal, currentAmount, linkTo }: GoalCardProps) => {
   const currentAmountPercentage = (currentAmount / goal) * 100;
 
   const Progress = ({ center }: RadialBarCustomLayerProps) => {
@@ -29,37 +35,43 @@ const GoalCard = ({ goal, currentAmount }: GoalCardProps) => {
   };
 
   return (
-    <Card>
-      <>
-        <h1 className="text-2xl font-bold text-orange-300">Goal 1</h1>
-        <div>
-          <RadialBar
-            width={360}
-            height={360}
-            maxValue={100}
-            startAngle={-90}
-            endAngle={90}
-            cornerRadius={100}
-            innerRadius={0.8}
-            colors={["#818cf8"]}
-            animate={true}
-            isInteractive={false}
-            data={[
-              {
-                id: "Goal",
-                data: [
-                  {
-                    x: "current",
-                    y: currentAmountPercentage,
-                  },
-                ],
-              },
-            ]}
-            layers={["tracks", "bars", Progress]}
-          />
+    <div className="sm:max-w-md max-sm:px-2">
+      <Card>
+        <div className="flex flex-col">
+          <h1 className="text-2xl font-bold text-orange-300">Goal 1</h1>
+          <div className="flex items-center justify-center h-64">
+            <ResponsiveRadialBar
+              maxValue={100}
+              startAngle={-90}
+              endAngle={90}
+              margin={{ top: 25, bottom: -200 }}
+              cornerRadius={100}
+              innerRadius={0.8}
+              colors={["#818cf8"]}
+              animate={true}
+              isInteractive={false}
+              data={[
+                {
+                  id: "Goal",
+                  data: [
+                    {
+                      x: "current",
+                      y: currentAmountPercentage,
+                    },
+                  ],
+                },
+              ]}
+              layers={["tracks", "bars", Progress]}
+            />
+          </div>
+          <div className="mt-12 self-end px-4">
+            <Link to={linkTo}>
+              <Button>Update</Button>
+            </Link>
+          </div>
         </div>
-      </>
-    </Card>
+      </Card>
+    </div>
   );
 };
 
